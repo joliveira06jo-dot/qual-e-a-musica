@@ -8,9 +8,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;0,800;0,900;1,900&display=swap" rel="stylesheet">
   <style>
-    /* ==========================================================================
-       1. VARIÁVEIS E RESET
-       ========================================================================== */
     :root {
       --bg-top: #1342a8;
       --bg-mid: #081d52;
@@ -39,31 +36,47 @@
     }
 
     /* ==========================================================================
-       2. ATMOSFERA TV SHOW (HOLOFOTES E PARTÍCULAS - AI STUDIO)
+       1. ATMOSFERA TV SHOW (HOLOFOTES E PARTÍCULAS)
        ========================================================================== */
     .cenario-luzes { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; overflow: hidden; }
     
     .holofote {
       position: absolute; top: -10vh; width: 35vw; height: 120vh;
-      background: linear-gradient(180deg, rgba(56, 189, 248, 0.2) 0%, rgba(14, 165, 233, 0.05) 50%, transparent 80%);
+      background: linear-gradient(180deg, rgba(56, 189, 248, 0.25) 0%, rgba(14, 165, 233, 0.08) 50%, transparent 80%);
       filter: blur(25px); transform-origin: top center; mix-blend-mode: screen;
     }
-    .holofote-esquerdo { left: -5vw; clip-path: polygon(45% 0%, 55% 0%, 100% 100%, 0% 100%); transform: rotate(20deg); animation: oscilar-luz-esq 8s ease-in-out infinite alternate; }
-    .holofote-direito { right: -5vw; clip-path: polygon(45% 0%, 55% 0%, 100% 100%, 0% 100%); transform: rotate(-20deg); animation: oscilar-luz-dir 8s ease-in-out infinite alternate; }
-    @keyframes oscilar-luz-esq { 0% { transform: rotate(16deg); } 100% { transform: rotate(25deg); } }
-    @keyframes oscilar-luz-dir { 0% { transform: rotate(-16deg); } 100% { transform: rotate(-25deg); } }
+    .holofote-esquerdo { left: -5vw; clip-path: polygon(45% 0%, 55% 0%, 100% 100%, 0% 100%); transform: rotate(20deg); animation: oscilar-luz-esq 6s ease-in-out infinite alternate; }
+    .holofote-direito { right: -5vw; clip-path: polygon(45% 0%, 55% 0%, 100% 100%, 0% 100%); transform: rotate(-20deg); animation: oscilar-luz-dir 7s ease-in-out infinite alternate; }
+    
+    /* Novos holofotes para aumentar o espetáculo */
+    .holofote-esquerdo-2 { left: 15vw; clip-path: polygon(45% 0%, 55% 0%, 100% 100%, 0% 100%); transform: rotate(15deg); animation: oscilar-luz-esq 4s ease-in-out infinite alternate; opacity: 0.7; }
+    .holofote-direito-2 { right: 15vw; clip-path: polygon(45% 0%, 55% 0%, 100% 100%, 0% 100%); transform: rotate(-15deg); animation: oscilar-luz-dir 5s ease-in-out infinite alternate; opacity: 0.7; }
+    .holofote-centro { left: 50%; clip-path: polygon(45% 0%, 55% 0%, 100% 100%, 0% 100%); transform: translateX(-50%) rotate(0deg); width: 25vw; animation: oscilar-luz-centro 3s ease-in-out infinite alternate; opacity: 0.5; }
+
+    @keyframes oscilar-luz-esq { 0% { transform: rotate(12deg); } 100% { transform: rotate(28deg); } }
+    @keyframes oscilar-luz-dir { 0% { transform: rotate(-12deg); } 100% { transform: rotate(-28deg); } }
+    @keyframes oscilar-luz-centro { 0% { transform: translateX(-50%) rotate(-15deg); } 100% { transform: translateX(-50%) rotate(15deg); } }
 
     .cenario-particulas { position: absolute; inset: 0; pointer-events: none; z-index: 2; }
     .nota-musical, .estrela { position: absolute; color: var(--yellow); user-select: none; will-change: transform; }
     .nota-1 { top: 15vh; left: 8vw; font-size: 2.2vw; opacity: 0.6; filter: drop-shadow(0 0 6px rgba(250, 204, 21, 0.6)); animation: flutuar-suave 5s ease-in-out infinite alternate; }
     .nota-2 { top: 22vh; right: 10vw; font-size: 2.8vw; opacity: 0.7; filter: drop-shadow(0 0 8px rgba(250, 204, 21, 0.8)); animation: flutuar-suave 6s ease-in-out infinite alternate-reverse; }
-    .estrela-1 { bottom: 25vh; left: 5vw; font-size: 1.5vw; opacity: 0.5; animation: piscar 2.5s infinite alternate; }
-    .estrela-2 { top: 10vh; right: 6vw; font-size: 2vw; opacity: 0.8; animation: piscar 3.5s infinite alternate; }
+    
+    .estrela { animation: piscar 2s infinite alternate; }
+    .estrela-1 { bottom: 25vh; left: 5vw; font-size: 1.5vw; opacity: 0.5; animation-delay: 0.1s; }
+    .estrela-2 { top: 10vh; right: 6vw; font-size: 2vw; opacity: 0.8; animation-delay: 0.4s; }
+    .estrela-3 { top: 30vh; left: 20vw; font-size: 1vw; animation-delay: 0.8s; }
+    .estrela-4 { top: 50vh; right: 30vw; font-size: 1.2vw; animation-delay: 1.2s; }
+    .estrela-5 { top: 70vh; left: 40vw; font-size: 0.8vw; animation-delay: 1.5s; }
+    .estrela-6 { top: 40vh; right: 15vw; font-size: 1.5vw; animation-delay: 0.3s; }
+    .estrela-7 { top: 80vh; right: 40vw; font-size: 1vw; animation-delay: 0.9s; }
+    .estrela-8 { top: 60vh; left: 10vw; font-size: 1.8vw; animation-delay: 1.8s; }
+
     @keyframes flutuar-suave { 0% { transform: translateY(0px) rotate(0deg); } 100% { transform: translateY(-1.5vh) rotate(12deg); } }
-    @keyframes piscar { 0% { opacity: 0.2; transform: scale(0.8); } 100% { opacity: 0.9; transform: scale(1.15); filter: drop-shadow(0 0 10px #fef08a); } }
+    @keyframes piscar { 0% { opacity: 0.2; transform: scale(0.8); } 100% { opacity: 1; transform: scale(1.2); filter: drop-shadow(0 0 10px #fef08a); } }
 
     /* ==========================================================================
-       3. HEADER E LOBBY
+       2. HEADER E LOBBY
        ========================================================================== */
     #header { position: absolute; top: 3vh; left: 3vw; z-index: 10; display: flex; justify-content: space-between; width: 94vw; align-items: flex-start; pointer-events: none; }
     #logoPequeno { height: 18vh; width: auto; opacity: 0; transition: opacity 0.3s; filter: drop-shadow(0 0 2vh rgba(149,180,232,0.8)) drop-shadow(0 0 4vh rgba(149,180,232,0.4)); }
@@ -75,20 +88,6 @@
 
     #main { flex: 1; position: relative; z-index: 10; overflow: hidden; }
     .tela { position: absolute; inset: 0; display: none; width: 100%; height: 100%; }
-
-    #sidebar-global { position: absolute; top: 22vh; left: 3vw; width: 24vw; max-width: 400px; max-height: 55vh; overflow-y: auto; z-index: 5; display: flex; flex-direction: column; gap: 1.5vh; text-align: left; }
-    #sidebar-global.escondido { display: none; }
-    #sidebar-global .hist-title { font-size: 2.8vh; font-weight: 700; margin-bottom: 0.5vh; color: var(--yellow); text-shadow: 0 0 1vh rgba(250,204,21,0.5); }
-    #sidebar-global .hist-item { display: flex; gap: 1.2vh; align-items: center; background: rgba(0,0,0,0.5); padding: 1vh; border-radius: 1vh; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(8px); }
-    #sidebar-global .hist-item img { width: 6vw; height: 6vw; max-width: 90px; max-height: 90px; object-fit: cover; border-radius: 0.8vh; }
-    #sidebar-global .hist-info { flex: 1; min-width: 0; line-height: 1.2; }
-    #sidebar-global .hist-info b { font-size: 2.4vh; font-weight: 700; color: var(--yellow); display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    #sidebar-global .hist-info small { font-size: 2vh; color: var(--gray); display: block; margin-bottom: 0.4vh; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    #sidebar-global .badge { display: inline-block; font-size: 1.8vh; font-weight: 700; padding: 0.5vh 1.2vh; border-radius: 0.4vh; background: rgba(255,255,255,0.1); color: white; }
-    #sidebar-global .badge.vermelha { background: var(--red); box-shadow: 0 0 1vh rgba(239,68,68,0.5); }
-    #sidebar-global .badge.azul { background: var(--blue); box-shadow: 0 0 1vh rgba(14,165,233,0.5); }
-    #sidebar-global .badge.zero { background: #444; color: #ff8fa3; }
-    #sidebar-global .badge.ninguem { background: #555; }
 
     #lobby.ativa { display: flex; flex-direction: column; }
     .lobby-absolute-top { position: absolute; top: 4vh; left: 4vw; right: 4vw; display: flex; justify-content: space-between; align-items: flex-start; }
@@ -106,7 +105,7 @@
     #jogadores-lobby { font-size: 2.2vh; font-weight: 500; color: rgba(255,255,255,0.85); text-align: center; max-width: 80vw; line-height: 1.4; text-transform: uppercase; letter-spacing: 0.1vw; }
 
     /* ==========================================================================
-       4. RODADA (LAYOUT E TIMER DO AI STUDIO)
+       3. RODADA
        ========================================================================== */
     #rodada.ativa { display: grid; grid-template-columns: 28vw 1fr 22vw; grid-template-rows: auto 1fr auto; padding: 15vh 3vw 2vh 3vw; gap: 2vw; align-items: center; }
 
@@ -115,16 +114,16 @@
     .subtitulo { font-size: 3vh; font-weight: 600; color: var(--yellow); margin-top: 0.5vh; }
 
     .bloco-dicas { background: rgba(6, 20, 51, 0.7); border: 2px solid rgba(250, 204, 21, 0.6); border-radius: 1.5vh; padding: 2.5vh; display: flex; flex-direction: column; gap: 1.5vh; text-align: left; box-shadow: 0 1vh 4vh rgba(0,0,0,0.5); backdrop-filter: blur(8px); align-self: start; }
-    .bloco-dicas h3 { font-size: 2.5vh; color: var(--yellow); text-transform: uppercase; letter-spacing: 0.1vw; margin-bottom: 1vh; text-align: center; }
-    .dica-item { font-size: 2.5vh; color: #cbd5e1; line-height: 1.4; padding: 1vh; border-bottom: 1px dashed rgba(255,255,255,0.1); transition: all 0.5s; display: flex; align-items: center; gap: 1vw; }
+    .bloco-dicas h3 { font-size: 2.8vh; color: var(--yellow); text-transform: uppercase; letter-spacing: 0.1vw; margin-bottom: 1vh; text-align: center; }
+    /* FONTE DAS DICAS AUMENTADA E CAIXA ALTA */
+    .dica-item { font-size: 3.2vh; color: #cbd5e1; line-height: 1.4; padding: 1vh; border-bottom: 1px dashed rgba(255,255,255,0.1); transition: all 0.5s; display: flex; align-items: center; gap: 1vw; text-transform: uppercase; }
     .dica-item.ativa { color: var(--white); font-weight: 600; }
-    .dica-item .lupa { color: var(--yellow); font-size: 2vh; opacity: 0; transition: opacity 0.5s; }
+    .dica-item .lupa { color: var(--yellow); font-size: 2.5vh; opacity: 0; transition: opacity 0.5s; }
     .dica-item.ativa .lupa { opacity: 1; }
 
     .bloco-centro { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; width: 100%; }
     .status-titulo { font-size: 4vh; font-weight: 700; margin-bottom: 2vh; text-shadow: 0 0 2vh rgba(255,255,255,0.2); min-height: 5vh; }
 
-    /* WAVEFORM DO AI STUDIO */
     .audio-card { background: rgba(6, 20, 51, 0.7); border: 2px solid #eab308; border-radius: 1.5vh; padding: 1.5vh 2vw; display: flex; flex-direction: column; align-items: center; backdrop-filter: blur(8px); }
     .audio-titulo { font-size: 1.8vh; font-weight: 700; color: #facc15; letter-spacing: 0.1vw; margin-bottom: 1vh; text-transform: uppercase; }
     .waveform-container { display: flex; align-items: center; justify-content: center; gap: 0.5vw; height: 6vh; width: 100%; }
@@ -138,7 +137,6 @@
     .onda-barra:nth-child(even) { animation-delay: 0.3s; }
     @keyframes pulsar-onda { 0% { transform: scaleY(0.15); } 100% { transform: scaleY(1); filter: drop-shadow(0 0 3px #fde047); } }
 
-    /* TIMER DO AI STUDIO */
     .bloco-timer { display: flex; flex-direction: column; align-items: center; gap: 2vh; background: rgba(6, 20, 51, 0.7); padding: 3vh 2vw; border-radius: 1.5vh; border: 2px solid rgba(250, 204, 21, 0.6); opacity: 0.3; transition: all 0.5s; backdrop-filter: blur(8px); }
     .bloco-timer.ativo { opacity: 1; box-shadow: 0 0 4vh rgba(239,68,68,0.4); border-color: var(--red); }
     
@@ -164,14 +162,30 @@
     #aviso-virada.passe { background: #2a2d3e; color: var(--white); border-color: #6b6e80; box-shadow: none; }
 
     /* ==========================================================================
-       5. REVELAÇÃO
+       4. REVELAÇÃO (COM HISTÓRICO EMBUTIDO)
        ========================================================================== */
-    #revelacao.ativa { display: flex; align-items: center; justify-content: center; gap: 6vw; padding: 15vh 5vw 5vh 5vw; }
+    #revelacao.ativa { display: grid; grid-template-columns: 25vw 1fr 25vw; gap: 2vw; padding: 15vh 3vw 5vh 3vw; align-items: center; }
+    
+    /* Sidebar do Histórico */
+    #sidebar-global { width: 100%; max-height: 70vh; overflow-y: auto; display: flex; flex-direction: column; gap: 1.5vh; text-align: left; }
+    #sidebar-global .hist-title { font-size: 2.8vh; font-weight: 700; margin-bottom: 0.5vh; color: var(--yellow); text-shadow: 0 0 1vh rgba(250,204,21,0.5); }
+    #sidebar-global .hist-item { display: flex; gap: 1.2vh; align-items: center; background: rgba(0,0,0,0.5); padding: 1vh; border-radius: 1vh; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(8px); }
+    #sidebar-global .hist-item img { width: 6vw; height: 6vw; max-width: 90px; max-height: 90px; object-fit: cover; border-radius: 0.8vh; }
+    #sidebar-global .hist-info { flex: 1; min-width: 0; line-height: 1.2; }
+    #sidebar-global .hist-info b { font-size: 2.4vh; font-weight: 700; color: var(--yellow); display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    #sidebar-global .hist-info small { font-size: 2vh; color: var(--gray); display: block; margin-bottom: 0.4vh; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    #sidebar-global .badge { display: inline-block; font-size: 1.8vh; font-weight: 700; padding: 0.5vh 1.2vh; border-radius: 0.4vh; background: rgba(255,255,255,0.1); color: white; }
+    #sidebar-global .badge.vermelha { background: var(--red); box-shadow: 0 0 1vh rgba(239,68,68,0.5); }
+    #sidebar-global .badge.azul { background: var(--blue); box-shadow: 0 0 1vh rgba(14,165,233,0.5); }
+    #sidebar-global .badge.zero { background: #444; color: #ff8fa3; }
+    #sidebar-global .badge.ninguem { background: #555; }
+
     .reveal-centro { display: flex; flex-direction: column; align-items: center; gap: 2vh; text-align: center; }
     #capa { width: 42vh; height: 42vh; object-fit: cover; border-radius: 2vh; box-shadow: 0 0 6vh rgba(0,0,0,0.8), 0 0 2vh rgba(255,255,255,0.2); border: 2px solid rgba(255,255,255,0.1); opacity: 0; transition: opacity 0.4s; }
     #capa.carregada { opacity: 1; }
     #mus-titulo { font-size: 5.5vh; font-weight: 800; color: var(--yellow); line-height: 1.1; text-shadow: 0 0 2vh rgba(250,204,21,0.4); }
     #mus-info { font-size: 2.8vh; font-weight: 500; color: var(--white); }
+    
     .reveal-direita { display: flex; flex-direction: column; align-items: center; gap: 2.5vh; text-align: center; background: rgba(0,0,0,0.4); padding: 4vh 3vw; border-radius: 2vh; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(10px); }
     .icon-badge { width: 16vh; height: 16vh; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 9vh; font-weight: 800; color: var(--white); }
     .icon-badge.verde { background: linear-gradient(135deg, #22C55E, #166534); box-shadow: 0 0 5vh rgba(34,197,94,0.6); border: 3px solid #86efac; }
@@ -188,7 +202,7 @@
     #resultado-equipe:empty { display: none; }
 
     /* ==========================================================================
-       6. FINAL
+       5. FINAL
        ========================================================================== */
     #final.ativa { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4vh; text-align: center; padding-top: 10vh; }
     #final h2 { font-size: 8vh; font-weight: 800; color: var(--yellow); text-shadow: 0 0 4vh rgba(250,204,21,0.5); }
@@ -201,7 +215,7 @@
     #final-msg { font-size: 2.5vh; opacity: 0.7; font-weight: 500; margin-top: 2vh; }
 
     /* ==========================================================================
-       7. FOOTER (CARDS E VS DO AI STUDIO)
+       6. FOOTER
        ========================================================================== */
     #footer { height: 20vh; background: var(--dark-bar); padding: 0 3vw; display: flex; justify-content: center; align-items: center; gap: 3vw; position: relative; z-index: 10; border-top: 2px solid rgba(255,255,255,0.1); box-shadow: 0 -1vh 4vh rgba(0,0,0,0.8); }
     
@@ -211,28 +225,37 @@
     .equipe-azul { --cor-tag: #0369a1; --cor-fundo-gradiente: linear-gradient(180deg, rgba(2, 132, 199, 0.85) 0%, rgba(8, 47, 73, 0.95) 100%); --cor-borda: rgba(56, 189, 248, 0.6); --cor-brilho-interno: rgba(186, 230, 253, 0.25); }
 
     .card-equipe {
-      width: 20vw; min-width: 220px;
+      width: 20vw; min-width: 220px; height: 14vh;
       border-radius: 1.5vh;
       background: var(--cor-fundo-gradiente);
       border: 2px solid var(--cor-borda);
       backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
       box-shadow: inset 0 1px 1px var(--cor-brilho-interno), inset 0 -4px 12px rgba(0, 0, 0, 0.6), 0 8px 24px rgba(0, 0, 0, 0.5);
-      display: flex; flex-direction: column; align-items: center;
-      padding: 1vh 1vw 1.5vh 1vw; transition: all 0.3s;
+      display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+      padding: 0; transition: all 0.3s; overflow: hidden;
     }
 
     .card-equipe.ativo { transform: scale(1.05); box-shadow: 0 0 4vh var(--cor-borda), inset 0 1px 1px var(--cor-brilho-interno); }
 
-    .card-header-badge { background: var(--cor-tag); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 999px; padding: 0.5vh 1.5vw; font-size: 2vh; font-weight: 700; color: #ffffff; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1vh; box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.4); width: 100%; text-align: center; }
-    .card-pontos { font-size: 6vh; font-weight: 800; color: #ffffff; letter-spacing: -0.01em; line-height: 1; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7); }
-    .card-pontos span { font-size: 2.5vh; }
+    .card-header-badge { background: var(--cor-tag); border-bottom: 1px solid rgba(255, 255, 255, 0.15); padding: 0.8vh 1.5vw; font-size: 2.2vh; font-weight: 800; color: #ffffff; text-transform: uppercase; letter-spacing: 0.08em; width: 100%; text-align: center; }
+    
+    /* PONTUAÇÃO AUMENTADA (O dobro/triplo) */
+    .card-pontos { font-size: 10vh; font-weight: 800; color: #ffffff; letter-spacing: -0.02em; line-height: 0.8; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7); margin-top: 1vh; }
+    .card-pontos span { font-size: 3vh; }
 
-    .team-jogadores { font-size: 2vh; font-weight: 600; color: rgba(255,255,255,0.9); text-align: center; text-transform: uppercase; max-width: 20vw; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    /* MARQUEE PARA NOMES DOS JOGADORES */
+    .team-jogadores {
+      width: 20vw; max-width: 20vw; overflow: hidden; position: relative;
+      text-align: left; white-space: nowrap; padding: 0 1vw; margin-top: 1vh;
+    }
+    .marquee-inner { display: inline-block; white-space: nowrap; color: inherit; font-size: 2.2vh; font-weight: 600; text-transform: uppercase; }
+    .marquee-inner.vazio { color: #666; font-style: italic; text-transform: none; }
     .team-jogadores.vermelha { color: #fca5a5; }
     .team-jogadores.azul { color: #93c5fd; }
-    .team-jogadores.vazio { color: #666; font-style: italic; }
+    .marquee-anim { animation: marquee 15s linear infinite; padding-left: 100%; }
+    @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
 
-    /* TEXTO VS 3D DO AI STUDIO */
+    /* VS 3D */
     .vs-badge {
       font-family: 'Poppins', sans-serif; font-size: 6vh; font-weight: 900; font-style: italic; letter-spacing: 0.05em;
       background: linear-gradient(180deg, #fffbeb 0%, #fde047 40%, #ca8a04 70%, #854d0e 100%);
@@ -242,7 +265,7 @@
     }
 
     /* ==========================================================================
-       8. OVERLAYS E ANIMAÇÕES GERAIS
+       7. OVERLAYS E ANIMAÇÕES GERAIS
        ========================================================================== */
     #overlay-audio { position: fixed; inset: 0; background: rgba(0,0,0,0.95); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 2vh; z-index: 9999; cursor: pointer; }
     #overlay-audio h2 { font-size: 5vh; color: var(--yellow); font-weight: 800; text-shadow: 0 0 2vh rgba(250,204,21,0.5); }
@@ -258,16 +281,24 @@
   </style>
 </head>
 <body>
-  <!-- Efeitos de Fundo (AI Studio) -->
   <div class="cenario-luzes">
     <div class="holofote holofote-esquerdo"></div>
     <div class="holofote holofote-direito"></div>
+    <div class="holofote holofote-esquerdo-2"></div>
+    <div class="holofote holofote-direito-2"></div>
+    <div class="holofote holofote-centro"></div>
   </div>
   <div class="cenario-particulas">
     <span class="nota-musical nota-1">♪</span>
     <span class="nota-musical nota-2">♫</span>
     <span class="estrela estrela-1">★</span>
     <span class="estrela estrela-2">★</span>
+    <span class="estrela estrela-3">★</span>
+    <span class="estrela estrela-4">★</span>
+    <span class="estrela estrela-5">★</span>
+    <span class="estrela estrela-6">★</span>
+    <span class="estrela estrela-7">★</span>
+    <span class="estrela estrela-8">★</span>
   </div>
 
   <div id="overlay-audio">
@@ -287,11 +318,6 @@
   </div>
 
   <div id="main">
-    <div id="sidebar-global" class="escondido">
-      <div class="hist-title">📜 Histórico</div>
-      <div id="sidebar-lista"></div>
-    </div>
-
     <!-- LOBBY -->
     <div id="lobby" class="tela ativa">
       <div class="lobby-absolute-top">
@@ -319,16 +345,15 @@
       <div class="bloco-dicas">
         <h3>💡 DICAS DA MÚSICA</h3>
         <div id="lista-dicas">
-          <div class="dica-item" id="dica-1">Dica 1: ?</div>
-          <div class="dica-item" id="dica-2">Dica 2: ?</div>
-          <div class="dica-item" id="dica-3">Dica 3: ?</div>
+          <div class="dica-item" id="dica-1">DICA 1: ?</div>
+          <div class="dica-item" id="dica-2">DICA 2: ?</div>
+          <div class="dica-item" id="dica-3">DICA 3: ?</div>
         </div>
       </div>
 
       <div class="bloco-centro">
         <div class="status-titulo" id="status-texto">Aguardando o Maestro tocar...</div>
         
-        <!-- WAVEFORM DO AI STUDIO -->
         <div class="audio-card">
           <div class="audio-titulo">TOCANDO TRECHO</div>
           <div class="waveform-container" id="waveform">
@@ -344,7 +369,6 @@
         <div id="aviso-virada"></div>
       </div>
 
-      <!-- TIMER DO AI STUDIO -->
       <div class="bloco-timer" id="blocoTimer">
         <div class="timer-container">
           <svg class="timer-svg" viewBox="0 0 100 100">
@@ -363,11 +387,18 @@
 
     <!-- REVELAÇÃO -->
     <div id="revelacao" class="tela">
+      <!-- HISTÓRICO AGORA FICA DENTRO DO GRID DE REVELAÇÃO -->
+      <div id="sidebar-global">
+        <div class="hist-title">📜 Histórico</div>
+        <div id="sidebar-lista"></div>
+      </div>
+      
       <div class="reveal-centro">
         <img id="capa" alt="">
         <div id="mus-titulo"></div>
         <div id="mus-info"></div>
       </div>
+      
       <div class="reveal-direita">
         <div id="resultado-icon" class="icon-badge neutro">?</div>
         <div id="resultado-texto" class="resultado-badge neutro">—</div>
@@ -388,14 +419,15 @@
     </div>
   </div>
 
-  <!-- FOOTER (CARDS E VS DO AI STUDIO) -->
   <div id="footer">
     <div class="container-equipe">
       <div class="card-equipe equipe-vermelha" id="cardVerm">
         <div class="card-header-badge">EQUIPE VERMELHA</div>
         <div class="card-pontos"><span id="p-verm">0</span> <span>pts</span></div>
       </div>
-      <div class="team-jogadores vermelha vazio" id="jogadores-verm">aguardando...</div>
+      <div class="team-jogadores vermelha">
+        <div class="marquee-inner vazio" id="jogadores-verm">aguardando...</div>
+      </div>
     </div>
     
     <div class="vs-badge">VS</div>
@@ -405,7 +437,9 @@
         <div class="card-header-badge">EQUIPE AZUL</div>
         <div class="card-pontos"><span id="p-azul">0</span> <span>pts</span></div>
       </div>
-      <div class="team-jogadores azul vazio" id="jogadores-azul">aguardando...</div>
+      <div class="team-jogadores azul">
+        <div class="marquee-inner vazio" id="jogadores-azul">aguardando...</div>
+      </div>
     </div>
   </div>
 
@@ -501,18 +535,25 @@
       const lista = document.getElementById('sidebar-lista');
       const hist = sala.historicoMusicas || [];
 
-      if (!sala.partidaIniciada || !sala.rodada || modoAtual === 'FINAL' || modoAtual === 'LOBBY') {
-        sidebar.classList.add('escondido'); return;
+      // Só exibe o histórico se estiver na tela de revelação
+      if (modoAtual !== 'REVELACAO') {
+        sidebar.style.visibility = 'hidden'; return;
       }
+      sidebar.style.visibility = 'visible';
 
+      // Filtra a música atual (que está no centro) para mostrar apenas as anteriores
       let exibir = hist;
-      if (sala.rodada.estado === 'REVELACAO' && hist.length > 0 && hist[hist.length - 1].numero === sala.rodada.numero) {
+      if (sala.rodada && sala.rodada.estado === 'REVELACAO' && hist.length > 0 && hist[hist.length - 1].numero === sala.rodada.numero) {
         exibir = hist.slice(0, -1);
       }
 
-      if (exibir.length === 0) { sidebar.classList.add('escondido'); return; }
-
-      sidebar.classList.remove('escondido');
+      if (exibir.length === 0) { 
+        lista.innerHTML = ''; 
+        sidebar.querySelector('.hist-title').style.visibility = 'hidden';
+        return; 
+      }
+      
+      sidebar.querySelector('.hist-title').style.visibility = 'visible';
       lista.innerHTML = exibir.slice().reverse().map(h => {
         const classe = h.equipeVencedora === 'vermelha' ? 'vermelha' : h.equipeVencedora === 'azul' ? 'azul' : h.resultado === 'zerou' ? 'zero' : 'ninguem';
         let label = '';
@@ -533,14 +574,30 @@
       const verms = sala.jogadores.filter(j => j.equipe === 'vermelha');
       const azuis = sala.jogadores.filter(j => j.equipe === 'azul');
       
-      const elVerm = document.getElementById('jogadores-verm');
-      const elAzul = document.getElementById('jogadores-azul');
+      const innerVerm = document.getElementById('jogadores-verm');
+      const innerAzul = document.getElementById('jogadores-azul');
 
-      if (verms.length) { elVerm.textContent = verms.map(j => j.nome).join(' • '); elVerm.classList.remove('vazio'); } 
-      else { elVerm.textContent = 'aguardando...'; elVerm.classList.add('vazio'); }
+      innerVerm.textContent = verms.length ? verms.map(j => j.nome).join(' • ') : 'aguardando...';
+      innerVerm.classList.toggle('vazio', !verms.length);
 
-      if (azuis.length) { elAzul.textContent = azuis.map(j => j.nome).join(' • '); elAzul.classList.remove('vazio'); } 
-      else { elAzul.textContent = 'aguardando...'; elAzul.classList.add('vazio'); }
+      innerAzul.textContent = azuis.length ? azuis.map(j => j.nome).join(' • ') : 'aguardando...';
+      innerAzul.classList.toggle('vazio', !azuis.length);
+
+      // Lógica do Marquee (Scroll Horizontal Infinito)
+      const containerVerm = innerVerm.parentElement;
+      const containerAzul = innerAzul.parentElement;
+
+      innerVerm.classList.remove('marquee-anim');
+      innerAzul.classList.remove('marquee-anim');
+      void innerVerm.offsetWidth; // Force reflow
+      void innerAzul.offsetWidth;
+
+      if (innerVerm.scrollWidth > containerVerm.clientWidth && verms.length > 0) {
+        innerVerm.classList.add('marquee-anim');
+      }
+      if (innerAzul.scrollWidth > containerAzul.clientWidth && azuis.length > 0) {
+        innerAzul.classList.add('marquee-anim');
+      }
     }
 
     function renderizarLobby(sala) { 
@@ -557,8 +614,8 @@
       for (let i = 1; i <= 3; i++) {
         const el = document.getElementById(`dica-${i}`);
         if (el && dicas) {
-          if (r.estagio >= i) { el.innerHTML = `<span class="lupa">🔍</span> Dica ${i}: ${dicas[i-1]}`; el.classList.add('ativa'); } 
-          else { el.innerHTML = `Dica ${i}: ?`; el.classList.remove('ativa'); }
+          if (r.estagio >= i) { el.innerHTML = `<span class="lupa">🔍</span> DICA ${i}: ${dicas[i-1]}`; el.classList.add('ativa'); } 
+          else { el.innerHTML = `DICA ${i}: ?`; el.classList.remove('ativa'); }
         }
       }
 
@@ -568,7 +625,6 @@
       const waveform = document.getElementById('waveform');
       const blocoTimer = document.getElementById('blocoTimer');
       const pillBuzina = document.getElementById('pillBuzina');
-      const timerCircle = document.getElementById('timer-circulo');
 
       if (r.estado === 'AGUARDANDO') {
         st.textContent = 'Aguardando o Maestro tocar...';
@@ -653,7 +709,7 @@
       irParaModo('LOBBY'); document.getElementById('codigo').textContent = '----';
       const qr = document.getElementById('qr'); qr.innerHTML = ''; qr.classList.remove('tem-conteudo');
       document.getElementById('jogadores-lobby').textContent = ''; cancelarFade(); tocarTrilha('LOBBY');
-      document.getElementById('sidebar-global').classList.add('escondido');
+      document.getElementById('sidebar-global').style.visibility = 'hidden';
     });
 
     socket.on('sala:estado', (sala) => {
@@ -699,9 +755,8 @@
       blocoTimer.classList.add('ativo');
       pillBuzina.classList.add('ativo');
       
-      // Reinicia a animação CSS (AI Studio)
       timerCircle.classList.remove('timer-animando');
-      void timerCircle.offsetWidth; // Força reflow
+      void timerCircle.offsetWidth;
       timerCircle.classList.add('timer-animando');
       
       let tempoRestante = 10;
@@ -746,7 +801,7 @@
 
     socket.on('partida:encerrada', ({ placar, vencedor }) => {
       cancelarFade(); audioEl.pause(); pararTrilhas(); irParaModo('FINAL'); renderizarFinal(placar, vencedor);
-      document.getElementById('sidebar-global').classList.add('escondido');
+      document.getElementById('sidebar-global').style.visibility = 'hidden';
       tocarTrilha('LOBBY'); soltarConfete(); setTimeout(soltarConfete, 800); setTimeout(soltarConfete, 1600);
     });
   </script>
