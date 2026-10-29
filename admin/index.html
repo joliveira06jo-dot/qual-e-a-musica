@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel do Maestro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-top: #040714;
+      --bg-bottom: #3533CD;
+      --dark-bar: #020C17;
+      --yellow: #FFDC33;
+      --yellow-pill: #F5C518;
+      --red: #FF3333;
+      --red-soft: #ff4d4d;
+      --blue: #1800C6;
+      --blue-dot: #1E74FD;
+      --white: #FFFFFF;
+      --green: #22C55E;
+      --gray: #B0B3C0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; scrollbar-width: thin; scrollbar-color: var(--yellow) rgba(0,0,0,0.2); }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: var(--white);
+      background: linear-gradient(180deg, var(--bg-top) 0%, #1a1f5e 45%, var(--bg-bottom) 100%);
+      min-height: 100vh;
+      padding: 2vh 4vw;
+      padding-bottom: 10vh;
+    }
+    body::after {
+      content: ''; position: fixed; inset: 0; pointer-events: none;
+      background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.5) 100%); z-index: -1;
+    }
+
+    header { display: flex; align-items: center; gap: 2vw; margin-bottom: 3vh; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 2vh; }
+    header img { height: 12vh; filter: drop-shadow(0 0 1.5vh rgba(149,180,232,0.4)); }
+    header h1 { font-size: 4vh; font-weight: 700; color: var(--yellow); }
+
+    .top-bar { display: flex; flex-wrap: wrap; gap: 2vw; align-items: center; justify-content: space-between; margin-bottom: 3vh; }
+    
+    .placar-box {
+      display: flex; gap: 2vw; background: rgba(0,0,0,0.4); padding: 2vh 3vw;
+      border-radius: 1vh; border: 1px solid rgba(255,255,255,0.05); font-size: 3vh; font-weight: 700;
+    }
+    .placar-box .v { color: var(--red-soft); }
+    .placar-box .a { color: #6b9aff; }
+
+    .btn {
+      padding: 1.5vh 3vw; font-size: 2.5vh; font-family: inherit; font-weight: 700;
+      border-radius: 1vh; border: none; cursor: pointer; color: white; transition: transform 0.2s, filter 0.2s;
+    }
+    .btn:hover { filter: brightness(1.2); transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
+    .btn:disabled { opacity: 0.4; cursor: not-allowed; filter: none; transform: none; }
+    
+    .btn-verde { background: var(--green); color: #1a1a2e; }
+    .btn-vermelho { background: var(--red); }
+    .btn-azul { background: var(--blue); }
+    .btn-amarelo { background: var(--yellow); color: #1a1a2e; }
+    .btn-neutro { background: #444; }
+    .btn-laranja { background: #e67e22; }
+
+    .secao {
+      background: rgba(0,0,0,0.3); padding: 2vh 3vw; border-radius: 1vh;
+      margin-bottom: 3vh; border: 1px solid rgba(255,255,255,0.05);
+    }
+    .secao h3 { font-size: 3vh; color: var(--yellow); margin-bottom: 2vh; display: flex; align-items: center; gap: 1vw; }
+    
+    .toggle-container { display: flex; align-items: center; gap: 1vw; font-size: 2.5vh; }
+    .toggle { position: relative; display: inline-block; width: 6vh; height: 3.5vh; }
+    .toggle input { opacity: 0; width: 0; height: 0; }
+    .slider { position: absolute; cursor: pointer; inset: 0; background: #555; border-radius: 3.5vh; transition: 0.3s; }
+    .slider:before { content: ""; position: absolute; height: 2.7vh; width: 2.7vh; left: 0.4vh; bottom: 0.4vh; background: white; border-radius: 50%; transition: 0.3s; }
+    .toggle input:checked + .slider { background: var(--green); }
+    .toggle input:checked + .slider:before { transform: translateX(2.5vh); }
+
+    .jogador-item {
+      background: rgba(255,255,255,0.05); padding: 1.5vh 2vw; margin-bottom: 1vh;
+      border-radius: 0.8vh; display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1vh;
+    }
+    .jogador-nome { font-size: 2.5vh; font-weight: 600; }
+    .jogador-eq { font-size: 2vh; color: var(--gray); }
+
+    .categorias-grid { display: flex; flex-wrap: wrap; gap: 1vh; margin-bottom: 2vh; }
+    .cat-label {
+      background: rgba(255,255,255,0.1); padding: 1vh 2vw; border-radius: 2vh;
+      font-size: 2.2vh; cursor: pointer; display: flex; align-items: center; gap: 0.5vw;
+      user-select: none;
+    }
+    .cat-label input { accent-color: var(--yellow); width: 2.5vh; height: 2.5vh; }
+
+    #info { background: var(--yellow-pill); color: #1a1a2e; padding: 2vh; border-radius: 1vh; font-weight: 700; font-size: 2.5vh; margin-bottom: 3vh; text-align: center; }
+    
+    .btnProxima { width: 100%; padding: 3vh; font-size: 4vh; font-weight: 700; background: #9b59b6; margin: 2vh 0; letter-spacing: 0.2vw; color: white; border-radius: 1.5vh; border: none; cursor: pointer; transition: 0.2s; }
+    .btnProxima:hover { background: #b07acc; }
+    
+    #musicaBox { background: rgba(255, 220, 51, 0.1); border-left: 1vh solid var(--yellow); padding: 2vh 3vw; border-radius: 1vh; margin: 2vh 0; }
+    #musicaBox b { color: var(--yellow); font-size: 2.5vh; }
+    #musicaBox .titulo { font-size: 4vh; font-weight: 700; margin-top: 1vh; }
+    #musicaBox .artista { font-size: 2.5vh; color: #ddd; }
+
+    .estado-box { font-size: 2.5vh; line-height: 1.6; margin: 2vh 0; }
+    .estado-box b { color: var(--yellow); }
+    
+    .acoes-grid { display: flex; flex-wrap: wrap; gap: 1vw; margin-top: 2vh; }
+    .acoes-grid button { flex: 1; min-width: 150px; padding: 2.5vh; font-size: 2.8vh; }
+
+    #log { max-height: 30vh; overflow-y: auto; background: rgba(0,0,0,0.5); padding: 2vh; border-radius: 1vh; font-size: 2.2vh; }
+    #log div { padding: 1vh 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+
+    .btnNovaPartida { width: 100%; padding: 3vh; font-size: 3.5vh; font-weight: 700; background: var(--green); color: #1a1a2e; margin: 2vh 0; border-radius: 1.5vh; border: none; cursor: pointer; transition: 0.2s; }
+    .btnNovaPartida:hover { filter: brightness(1.1); }
+
+    .btn-encerrar { background: var(--red); width: 100%; padding: 2.5vh; font-size: 3vh; margin-top: 2vh; }
+
+    .escondido { display: none !important; }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="/img/logo.png" alt="Logo">
+    <h1>Painel do Maestro</h1>
+  </header>
+
+  <div class="top-bar">
+    <button class="btn btn-verde" onclick="criarSala()">Criar Sala</button>
+    <div class="placar-box">
+      <span class="v">🔴 Vermelha: <span id="pv">0</span></span>
+      <span class="a">🔵 Azul: <span id="pa">0</span></span>
+    </div>
+  </div>
+  
+  <div id="info">Nenhuma sala criada ainda.</div>
+
+  <div class="secao">
+    <h3>Logins de Dispositivos</h3>
+    <div class="toggle-container">
+      <label class="toggle">
+        <input type="checkbox" id="toggleLogins" checked onchange="toggleLoginsChange()">
+        <span class="slider"></span>
+      </label>
+      <span id="loginStatus">✅ Permitida a entrada de novos jogadores.</span>
+    </div>
+  </div>
+
+  <div id="jogadoresContainer"></div>
+
+  <div id="config" class="secao escondido">
+    <h3>Configurar Partida</h3>
+    <div class="categorias-grid" id="categorias"></div>
+    <div style="font-size: 2.5vh; margin-bottom: 2vh;"><b>Músicas:</b> <input type="number" id="totalRodadas" value="5" min="1" max="10" style="width: 80px; padding: 1vh; font-size: 2.5vh; border-radius: 0.5vh; border: none; background: rgba(0,0,0,0.5); color: white; text-align: center;"></div>
+    <button class="btn btn-vermelho" style="width: 100%; font-size: 3vh; padding: 2.5vh;" onclick="iniciar()">Iniciar Jogo</button>
+  </div>
+
+  <div id="controles" class="secao escondido">
+    <h3 id="headerRodada">Música -</h3>
+    <button class="btnProxima" onclick="proximaRodada()">➡️ PRÓXIMA MÚSICA</button>
+    
+    <div id="musicaBox" class="escondido">
+      <b>🎵 Resposta (só o Maestro vê):</b>
+      <div class="titulo" id="respTitulo">-</div>
+      <div class="artista" id="respArtista">-</div>
+    </div>
+
+    <div class="estado-box" id="estadoRodada"></div>
+    
+    <div class="acoes-grid">
+      <button class="btn btn-amarelo" id="btnTocar" onclick="tocarTrecho()">🎵 Tocar Trecho</button>
+      <button class="btn btn-laranja" id="btnProxEst" onclick="proximoEstagio()">⏭️ Próximo Estágio</button>
+    </div>
+
+    <div id="decisoes" class="acoes-grid"></div>
+
+    <button class="btn btn-encerrar" onclick="encerrarPartida()">🏁 ENCERRAR PARTIDA AGORA</button>
+  </div>
+
+  <div id="fimPartida" class="secao escondido">
+    <h3>🏁 Fim de Partida</h3>
+    <div id="vencedorAdmin" style="font-size: 3vh; font-weight: bold; margin-bottom: 2vh;"></div>
+    <button class="btnNovaPartida" onclick="novaPartida()">🔄 NOVA PARTIDA (novo código)</button>
+  </div>
+
+  <div id="logSection" class="secao escondido">
+    <h3>Log de Eventos</h3>
+    <div id="log"></div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+    const CATS = ['Sertanejo','Sertanejo Universitário','Feminejo','Pagode','Samba','Pagode Baiano','Forró','MPB','Funk','Axé'];
+    
+    document.getElementById('categorias').innerHTML = CATS.map(c =>
+      '<label class="cat-label"><input type="checkbox" value="' + c + '" checked> ' + c + '</label>'
+    ).join('');
+
+    function criarSala() { socket.emit('admin:criar_sala'); }
+    function novaPartida() { if (confirm('Iniciar nova partida? Isso vai gerar um novo código e desconectar os jogadores atuais.')) socket.emit('admin:nova_partida'); }
+    function encerrarPartida() { if (confirm('Tem certeza que deseja ENCERRAR a partida agora?')) socket.emit('admin:encerrar_partida'); }
+    function atribuir(id, eq) { socket.emit('admin:atribuir_equipe', { idDispositivo: id, equipe: eq }); }
+    function expulsar(id) { socket.emit('admin:expulsar_dispositivo', { idDispositivo: id }); }
+    
+    function toggleLoginsChange() {
+      const permitir = document.getElementById('toggleLogins').checked;
+      socket.emit('admin:bloquear_logins', { bloquear: !permitir });
+    }
+    function iniciar() {
+      const cats = Array.from(document.querySelectorAll('#categorias input:checked')).map(i => i.value);
+      const t = parseInt(document.getElementById('totalRodadas').value, 10) || 5;
+      socket.emit('admin:iniciar_partida', { categorias: cats, totalRodadas: t });
+    }
+    
+    function tocarTrecho() { socket.emit('admin:tocar_trecho'); }
+    function proximoEstagio() { socket.emit('admin:proximo_estagio'); }
+    function proximaRodada() { socket.emit('admin:proxima_rodada'); }
+    function marcarAcertou(eq) { socket.emit('admin:marcar_acertou', { equipe: eq }); }
+    function marcarErrou(eq) { socket.emit('admin:marcar_errou', { equipe: eq }); }
+    function marcarPassar() { socket.emit('admin:marcar_passar_vez'); }
+    function marcarNaoRespondeu() { socket.emit('admin:marcar_nao_respondeu'); }
+    function marcarNinguem() { socket.emit('admin:marcar_ninguem_acertou'); }
+    function tocarRevelacao() { socket.emit('admin:tocar_revelacao'); }
+
+    socket.on('nova_partida', ({ codigo }) => {
+      document.getElementById('info').textContent = '🆕 Nova partida criada. Código: ' + codigo;
+      document.getElementById('controles').classList.add('escondido');
+      document.getElementById('fimPartida').classList.add('escondido');
+      document.getElementById('logSection').classList.add('escondido');
+      document.getElementById('config').classList.add('escondido');
+      document.getElementById('musicaBox').classList.add('escondido');
+    });
+
+    function renderizar(sala) {
+      document.getElementById('pv').textContent = sala.placar.vermelha;
+      document.getElementById('pa').textContent = sala.placar.azul;
+
+      const tg = document.getElementById('toggleLogins');
+      tg.checked = !sala.loginsBloqueados;
+      document.getElementById('loginStatus').textContent = sala.loginsBloqueados
+        ? '⛔ Bloqueada a entrada de novos jogadores.'
+        : '✅ Permitida a entrada de novos jogadores.';
+
+      const div = document.getElementById('jogadoresContainer');
+      if (!sala.jogadores.length) {
+        div.innerHTML = '<p style="font-size: 2.5vh; color: gray; margin-bottom: 3vh;">Nenhum jogador conectado.</p>';
+      } else {
+        div.innerHTML = '<div class="secao"><h3>Jogadores</h3>' + sala.jogadores.map(j => `
+          <div class="jogador-item">
+            <div>
+              <div class="jogador-nome">${j.nome}</div>
+              <div class="jogador-eq">${j.equipe ? j.equipe.toUpperCase() : 'Sem equipe'}</div>
+            </div>
+            <div style="display: flex; gap: 1vw;">
+              <button class="btn btn-vermelho" onclick="atribuir('${j.id}','vermelha')">🔴 Verm.</button>
+              <button class="btn btn-azul" onclick="atribuir('${j.id}','azul')">🔵 Azul</button>
+              <button class="btn btn-neutro" onclick="expulsar('${j.id}')">❌</button>
+            </div>
+          </div>`).join('') + '</div>';
+      }
+
+      const temV = sala.jogadores.some(j => j.equipe === 'vermelha');
+      const temA = sala.jogadores.some(j => j.equipe === 'azul');
+      const encerrada = sala.partidaIniciada && !sala.rodada;
+
+      if (encerrada) {
+        document.getElementById('config').classList.add('escondido');
+        document.getElementById('controles').classList.add('escondido');
+        document.getElementById('fimPartida').classList.remove('escondido');
+        document.getElementById('logSection').classList.remove('escondido');
+      } else if (!sala.partidaIniciada) {
+        document.getElementById('config').classList.toggle('escondido', !(temV && temA));
+        document.getElementById('controles').classList.add('escondido');
+        document.getElementById('fimPartida').classList.add('escondido');
+        document.getElementById('logSection').classList.add('escondido');
+      } else {
+        document.getElementById('config').classList.add('escondido');
+        document.getElementById('controles').classList.remove('escondido');
+        document.getElementById('fimPartida').classList.add('escondido');
+        document.getElementById('logSection').classList.remove('escondido');
+      }
+      
+      if (sala.log) document.getElementById('log').innerHTML = sala.log.map(l => '<div>' + l.texto + '</div>').join('');
+
+      const mBox = document.getElementById('musicaBox');
+      if (!sala.rodada) {
+        document.getElementById('headerRodada').textContent = 'Fim de partida';
+        document.getElementById('estadoRodada').textContent = '';
+        document.getElementById('decisoes').innerHTML = '';
+        mBox.classList.add('escondido');
+        return;
+      }
+      
+      const r = sala.rodada;
+      document.getElementById('headerRodada').textContent = 'Música ' + r.numero + ' de ' + r.totalMusicas + ' — Estágio ' + (r.estagio + 1) + '/4 (' + r.duracao + 's, ' + r.pontos + ' pts)';
+
+      mBox.classList.remove('escondido');
+      document.getElementById('respTitulo').textContent = r.musica.titulo;
+      document.getElementById('respArtista').textContent = r.musica.artista + ' • ' + r.musica.ano + ' • ' + r.musica.categoria;
+
+      let estadoTxt = '<b>Estado:</b> ' + r.estado;
+      if (r.equipeDaVez) estadoTxt += ' | <b>Vez:</b> ' + r.equipeDaVez;
+      if (r.modo === 'virada') estadoTxt += ' | <span style="color:var(--yellow)">🔄 VIRADA DE DISCO (dobro)</span>';
+      if (r.jaPassou) estadoTxt += ' | <span style="color:#aaa">↔️ PASSE (de ' + r.passeDe + ')</span>';
+      if (r.dica) estadoTxt += '<br>💡 <b>Dica atual:</b> ' + r.dica;
+      document.getElementById('estadoRodada').innerHTML = estadoTxt;
+
+      const btnTocar = document.getElementById('btnTocar');
+      btnTocar.disabled = !(r.estado === 'AGUARDANDO' || r.estado === 'BUZINA');
+      btnTocar.textContent = '🎵 Tocar Trecho (' + r.duracao + 's)';
+
+      const btnProx = document.getElementById('btnProxEst');
+      btnProx.disabled = (r.estado === 'TOCANDO' || r.estado === 'REVELACAO' || (r.modo === 'virada' && r.estado === 'RESPONDENDO'));
+      if (r.proximoEstagio) { btnProx.textContent = '⏭️ Estágio ' + (r.estagio + 2) + ' (' + r.proximoEstagio.duracao + 's / ' + r.proximoEstagio.pontos + ' pts)'; } 
+      else { btnProx.textContent = '⏭️ Ir para Revelação'; }
+
+      const dec = document.getElementById('decisoes');
+      const vez = r.equipeDaVez;
+      
+      if (r.estado === 'BUZINA') {
+        dec.innerHTML = `
+          <button class="btn btn-vermelho" onclick="marcarAcertou('vermelha')">🔴 Verm. acertou (manual)</button>
+          <button class="btn btn-azul" onclick="marcarAcertou('azul')">🔵 Azul acertou (manual)</button>
+          <button class="btn btn-neutro" onclick="marcarNinguem()">❓ Ninguém acertou</button>`;
+      } else if (r.estado === 'RESPONDENDO' && vez) {
+        let html = `<button class="btn btn-verde" onclick="marcarAcertou('${vez}')">✅ Acertou ${vez}</button>`;
+        html += `<button class="btn btn-vermelho" onclick="marcarErrou('${vez}')">❌ Errou ${vez}</button>`;
+        if (r.estagio < 3 && r.modo !== 'virada' && !r.jaPassou) { html += `<button class="btn btn-neutro" onclick="marcarPassar()">↔️ Passar a vez</button>`; }
+        if (r.estagio === 3) { html += `<button class="btn btn-neutro" onclick="marcarNaoRespondeu()">⏱️ Não respondeu</button>`; }
+        dec.innerHTML = html;
+      } else if (r.estado === 'REVELACAO') {
+        dec.innerHTML = `<button class="btn btn-amarelo" onclick="tocarRevelacao()">🎬 Revelar (30s + capa)</button>`;
+      } else {
+        dec.innerHTML = '';
+      }
+    }
+
+    socket.on('sala:criada', ({ codigo }) => {
+      document.getElementById('info').textContent = 'Sala criada: ' + codigo;
+    });
+    
+    socket.on('partida:encerrada', ({ placar, vencedor }) => {
+      const v = document.getElementById('vencedorAdmin');
+      v.innerHTML = vencedor === 'empate' ? '🤝 Empate!' :
+        (vencedor === 'vermelha' ? '🔴 Equipe Vermelha venceu!' : '🔵 Equipe Azul venceu!') +
+        '<br><span style="color:#aaa; font-size:2.5vh;">Placar: 🔴 ' + placar.vermelha + ' × ' + placar.azul + ' 🔵</span>';
+    });
+    
+    socket.on('sala:estado', renderizar);
+    socket.on('rodada:iniciada', renderizar);
+  </script>
+</body>
+</html>
