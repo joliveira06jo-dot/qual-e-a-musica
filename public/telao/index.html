@@ -48,7 +48,6 @@
     .holofote-esquerdo { left: -5vw; clip-path: polygon(45% 0%, 55% 0%, 100% 100%, 0% 100%); transform: rotate(20deg); animation: oscilar-luz-esq 6s ease-in-out infinite alternate; }
     .holofote-direito { right: -5vw; clip-path: polygon(45% 0%, 55% 0%, 100% 100%, 0% 100%); transform: rotate(-20deg); animation: oscilar-luz-dir 7s ease-in-out infinite alternate; }
     
-    /* Novos holofotes para aumentar o espetáculo */
     .holofote-esquerdo-2 { left: 15vw; clip-path: polygon(45% 0%, 55% 0%, 100% 100%, 0% 100%); transform: rotate(15deg); animation: oscilar-luz-esq 4s ease-in-out infinite alternate; opacity: 0.7; }
     .holofote-direito-2 { right: 15vw; clip-path: polygon(45% 0%, 55% 0%, 100% 100%, 0% 100%); transform: rotate(-15deg); animation: oscilar-luz-dir 5s ease-in-out infinite alternate; opacity: 0.7; }
     .holofote-centro { left: 50%; clip-path: polygon(45% 0%, 55% 0%, 100% 100%, 0% 100%); transform: translateX(-50%) rotate(0deg); width: 25vw; animation: oscilar-luz-centro 3s ease-in-out infinite alternate; opacity: 0.5; }
@@ -115,7 +114,6 @@
 
     .bloco-dicas { background: rgba(6, 20, 51, 0.7); border: 2px solid rgba(250, 204, 21, 0.6); border-radius: 1.5vh; padding: 2.5vh; display: flex; flex-direction: column; gap: 1.5vh; text-align: left; box-shadow: 0 1vh 4vh rgba(0,0,0,0.5); backdrop-filter: blur(8px); align-self: start; }
     .bloco-dicas h3 { font-size: 2.8vh; color: var(--yellow); text-transform: uppercase; letter-spacing: 0.1vw; margin-bottom: 1vh; text-align: center; }
-    /* FONTE DAS DICAS AUMENTADA E CAIXA ALTA */
     .dica-item { font-size: 3.2vh; color: #cbd5e1; line-height: 1.4; padding: 1vh; border-bottom: 1px dashed rgba(255,255,255,0.1); transition: all 0.5s; display: flex; align-items: center; gap: 1vw; text-transform: uppercase; }
     .dica-item.ativa { color: var(--white); font-weight: 600; }
     .dica-item .lupa { color: var(--yellow); font-size: 2.5vh; opacity: 0; transition: opacity 0.5s; }
@@ -166,7 +164,6 @@
        ========================================================================== */
     #revelacao.ativa { display: grid; grid-template-columns: 25vw 1fr 25vw; gap: 2vw; padding: 15vh 3vw 5vh 3vw; align-items: center; }
     
-    /* Sidebar do Histórico */
     #sidebar-global { width: 100%; max-height: 70vh; overflow-y: auto; display: flex; flex-direction: column; gap: 1.5vh; text-align: left; }
     #sidebar-global .hist-title { font-size: 2.8vh; font-weight: 700; margin-bottom: 0.5vh; color: var(--yellow); text-shadow: 0 0 1vh rgba(250,204,21,0.5); }
     #sidebar-global .hist-item { display: flex; gap: 1.2vh; align-items: center; background: rgba(0,0,0,0.5); padding: 1vh; border-radius: 1vh; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(8px); }
@@ -217,35 +214,46 @@
     /* ==========================================================================
        6. FOOTER
        ========================================================================== */
-    #footer { height: 20vh; background: var(--dark-bar); padding: 0 3vw; display: flex; justify-content: center; align-items: center; gap: 3vw; position: relative; z-index: 10; border-top: 2px solid rgba(255,255,255,0.1); box-shadow: 0 -1vh 4vh rgba(0,0,0,0.8); }
+    /* AUMENTO DO FOOTER PARA ACOMODAR O TEXTO GIGANTE */
+    #footer { height: 22vh; background: var(--dark-bar); padding: 0 3vw; display: flex; justify-content: center; align-items: center; gap: 3vw; position: relative; z-index: 10; border-top: 2px solid rgba(255,255,255,0.1); box-shadow: 0 -1vh 4vh rgba(0,0,0,0.8); }
     
     .container-equipe { display: flex; flex-direction: column; align-items: center; gap: 1vh; }
 
     .equipe-vermelha { --cor-tag: #7f1d1d; --cor-fundo-gradiente: linear-gradient(180deg, rgba(185, 28, 28, 0.85) 0%, rgba(69, 10, 10, 0.95) 100%); --cor-borda: rgba(239, 68, 68, 0.6); --cor-brilho-interno: rgba(254, 202, 202, 0.25); }
     .equipe-azul { --cor-tag: #0369a1; --cor-fundo-gradiente: linear-gradient(180deg, rgba(2, 132, 199, 0.85) 0%, rgba(8, 47, 73, 0.95) 100%); --cor-borda: rgba(56, 189, 248, 0.6); --cor-brilho-interno: rgba(186, 230, 253, 0.25); }
 
+    /* CARD MAIS ALTO E COM FLEXBOX PARA NÃO CORTAR */
     .card-equipe {
-      width: 20vw; min-width: 220px; height: 14vh;
+      width: 22vw; min-width: 260px; height: 16vh;
       border-radius: 1.5vh;
       background: var(--cor-fundo-gradiente);
       border: 2px solid var(--cor-borda);
       backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
       box-shadow: inset 0 1px 1px var(--cor-brilho-interno), inset 0 -4px 12px rgba(0, 0, 0, 0.6), 0 8px 24px rgba(0, 0, 0, 0.5);
-      display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+      display: flex; flex-direction: column; align-items: center;
       padding: 0; transition: all 0.3s; overflow: hidden;
     }
 
     .card-equipe.ativo { transform: scale(1.05); box-shadow: 0 0 4vh var(--cor-borda), inset 0 1px 1px var(--cor-brilho-interno); }
 
-    .card-header-badge { background: var(--cor-tag); border-bottom: 1px solid rgba(255, 255, 255, 0.15); padding: 0.8vh 1.5vw; font-size: 2.2vh; font-weight: 800; color: #ffffff; text-transform: uppercase; letter-spacing: 0.08em; width: 100%; text-align: center; }
+    .card-header-badge { 
+      background: var(--cor-tag); border-bottom: 1px solid rgba(255, 255, 255, 0.15); 
+      padding: 1vh 1.5vw; font-size: 2.4vh; font-weight: 800; color: #ffffff; 
+      text-transform: uppercase; letter-spacing: 0.08em; width: 100%; text-align: center; flex-shrink: 0;
+    }
     
-    /* PONTUAÇÃO AUMENTADA (O dobro/triplo) */
-    .card-pontos { font-size: 10vh; font-weight: 800; color: #ffffff; letter-spacing: -0.02em; line-height: 0.8; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7); margin-top: 1vh; }
-    .card-pontos span { font-size: 3vh; }
+    /* PONTUAÇÃO OCUPANDO TODO O ESPAÇO (FLEX: 1) */
+    .card-pontos { 
+      flex: 1; width: 100%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12vh; font-weight: 800; color: #ffffff; 
+      letter-spacing: -0.02em; line-height: 1; text-shadow: 0 4px 8px rgba(0, 0, 0, 0.7); 
+    }
+    .card-pontos span { font-size: 3.5vh; margin-left: 0.5vw; }
 
     /* MARQUEE PARA NOMES DOS JOGADORES */
     .team-jogadores {
-      width: 20vw; max-width: 20vw; overflow: hidden; position: relative;
+      width: 22vw; max-width: 22vw; overflow: hidden; position: relative;
       text-align: left; white-space: nowrap; padding: 0 1vw; margin-top: 1vh;
     }
     .marquee-inner { display: inline-block; white-space: nowrap; color: inherit; font-size: 2.2vh; font-weight: 600; text-transform: uppercase; }
@@ -387,7 +395,7 @@
 
     <!-- REVELAÇÃO -->
     <div id="revelacao" class="tela">
-      <!-- HISTÓRICO AGORA FICA DENTRO DO GRID DE REVELAÇÃO -->
+      <!-- HISTÓRICO -->
       <div id="sidebar-global">
         <div class="hist-title">📜 Histórico</div>
         <div id="sidebar-lista"></div>
@@ -535,13 +543,13 @@
       const lista = document.getElementById('sidebar-lista');
       const hist = sala.historicoMusicas || [];
 
-      // Só exibe o histórico se estiver na tela de revelação
+      // CORREÇÃO: Se não for modo revelação, esconde
       if (modoAtual !== 'REVELACAO') {
         sidebar.style.visibility = 'hidden'; return;
       }
       sidebar.style.visibility = 'visible';
 
-      // Filtra a música atual (que está no centro) para mostrar apenas as anteriores
+      // Filtra a música atual (que está no centro)
       let exibir = hist;
       if (sala.rodada && sala.rodada.estado === 'REVELACAO' && hist.length > 0 && hist[hist.length - 1].numero === sala.rodada.numero) {
         exibir = hist.slice(0, -1);
@@ -583,13 +591,12 @@
       innerAzul.textContent = azuis.length ? azuis.map(j => j.nome).join(' • ') : 'aguardando...';
       innerAzul.classList.toggle('vazio', !azuis.length);
 
-      // Lógica do Marquee (Scroll Horizontal Infinito)
       const containerVerm = innerVerm.parentElement;
       const containerAzul = innerAzul.parentElement;
 
       innerVerm.classList.remove('marquee-anim');
       innerAzul.classList.remove('marquee-anim');
-      void innerVerm.offsetWidth; // Force reflow
+      void innerVerm.offsetWidth;
       void innerAzul.offsetWidth;
 
       if (innerVerm.scrollWidth > containerVerm.clientWidth && verms.length > 0) {
@@ -712,14 +719,31 @@
       document.getElementById('sidebar-global').style.visibility = 'hidden';
     });
 
+    // CORREÇÃO CRÍTICA AQUI: A ORDEM DE CHAMADA DOS MÉTODOS
     socket.on('sala:estado', (sala) => {
       renderizarFooter(sala);
-      renderizarSidebar(sala);
 
-      if (!sala.partidaIniciada) { irParaModo('LOBBY'); renderizarLobby(sala); return; }
-      if (!sala.rodada) { irParaModo('FINAL'); return; }
-      if (sala.rodada.estado === 'REVELACAO') { irParaModo('REVELACAO'); renderizarRevelacao(sala); return; }
-      irParaModo('RODADA'); renderizarRodada(sala);
+      if (!sala.partidaIniciada) { 
+        irParaModo('LOBBY'); 
+        renderizarLobby(sala); 
+        return; 
+      }
+      
+      if (!sala.rodada) { 
+        irParaModo('FINAL'); 
+        return; 
+      }
+      
+      if (sala.rodada.estado === 'REVELACAO') { 
+        irParaModo('REVELACAO'); // 1. Muda o modo PRIMEIRO
+        renderizarSidebar(sala); // 2. Agora desenha a sidebar (modoAtual já é REVELACAO)
+        renderizarRevelacao(sala); // 3. Desenha o resto
+        return; 
+      }
+      
+      irParaModo('RODADA'); 
+      renderizarSidebar(sala); // Esconde a sidebar
+      renderizarRodada(sala);
     });
 
     socket.on('rodada:iniciada', (sala) => {
