@@ -748,5 +748,455 @@
       "Samba/pagode dos anos 2000",
       "Do ex-vocalista do Soweto"
     ]
+  },
+  {
+    "id": "mus_051",
+    "titulo": "Áudio (Ao Vivo em Brasília)",
+    "artista": "Diego & Victor Hugo",
+    "ano": 2019,
+    "categoria": "Sertanejo",
+    "capaUrl": "img/mus_051.jpg",
+    "previewUrl": "audio/mus_051.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Hit sertanejo dos anos 2010",
+      "Dupla ou parceria musical — Diego & Victor Hugo",
+      "Do álbum \"Diego & Victor Hugo ao Vivo em Brasília\""
+    ]
+  },
+  {
+    "id": "mus_052",
+    "titulo": "O Grande Amor Da Minha Vida (Convite de Casamento)",
+    "artista": "Gian & Giovani",
+    "ano": 2001,
+    "categoria": "Sertanejo",
+    "capaUrl": "img/mus_052.jpg",
+    "previewUrl": "audio/mus_052.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Hit sertanejo dos anos 2000",
+      "Dupla ou parceria musical — Gian & Giovani",
+      "Do álbum \"Uma História de Sucesso\""
+    ]
+  },
+  {
+    "id": "mus_053",
+    "titulo": "Diz Pro Meu Olhar (Ao Vivo)",
+    "artista": "Zezé Di Camargo & Luciano",
+    "ano": 2009,
+    "categoria": "Sertanejo",
+    "capaUrl": "img/mus_053.jpg",
+    "previewUrl": "audio/mus_053.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Hit sertanejo dos anos 2000",
+      "Dupla ou parceria musical — Zezé Di Camargo & Luciano",
+      "Do álbum \"2 Horas de Sucesso (Ao Vivo)\""
+    ]
+  },
+  {
+    "id": "mus_054",
+    "titulo": "Facas (Ao Vivo)",
+    "artista": "Diego & Victor Hugo & Bruno & Marrone",
+    "ano": 2020,
+    "categoria": "Sertanejo",
+    "capaUrl": "img/mus_054.jpg",
+    "previewUrl": "audio/mus_054.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Hit sertanejo dos anos 2020",
+      "Dupla ou parceria musical — Diego & Victor Hugo & Bruno & Marrone",
+      "Gênero: Sertanejo"
+    ]
+  },
+  {
+    "id": "mus_055",
+    "titulo": "50 Reais (feat. Maiara e Maraísa)",
+    "artista": "Naiara Azevedo",
+    "ano": 2016,
+    "categoria": "Sertanejo",
+    "capaUrl": "img/mus_055.jpg",
+    "previewUrl": "audio/mus_055.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Hit sertanejo dos anos 2010",
+      "Artista solo — Naiara Azevedo",
+      "Gênero: Sertanejo"
+    ]
+  },
+  {
+    "id": "mus_056",
+    "titulo": "Sucesso",
+    "artista": "Zezé Di Camargo & Luciano",
+    "ano": 2013,
+    "categoria": "Sertanejo",
+    "capaUrl": "img/mus_056.jpg",
+    "previewUrl": "audio/mus_056.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Hit sertanejo dos anos 2010",
+      "Dupla ou parceria musical — Zezé Di Camargo & Luciano",
+      "Do álbum \"Teorias - EP\""
+    ]
+  },
+  {
+    "id": "mus_057",
+    "titulo": "Traí Sim (feat. Zé Neto & Cristiano) [Ao Vivo]",
+    "artista": "Maiara & Maraisa",
+    "ano": 2018,
+    "categoria": "Sertanejo",
+    "capaUrl": "img/mus_057.jpg",
+    "previewUrl": "audio/mus_057.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Hit sertanejo dos anos 2010",
+      "Dupla ou parceria musical — Maiara & Maraisa",
+      "Do álbum \"Reflexo (Ao Vivo)\""
+    ]
+  },
+  {
+    "id": "mus_058",
+    "titulo": "Aí Eu Bebo (Ao Vivo)",
+    "artista": "Maiara & Maraisa",
+    "ano": 2019,
+    "categoria": "Sertanejo",
+    "capaUrl": "img/mus_058.jpg",
+    "previewUrl": "audio/mus_058.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Hit sertanejo dos anos 2010",
+      "Dupla ou parceria musical — Maiara & Maraisa",
+      "Gênero: Sertanejo"
+    ]
+  },
+  {
+    "id": "mus_059",
+    "titulo": "Tentativas",
+    "artista": "Marília Mendonça",
+    "ano": 2020,
+    "categoria": "Sertanejo",
+    "capaUrl": "img/mus_059.jpg",
+    "previewUrl": "audio/mus_059.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Hit sertanejo dos anos 2020",
+      "Artista solo — Marília Mendonça",
+      "Gênero: Sertanejo"
+    ]
+  },
+  {
+    "id": "mus_060",
+    "titulo": "Basta Você Me Ligar (feat. Xand Avião) [Ao Vivo]",
+    "artista": "Os Barões da Pisadinha",
+    "ano": 2020,
+    "categoria": "Sertanejo",
+    "capaUrl": "img/mus_060.jpg",
+    "previewUrl": "audio/mus_060.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Hit sertanejo dos anos 2020",
+      "Artista solo — Os Barões da Pisadinha",
+      "Do álbum \"Piseiro 2020 Ao Vivo\""
+    ]
+  },
+  {
+    "id": "mus_061",
+    "titulo": "Figurinha (feat. MC Bruninho) [Ao Vivo]",
+    "artista": "Douglas & Vinicius",
+    "ano": 2019,
+    "categoria": "Sertanejo",
+    "capaUrl": "img/mus_061.jpg",
+    "previewUrl": "audio/mus_061.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Hit sertanejo dos anos 2010",
+      "Dupla ou parceria musical — Douglas & Vinicius",
+      "Gênero: Sertanejo"
+    ]
+  },
+  {
+    "id": "mus_062",
+    "titulo": "Rapariga Não (feat. Simone & Simaria) [Ao Vivo]",
+    "artista": "João Neto & Frederico",
+    "ano": 2017,
+    "categoria": "Sertanejo",
+    "capaUrl": "img/mus_062.jpg",
+    "previewUrl": "audio/mus_062.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Hit sertanejo dos anos 2010",
+      "Dupla ou parceria musical — João Neto & Frederico",
+      "Gênero: Sertanejo"
+    ]
+  },
+  {
+    "id": "mus_063",
+    "titulo": "Eu E A Saudade (Ao Vivo)",
+    "artista": "Henrique & Juliano",
+    "ano": 2018,
+    "categoria": "Sertanejo",
+    "capaUrl": "img/mus_063.jpg",
+    "previewUrl": "audio/mus_063.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Hit sertanejo dos anos 2010",
+      "Dupla ou parceria musical — Henrique & Juliano",
+      "Do álbum \"Menos É Mais (Ao Vivo)\""
+    ]
+  },
+  {
+    "id": "mus_064",
+    "titulo": "Fuleragem",
+    "artista": "MC WM",
+    "ano": 2018,
+    "categoria": "Sertanejo",
+    "capaUrl": "img/mus_064.jpg",
+    "previewUrl": "audio/mus_064.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Hit sertanejo dos anos 2010",
+      "Artista solo — MC WM",
+      "Gênero: Brasileira"
+    ]
+  },
+  {
+    "id": "mus_065",
+    "titulo": "Pulei na Piscina (Ao Vivo)",
+    "artista": "Guilherme & Benuto",
+    "ano": 2020,
+    "categoria": "Sertanejo",
+    "capaUrl": "img/mus_065.jpg",
+    "previewUrl": "audio/mus_065.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Hit sertanejo dos anos 2020",
+      "Dupla ou parceria musical — Guilherme & Benuto",
+      "Do álbum \"Sertanejo 2024 - As Mais Tocadas\""
+    ]
+  },
+  {
+    "id": "mus_066",
+    "titulo": "Desbloqueado (Ao Vivo)",
+    "artista": "Diego & Victor Hugo",
+    "ano": 2021,
+    "categoria": "Sertanejo",
+    "capaUrl": "img/mus_066.jpg",
+    "previewUrl": "audio/mus_066.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Hit sertanejo dos anos 2020",
+      "Dupla ou parceria musical — Diego & Victor Hugo",
+      "Do álbum \"Sertanejo 2024 - As Mais Tocadas\""
+    ]
+  },
+  {
+    "id": "mus_067",
+    "titulo": "Saudade da Minha Vida (Ao Vivo)",
+    "artista": "Gusttavo Lima",
+    "ano": 2023,
+    "categoria": "Sertanejo",
+    "capaUrl": "img/mus_067.jpg",
+    "previewUrl": "audio/mus_067.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Hit sertanejo dos anos 2020",
+      "Artista solo — Gusttavo Lima",
+      "Do álbum \"Sertanejo 2024 - As Mais Tocadas\""
+    ]
+  },
+  {
+    "id": "mus_068",
+    "titulo": "Fala Mal de Mim (Ao Vivo)",
+    "artista": "Gusttavo Lima",
+    "ano": 2022,
+    "categoria": "Sertanejo",
+    "capaUrl": "img/mus_068.jpg",
+    "previewUrl": "audio/mus_068.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Hit sertanejo dos anos 2020",
+      "Artista solo — Gusttavo Lima",
+      "Do álbum \"Sertanejo 2024 - As Mais Tocadas\""
+    ]
+  },
+  {
+    "id": "mus_069",
+    "titulo": "Ficha Limpa",
+    "artista": "Gusttavo Lima",
+    "ano": 2021,
+    "categoria": "Sertanejo",
+    "capaUrl": "img/mus_069.jpg",
+    "previewUrl": "audio/mus_069.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Hit sertanejo dos anos 2020",
+      "Artista solo — Gusttavo Lima",
+      "Do álbum \"Sertanejo 2024 - As Mais Tocadas\""
+    ]
+  },
+  {
+    "id": "mus_070",
+    "titulo": "Vagabundo Chora (Ao Vivo)",
+    "artista": "Guilherme & Benuto",
+    "ano": 2022,
+    "categoria": "Sertanejo",
+    "capaUrl": "img/mus_070.jpg",
+    "previewUrl": "audio/mus_070.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Hit sertanejo dos anos 2020",
+      "Dupla ou parceria musical — Guilherme & Benuto",
+      "Do álbum \"Sertanejo 2024 - As Mais Tocadas\""
+    ]
+  },
+  {
+    "id": "mus_071",
+    "titulo": "Toma Dramin (Ao Vivo)",
+    "artista": "Mariana & Mateus & Guilherme & Benuto",
+    "ano": 2022,
+    "categoria": "Sertanejo",
+    "capaUrl": "img/mus_071.jpg",
+    "previewUrl": "audio/mus_071.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Hit sertanejo dos anos 2020",
+      "Dupla ou parceria musical — Mariana & Mateus & Guilherme & Benuto",
+      "Do álbum \"Sertanejo 2024 - As Mais Tocadas\""
+    ]
+  },
+  {
+    "id": "mus_072",
+    "titulo": "Fala Alguma Coisa (Ao Vivo)",
+    "artista": "Paulo e Nathan",
+    "ano": 2022,
+    "categoria": "Sertanejo",
+    "capaUrl": "img/mus_072.jpg",
+    "previewUrl": "audio/mus_072.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Hit sertanejo dos anos 2020",
+      "Dupla ou parceria musical — Paulo e Nathan",
+      "Do álbum \"Sertanejo 2024 - As Mais Tocadas\""
+    ]
+  },
+  {
+    "id": "mus_073",
+    "titulo": "MEIO TERMO (Ao Vivo)",
+    "artista": "Luan Santana",
+    "ano": 2023,
+    "categoria": "Sertanejo",
+    "capaUrl": "img/mus_073.jpg",
+    "previewUrl": "audio/mus_073.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Hit sertanejo dos anos 2020",
+      "Artista solo — Luan Santana",
+      "Do álbum \"Sertanejo 2024 - As Mais Tocadas\""
+    ]
+  },
+  {
+    "id": "mus_074",
+    "titulo": "Bloqueado (Ao Vivo)",
+    "artista": "Gusttavo Lima",
+    "ano": 2021,
+    "categoria": "Sertanejo",
+    "capaUrl": "img/mus_074.jpg",
+    "previewUrl": "audio/mus_074.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Hit sertanejo dos anos 2020",
+      "Artista solo — Gusttavo Lima",
+      "Do álbum \"Sertanejo 2024 - As Mais Tocadas\""
+    ]
+  },
+  {
+    "id": "mus_075",
+    "titulo": "SOLTEIROU (Ao Vivo)",
+    "artista": "Luan Santana",
+    "ano": 2023,
+    "categoria": "Sertanejo",
+    "capaUrl": "img/mus_075.jpg",
+    "previewUrl": "audio/mus_075.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Hit sertanejo dos anos 2020",
+      "Artista solo — Luan Santana",
+      "Do álbum \"Sertanejo 2024 - As Mais Tocadas\""
+    ]
+  },
+  {
+    "id": "mus_076",
+    "titulo": "Meus Vícios (Ao Vivo)",
+    "artista": "Guilherme & Benuto",
+    "ano": 2022,
+    "categoria": "Sertanejo",
+    "capaUrl": "img/mus_076.jpg",
+    "previewUrl": "audio/mus_076.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Hit sertanejo dos anos 2020",
+      "Dupla ou parceria musical — Guilherme & Benuto",
+      "Do álbum \"Sertanejo 2024 - As Mais Tocadas\""
+    ]
+  },
+  {
+    "id": "mus_077",
+    "titulo": "Termina Comigo Antes",
+    "artista": "Gusttavo Lima",
+    "ano": 2022,
+    "categoria": "Sertanejo",
+    "capaUrl": "img/mus_077.jpg",
+    "previewUrl": "audio/mus_077.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Hit sertanejo dos anos 2020",
+      "Artista solo — Gusttavo Lima",
+      "Do álbum \"Sertanejo 2024 - As Mais Tocadas\""
+    ]
+  },
+  {
+    "id": "mus_078",
+    "titulo": "Relógio Parado (Ao Vivo)",
+    "artista": "Diego & Arnaldo",
+    "ano": 2019,
+    "categoria": "Sertanejo",
+    "capaUrl": "img/mus_078.jpg",
+    "previewUrl": "audio/mus_078.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Hit sertanejo dos anos 2010",
+      "Dupla ou parceria musical — Diego & Arnaldo",
+      "Do álbum \"Sertanejo 2024 - As Mais Tocadas\""
+    ]
+  },
+  {
+    "id": "mus_079",
+    "titulo": "Solteiro Frustrado (Ao Vivo)",
+    "artista": "Gusttavo Lima",
+    "ano": 2023,
+    "categoria": "Sertanejo",
+    "capaUrl": "img/mus_079.jpg",
+    "previewUrl": "audio/mus_079.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Hit sertanejo dos anos 2020",
+      "Artista solo — Gusttavo Lima",
+      "Do álbum \"Sertanejo 2024 - As Mais Tocadas\""
+    ]
+  },
+  {
+    "id": "mus_080",
+    "titulo": "Nocaute",
+    "artista": "Jorge & Mateus",
+    "ano": 2012,
+    "categoria": "Sertanejo",
+    "capaUrl": "img/mus_080.jpg",
+    "previewUrl": "audio/mus_080.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Hit sertanejo dos anos 2010",
+      "Dupla ou parceria musical — Jorge & Mateus",
+      "Do álbum \"Os Anjos Cantam\""
+    ]
   }
 ]
