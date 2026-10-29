@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Qual é a Música? — Jogador</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-top: #040714;
+      --bg-bottom: #3533CD;
+      --dark-bar: #020C17;
+      --yellow: #FFDC33;
+      --yellow-pill: #F5C518;
+      --red: #FF3333;
+      --red-soft: #ff4d4d;
+      --blue: #1800C6;
+      --blue-dot: #1E74FD;
+      --white: #FFFFFF;
+      --green: #22C55E;
+      --gray: #B0B3C0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; scrollbar-width: none; -ms-overflow-style: none; }
+    ::-webkit-scrollbar { display: none; }
+
+    html, body { height: 100vh; width: 100vw; overflow: hidden; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: var(--white);
+      display: flex;
+      flex-direction: column;
+      background: linear-gradient(180deg, var(--bg-top) 0%, #1a1f5e 45%, var(--bg-bottom) 100%);
+      text-align: center;
+    }
+    body::after {
+      content: ''; position: fixed; inset: 0; pointer-events: none;
+      background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.5) 100%); z-index: 1;
+    }
+
+    #app {
+      display: flex; flex-direction: column; align-items: center; justify-content: space-between;
+      padding: 2vh 0; height: 100%; width: 100%; position: relative; z-index: 2;
+    }
+    #formulario {
+      display: flex; flex-direction: column; height: 100%; width: 100%;
+      position: relative; z-index: 2; overflow-y: auto; padding: 20px 0;
+    }
+
+    #scoreBar {
+      display: flex; justify-content: space-between; padding: 2vh 5vw;
+      background: var(--dark-bar); font-weight: 700; font-size: 4vh;
+      box-shadow: 0 0.5vh 2vh rgba(0,0,0,0.3); z-index: 10;
+    }
+    #scoreBar .sv { color: var(--red-soft); }
+    #scoreBar .sa { color: #6b9aff; }
+
+    .logo-login { height: 22vh; width: auto; margin: 2vh auto 1vh; display: block; filter: drop-shadow(0 0 2vh rgba(149,180,232,0.4)); }
+    h1 { font-size: 4.5vh; font-weight: 700; margin-bottom: 2vh; }
+
+    input {
+      width: 85vw; max-width: 400px; font-size: 3.5vh; font-family: inherit; padding: 2vh 4vw;
+      margin: 1vh auto; border-radius: 1.5vh; border: 2px solid rgba(255,255,255,0.1);
+      background: rgba(0,0,0,0.4); color: var(--white); text-align: center; outline: none;
+    }
+    input:focus { border-color: var(--yellow); }
+
+    button {
+      width: 85vw; max-width: 400px; font-size: 4vh; font-family: inherit; font-weight: 700;
+      padding: 2.5vh; margin: 2vh auto; border-radius: 1.5vh; border: none; cursor: pointer;
+      transition: transform 0.2s, opacity 0.2s;
+    }
+    button:active { transform: scale(0.98); }
+    #btnEntrar { background: var(--yellow-pill); color: #1a1a2e; box-shadow: 0 1vh 3vh rgba(245,197,24,0.3); }
+    #mensagem { font-size: 3vh; color: var(--yellow); margin-top: 1vh; min-height: 4vh; }
+
+    #comoJogarLogin {
+      background: rgba(0,0,0,0.35); border-left: 0.8vh solid var(--yellow);
+      padding: 3vh 5vw; border-radius: 1.5vh; text-align: left;
+      width: 90vw; max-width: 450px; margin: 4vh auto; font-size: 2.6vh; line-height: 1.5;
+    }
+    #comoJogarLogin h4 { color: var(--yellow); font-size: 3.5vh; margin-bottom: 1.5vh; }
+    #comoJogarLogin p { margin-bottom: 1.5vh; }
+    #comoJogarLogin b { color: #fff; }
+    #comoJogarLogin .alerta { color: var(--red-soft); font-weight: 700; }
+    #comoJogarLogin .destaque-passe { color: #a0c4ff; font-weight: 700; }
+
+    #tituloEquipe { font-size: 4vh; font-weight: 700; margin: 1vh 0; text-transform: uppercase; letter-spacing: 0.2vw; }
+
+    #blocoPrincipal {
+      background: rgba(0,0,0,0.35); border-radius: 3vh; padding: 3vh 5vw;
+      width: 90vw; max-width: 450px; margin: 0 auto; display: flex; flex-direction: column; align-items: center;
+      border: 1px solid rgba(255,255,255,0.05); box-shadow: 0 1vh 4vh rgba(0,0,0,0.4);
+    }
+    #status { font-size: 3.5vh; font-weight: 700; min-height: 8vh; margin-bottom: 1vh; }
+    #instrucao { font-size: 2.8vh; line-height: 1.4; margin-bottom: 2vh; color: #ddd; text-align: left; width: 100%; }
+    #instrucao b { color: var(--yellow); }
+    #instrucao .alerta { color: var(--red-soft); font-weight: 700; }
+    #instrucao .destaque-passe { color: #a0c4ff; font-weight: 700; }
+
+    /* BOTÃO BUZINAR — flex center, sem padding, texto sempre dentro */
+    #buzina {
+      width: 60vw; max-width: 240px; aspect-ratio: 1;
+      border-radius: 50%;
+      display: none; align-items: center; justify-content: center;
+      font-size: 3.5vh; font-weight: 700; font-family: inherit; line-height: 1;
+      text-align: center; padding: 0; margin: 2vh auto;
+      color: white; cursor: pointer;
+      border: 0.6vh solid rgba(255,255,255,0.55);
+      animation: pulsar 0.8s infinite alternate;
+    }
+    #buzina.vermelha { background: var(--red); box-shadow: 0 0 5vh rgba(255,51,51,0.6); }
+    #buzina.azul { background: var(--blue); box-shadow: 0 0 5vh rgba(24,0,198,0.8); }
+    #buzina:disabled { opacity: 0.3; animation: none; }
+    @keyframes pulsar { from { transform: scale(1); } to { transform: scale(1.05); } }
+
+    #msgExtra { font-size: 3.2vh; font-weight: 700; color: var(--yellow); min-height: 6vh; margin-top: 1vh; }
+
+    #revelacaoCel { display: none; flex-direction: column; align-items: center; gap: 2vh; margin: 2vh auto; width: 100%; }
+    #capaCel { width: 55vw; max-width: 260px; aspect-ratio: 1; object-fit: cover; border-radius: 2vh; box-shadow: 0 1vh 4vh rgba(0,0,0,0.6); }
+    #tituloCel { font-size: 4vh; font-weight: 700; color: var(--yellow); }
+    #infoCel { font-size: 2.5vh; color: #ddd; }
+
+    /* ESTADO REVELANDO — colapsa espaços vazios */
+    #blocoPrincipal.revelando #status { min-height: auto; margin-bottom: 0; font-size: 4.5vh; color: var(--yellow); }
+    #blocoPrincipal.revelando #instrucao,
+    #blocoPrincipal.revelando #buzina,
+    #blocoPrincipal.revelando #msgExtra { display: none !important; }
+
+    #historico { margin: 2vh auto; text-align: left; width: 90vw; max-width: 450px; }
+    #historico h4 { font-size: 3vh; color: var(--yellow); margin-bottom: 1.5vh; text-align: center; }
+    .hist-item { display: flex; gap: 2vw; padding: 1vh 0; border-bottom: 1px solid rgba(255,255,255,0.1); align-items: center; }
+    .hist-item img { width: 10vw; max-width: 50px; aspect-ratio: 1; border-radius: 0.5vh; object-fit: cover; }
+    .hist-item .info { flex: 1; line-height: 1.2; }
+    .hist-item .info b { font-size: 2.8vh; color: #fff; }
+    .hist-item .info small { font-size: 2.2vh; color: var(--gray); display: block; }
+    .hist-item .res { font-size: 2.2vh; font-weight: 700; padding: 0.5vh 2vw; border-radius: 0.5vh; background: rgba(255,255,255,0.1); min-width: 15vw; text-align: center; }
+    .hist-item .res.vermelha { color: var(--red-soft); } .hist-item .res.azul { color: #6b9aff; }
+    .hist-item .res.zero { color: #ff8fa3; } .hist-item .res.ninguem { color: #aaa; }
+
+    #instrucoesIniciais {
+      background: rgba(0,0,0,0.35); border-left: 0.8vh solid var(--yellow);
+      padding: 3vh 5vw; border-radius: 1.5vh; text-align: left;
+      width: 90vw; max-width: 450px; margin: 2vh auto; font-size: 2.6vh; line-height: 1.5;
+    }
+    #instrucoesIniciais h4 { color: var(--yellow); margin-bottom: 1.5vh; font-size: 3.5vh; }
+    #instrucoesIniciais p { margin-bottom: 1.5vh; }
+    #instrucoesIniciais .alerta { color: var(--red-soft); font-weight: 700; }
+    #instrucoesIniciais .destaque-passe { color: #a0c4ff; font-weight: 700; }
+
+    .escondido { display: none !important; }
+  </style>
+</head>
+<body>
+  <div id="formulario">
+    <img src="/img/logo.png" class="logo-login" alt="Qual é a Música?">
+    <h1>Entrar na Sala</h1>
+    <input type="text" id="nome" placeholder="Seu nome (máx 10)" maxlength="10">
+    <input type="text" id="codigoSala" placeholder="Código (4 letras)" maxlength="4" style="text-transform: uppercase;">
+    <button id="btnEntrar" onclick="entrar()">ENTRAR</button>
+    <div id="mensagem"></div>
+
+    <div id="comoJogarLogin">
+      <h4>📋 Como Jogar</h4>
+      <p>Os jogadores são divididos pelo Maestro em duas equipes: a equipe <b>VERMELHA</b> e a equipe <b>AZUL</b>.</p>
+      <p>Cada rodada do jogo tem uma música.</p>
+      <p>O Maestro libera trechos da música. Começa com 2s, depois 4s, 6s, até 10s. <b>Quanto mais tempo tocar, menos pontos a equipe pode ganhar.</b></p>
+      <p>Se souber a música, aperte o botão <b>BUZINAR</b>.</p>
+      <p>A equipe que apertar primeiro tenta acertar.</p>
+      <p>Acertou? Ganha os pontos da rodada (<b>1000 → 800 → 600 → 400</b>).</p>
+      <p>Errou? <span class="alerta">PERDE TUDO!</span> E a outra equipe pode <b>VIRAR O DISCO</b> e tentar acertar. Se a outra equipe errar não perde nada, mas se acertar, <b>ganha a pontuação em dobro!</b></p>
+      <p class="destaque-passe">↔️ Não sabe a música? É a sua vez de responder e não quer arriscar? Existe o botão <b>PASSAR A VEZ</b>. Mas atenção: <b>só pode ser usado UMA VEZ por rodada</b>. Quando você passa, a outra equipe é obrigada a responder — e se ela errar, não perde nada. Não existe devolver o passe.</p>
+      <p>Ah, mas fique tranquilo, dicas aparecem na tela a partir do 2º estágio.</p>
+    </div>
+  </div>
+
+  <div id="app" class="escondido">
+    <div id="scoreBar" class="escondido">
+      <span class="sv">🔴 <span id="pv">0</span></span>
+      <span class="sa">🔵 <span id="pa">0</span></span>
+    </div>
+
+    <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; padding: 0 5vw;">
+      <h1 id="tituloEquipe">⏳ Aguarde...</h1>
+      <div id="blocoPrincipal">
+        <div id="status">Aguardando o Maestro...</div>
+        <div id="instrucao"></div>
+        <button id="buzina" onclick="buzinar()">BUZINAR!</button>
+        <div id="msgExtra"></div>
+      </div>
+
+      <div id="revelacaoCel">
+        <img id="capaCel" alt="">
+        <div id="tituloCel"></div>
+        <div id="infoCel"></div>
+      </div>
+
+      <div id="instrucoesIniciais" class="escondido">
+        <h4>🎯 Preste Atenção</h4>
+        <p><b>Aperte BUZINAR</b> quando souber a música. Seja mais rápido que a outra equipe!</p>
+        <p style="margin-top:2vh;"><b>Mas atenção:</b></p>
+        <p>✅ <b>Acertou?</b> Ganha os pontos da rodada.</p>
+        <p>❌ <b>Errou?</b> <span class="alerta">PERDE TUDO</span> — e a outra equipe pode virar o disco.</p>
+        <p style="margin-top:2vh;"><b>VIRAR O DISCO:</b> significa que a outra equipe pode arriscar acertar a música que a sua equipe errou. Só que se eles não souberem ou errarem, eles não perdem pontos. Mas se eles acertarem, <b>ganharão a pontuação EM DOBRO!</b></p>
+        <p style="margin-top:2vh;"><span class="destaque-passe">↔️ PASSAR A VEZ:</span> se for a sua vez e você não souber a música, pode passar. Mas <b>só UMA vez por rodada</b>. A outra equipe passa a ser obrigada a responder, e se errar não perde nada. Não existe devolver o passe.</p>
+        <p style="margin-top:2vh;"><b>Na fase final, errar zera o placar</b> da sua equipe. Sem segunda chance. Cuidado!</p>
+        <p style="margin-top:2vh;"><i>Dicas aparecem a partir do 2º estágio da música.</i></p>
+      </div>
+    </div>
+
+    <div id="historico" class="escondido">
+      <h4>📜 Histórico</h4>
+      <div id="histLista"></div>
+    </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('sala')) document.getElementById('codigoSala').value = params.get('sala');
+    let minhaEquipe = null;
+    let buzinouNestaRodada = false;
+    let musicaAtualNum = 0;
+
+    function entrar() {
+      const nome = document.getElementById('nome').value.trim();
+      const codigoSala = document.getElementById('codigoSala').value.trim().toUpperCase();
+      if (!nome || !codigoSala) { document.getElementById('mensagem').textContent = 'Preencha nome e código.'; return; }
+      socket.emit('jogador:entrar', { nome, codigoSala });
+    }
+    function buzinar() {
+      if (!minhaEquipe || buzinouNestaRodada) return;
+      buzinouNestaRodada = true;
+      document.getElementById('buzina').disabled = true;
+      socket.emit('equipe:buzinar', { equipe: minhaEquipe });
+    }
+    function atualizarCorFundo() {
+      if (minhaEquipe === 'vermelha') document.body.style.background = 'radial-gradient(ellipse at top, #4a1a1a 0%, #1a0a0a 100%)';
+      else if (minhaEquipe === 'azul') document.body.style.background = 'radial-gradient(ellipse at top, #1a2a4a 0%, #0a1020 100%)';
+      else document.body.style.background = 'linear-gradient(180deg, #0a0a0a 0%, #151515 100%)';
+    }
+    function renderizarHistorico(lista) {
+      const container = document.getElementById('historico');
+      const list = document.getElementById('histLista');
+      if (!lista || !lista.length) { container.classList.add('escondido'); return; }
+      container.classList.remove('escondido');
+      list.innerHTML = lista.slice().reverse().map(h => {
+        let resTxt = '', resClass = '';
+        if (h.resultado === 'acertou') { resTxt = '✅ ' + (h.equipeVencedora === 'vermelha' ? 'Verm' : 'Azul') + ' +' + h.pontos; resClass = h.equipeVencedora || ''; }
+        else if (h.resultado === 'zerou') { resTxt = '💀 ' + (h.equipeZerada === 'vermelha' ? 'Verm' : 'Azul') + ' ' + h.pontos; resClass = 'zero'; }
+        else { resTxt = '❌ Ninguém'; resClass = 'ninguem'; }
+        return `<div class="hist-item"><img src="/${h.capaUrl}" alt=""><div class="info"><b>${h.titulo}</b><small>${h.artista} • ${h.ano}</small></div><div class="res ${resClass}">${resTxt}</div></div>`;
+      }).join('');
+    }
+
+    socket.on('nova_partida', ({ codigo }) => {
+      minhaEquipe = null; buzinouNestaRodada = false; musicaAtualNum = 0;
+      atualizarCorFundo();
+      document.getElementById('app').classList.add('escondido');
+      document.getElementById('formulario').classList.remove('escondido');
+      document.getElementById('scoreBar').classList.add('escondido');
+      document.getElementById('codigoSala').value = codigo; document.getElementById('nome').value = '';
+      document.getElementById('mensagem').textContent = '🆕 Nova partida! Entre novamente com o código ' + codigo;
+      document.getElementById('revelacaoCel').style.display = 'none';
+      document.getElementById('blocoPrincipal').classList.remove('revelando');
+    });
+
+    socket.on('sala:estado', (sala) => {
+      const eu = sala.jogadores.find(j => j.id === socket.id);
+      if (!eu) return;
+      document.getElementById('formulario').classList.add('escondido');
+      document.getElementById('app').classList.remove('escondido');
+      document.getElementById('scoreBar').classList.remove('escondido');
+      document.getElementById('pv').textContent = sala.placar.vermelha;
+      document.getElementById('pa').textContent = sala.placar.azul;
+      minhaEquipe = eu.equipe;
+      atualizarCorFundo();
+      document.getElementById('tituloEquipe').textContent = minhaEquipe ? (minhaEquipe === 'vermelha' ? '🔴 Equipe Vermelha' : '🔵 Equipe Azul') : '⏳ Aguarde...';
+      renderizarHistorico(sala.historicoMusicas);
+
+      const instBox = document.getElementById('instrucoesIniciais'), instrucao = document.getElementById('instrucao');
+      instBox.classList.add('escondido'); instrucao.innerHTML = '';
+
+      if (!minhaEquipe) {
+        document.getElementById('status').textContent = 'Aguardando o Maestro te atribuir a uma equipe...';
+        document.getElementById('blocoPrincipal').classList.remove('revelando');
+        return;
+      }
+      if (!sala.partidaIniciada) {
+        document.getElementById('status').textContent = 'Pronto! Aguardando o Maestro iniciar.';
+        instBox.classList.remove('escondido');
+        document.getElementById('blocoPrincipal').classList.remove('revelando');
+        return;
+      }
+      if (!sala.rodada) {
+        document.getElementById('status').textContent = '🏁 Fim de partida! Aguarde o Maestro.';
+        document.getElementById('blocoPrincipal').classList.remove('revelando');
+        return;
+      }
+
+      const r = sala.rodada;
+      if (r.numero !== musicaAtualNum) {
+        musicaAtualNum = r.numero;
+        document.getElementById('revelacaoCel').style.display = 'none';
+      }
+      const P = r.pontos, P2 = P * 2, isUltimo = r.estagio === 3;
+
+      // Se NÃO está em revelação, remove a classe "revelando"
+      if (r.estado !== 'REVELACAO') {
+        document.getElementById('blocoPrincipal').classList.remove('revelando');
+      }
+
+      if (r.estado === 'AGUARDANDO') {
+        buzinouNestaRodada = false; document.getElementById('buzina').style.display = 'none';
+        document.getElementById('status').textContent = 'Aguarde o Maestro tocar o trecho...';
+        document.getElementById('msgExtra').textContent = '';
+        instrucao.innerHTML = '🎧 Preste atenção no áudio. Aperte BUZINAR quando souber a música.';
+      } else if (r.estado === 'RESPONDENDO' && r.equipeDaVez) {
+        document.getElementById('buzina').style.display = 'none';
+        const souEu = r.equipeDaVez === minhaEquipe, outraNome = minhaEquipe === 'vermelha' ? 'Azul' : 'Vermelha';
+        if (souEu) {
+          if (r.modo === 'virada') {
+            document.getElementById('status').textContent = '🔄 VIROU O DISCO! É a sua vez!';
+            instrucao.innerHTML = `Se <b>ACERTAR</b>: <b>+${P2} pts</b> (EM DOBRO!)<br>Se <b>ERRAR</b>: nada a perder — não perde pontos.`;
+            document.getElementById('msgExtra').textContent = '';
+          } else if (r.jaPassou) {
+            document.getElementById('status').textContent = '↔️ Passaram a vez pra você!';
+            instrucao.innerHTML = `Você <b>é obrigado a responder</b>.<br>Se <b>ACERTAR</b>: <b>+${P} pts</b><br>Se <b>ERRAR</b>: não perde nada (foi passado).`;
+            document.getElementById('msgExtra').textContent = 'Sem penalidade se errar.';
+          } else if (isUltimo) {
+            document.getElementById('status').textContent = '🎤 É a sua vez! ESTÁGIO FINAL!';
+            instrucao.innerHTML = `Se <b>ACERTAR</b>: <b>+${P} pts</b><br>Se <b>ERRAR</b> ou não responder: <span class="alerta"><b>PERDE TUDO</b></span> (zera o placar!).`;
+            document.getElementById('msgExtra').textContent = '⚠️ Atenção máxima! Última chance.';
+          } else {
+            document.getElementById('status').textContent = '🎤 É a sua vez de responder!';
+            instrucao.innerHTML = `Se <b>ACERTAR</b>: <b>+${P} pts</b><br>Se <b>ERRAR</b>: <span class="alerta"><b>PERDE TUDO</b></span><br><br>Não sabe? Você pode <b>PASSAR A VEZ</b> — mas <span class="destaque-passe"><b>só uma vez por rodada</b></span>.`;
+            document.getElementById('msgExtra').textContent = '';
+          }
+        } else {
+          if (r.modo === 'virada') {
+            document.getElementById('status').textContent = '🔄 A outra equipe está tentando virar o disco...';
+            instrucao.innerHTML = `A equipe <b>${outraNome}</b> está respondendo.<br>Se ela <b>ACERTAR</b>: <b>+${P2} pts</b> para eles.<br>Se ela <b>ERRAR</b>: nada muda no placar.`;
+            document.getElementById('msgExtra').textContent = '';
+          } else if (r.jaPassou) {
+            document.getElementById('status').textContent = '↔️ A outra equipe foi passada e está respondendo...';
+            instrucao.innerHTML = `A equipe <b>${outraNome}</b> foi passada e é obrigada a responder.<br>Se ela <b>ACERTAR</b>: <b>+${P} pts</b> para eles.<br>Se ela <b>ERRAR</b>: ninguém pontua.`;
+            document.getElementById('msgExtra').textContent = '';
+          } else if (isUltimo) {
+            document.getElementById('status').textContent = '⏳ A outra equipe está respondendo o ESTÁGIO FINAL...';
+            instrucao.innerHTML = `Se ela <b>ACERTAR</b>: <b>+${P} pts</b> para eles.<br>Se ela <b>ERRAR</b>: <span class="alerta"><b>PERDEM TUDO</b></span>.<br><i>No estágio final não há virada de disco.</i>`;
+            document.getElementById('msgExtra').textContent = '';
+          } else {
+            document.getElementById('status').textContent = '⏳ A outra equipe está respondendo...';
+            instrucao.innerHTML = `Se ela <b>ACERTAR</b>: <b>+${P} pts</b> para eles.<br>Se ela <b>ERRAR</b>: <span class="alerta"><b>PERDEM TUDO</b></span>.<br><br><b>🔥 SE ELA ERRAR, VOCÊ PODE VIRAR O DISCO!</b><br>Se acertar: <b>GANHA EM DOBRO (+${P2} pts)</b><br>Se errar: não perde nada.`;
+            document.getElementById('msgExtra').textContent = '';
+          }
+        }
+      } else if (r.estado === 'REVELACAO') {
+        document.getElementById('buzina').style.display = 'none';
+      }
+    });
+
+    socket.on('rodada:iniciada', (sala) => {
+      document.getElementById('revelacaoCel').style.display = 'none';
+      document.getElementById('buzina').style.display = 'none';
+      document.getElementById('blocoPrincipal').classList.remove('revelando');
+      document.getElementById('msgExtra').textContent = '';
+      document.getElementById('status').textContent = 'Aguarde o Maestro tocar o trecho...';
+      buzinouNestaRodada = false;
+      if (sala && sala.rodada) musicaAtualNum = sala.rodada.numero;
+      if (sala) renderizarHistorico(sala.historicoMusicas);
+    });
+
+    socket.on('resultado:passou', ({ de, para, pontos }) => {
+      if (para === minhaEquipe) {
+        document.getElementById('status').textContent = '↔️ Passaram a vez pra você!';
+        document.getElementById('instrucao').innerHTML = `Você <b>é obrigado a responder</b>.<br>Se <b>ACERTAR</b>: <b>+${pontos} pts</b><br>Se <b>ERRAR</b>: não perde nada.`;
+        document.getElementById('msgExtra').textContent = 'Sem penalidade se errar.';
+      } else if (de === minhaEquipe) {
+        document.getElementById('status').textContent = '↔️ Você passou a vez.';
+        document.getElementById('instrucao').innerHTML = `A outra equipe é obrigada a responder.<br>Se ela <b>ACERTAR</b>: <b>+${pontos} pts</b>.<br>Se ela <b>ERRAR</b>: ninguém pontua.`;
+        document.getElementById('msgExtra').textContent = '';
+      }
+    });
+
+    socket.on('buzina:habilitada', () => {
+      if (!minhaEquipe) return;
+      buzinouNestaRodada = false;
+      const b = document.getElementById('buzina'); b.style.display = 'flex'; b.className = minhaEquipe; b.disabled = false;
+      document.getElementById('status').textContent = '🔔 APERTE AGORA!';
+      document.getElementById('instrucao').innerHTML = 'Se souber a música, <b>aperte agora</b>! Quem apertar primeiro tem a chance de responder.';
+      document.getElementById('msgExtra').textContent = '';
+    });
+    socket.on('buzina:apertada', ({ equipe }) => {
+      document.getElementById('buzina').style.display = 'none';
+      if (equipe === minhaEquipe) {
+        document.getElementById('status').textContent = '✅ Você apertou primeiro!'; document.getElementById('msgExtra').textContent = 'Aguarde o Maestro decidir...';
+      } else {
+        document.getElementById('status').textContent = '❌ A outra equipe apertou primeiro.'; document.getElementById('msgExtra').textContent = '';
+      }
+    });
+    socket.on('buzina:desabilitada', () => { document.getElementById('buzina').style.display = 'none'; });
+    socket.on('resultado:zerou', ({ equipe }) => {
+      const outra = equipe === 'vermelha' ? 'Azul' : 'Vermelha';
+      if (equipe === minhaEquipe) {
+        document.getElementById('status').textContent = '💀 Você ERROU e ZEROU tudo!';
+        document.getElementById('instrucao').innerHTML = 'Seu placar foi zerado. Pra piorar, a outra equipe pode tentar virar o disco...';
+      } else {
+        document.getElementById('status').textContent = '💀 A outra equipe errou e ZEROU.'; document.getElementById('instrucao').innerHTML = '';
+      }
+    });
+    socket.on('resultado:virada', ({ equipe, pontos }) => {
+      const outra = equipe === 'vermelha' ? 'Vermelha' : 'Azul';
+      if (equipe === minhaEquipe) {
+        document.getElementById('status').textContent = '🔄 VIROU O DISCO! É a sua vez!';
+        document.getElementById('instrucao').innerHTML = `Se <b>ACERTAR</b>: <b>+${pontos} pts</b> (EM DOBRO!)<br>Se <b>ERRAR</b>: nada a perder.`;
+      } else {
+        document.getElementById('status').textContent = '💀 Você ERROU e ZEROU!';
+        document.getElementById('instrucao').innerHTML = `A equipe <b>${outra}</b> pode ganhar <b>${pontos} pts</b> (dobro) se acertar.`;
+      }
+    });
+    socket.on('resultado:errou', ({ equipe, zerou }) => {
+      if (equipe === minhaEquipe) {
+        document.getElementById('status').textContent = '❌ Você errou.';
+        document.getElementById('msgExtra').textContent = zerou ? 'Você ZEROU tudo!' : 'Mas NÃO perdeu pontos (foi passado/virada).';
+      } else {
+        document.getElementById('status').textContent = '❌ A outra equipe errou.'; document.getElementById('msgExtra').textContent = 'Ninguém pontuou nesta rodada.';
+      }
+    });
+    socket.on('resultado:acertou', ({ equipe, pontos }) => {
+      if (equipe === minhaEquipe) { document.getElementById('status').textContent = '🎉 Você acertou! +' + pontos + ' pts'; }
+      else { document.getElementById('status').textContent = 'A outra equipe acertou (+' + pontos + ' pts).'; }
+      document.getElementById('instrucao').innerHTML = ''; document.getElementById('msgExtra').textContent = '';
+    });
+
+    socket.on('rodada:revelacao', ({ musica }) => {
+      document.getElementById('buzina').style.display = 'none';
+      document.getElementById('blocoPrincipal').classList.add('revelando');
+      document.getElementById('status').textContent = '🎵 A música é:';
+      document.getElementById('instrucao').innerHTML = '';
+      document.getElementById('msgExtra').textContent = '';
+      document.getElementById('capaCel').src = '/' + musica.capaUrl;
+      document.getElementById('tituloCel').textContent = musica.titulo;
+      document.getElementById('infoCel').textContent = musica.artista + ' • ' + musica.ano;
+      document.getElementById('revelacaoCel').style.display = 'flex';
+    });
+
+    socket.on('partida:encerrada', ({ placar, vencedor }) => {
+      document.getElementById('buzina').style.display = 'none'; document.getElementById('revelacaoCel').style.display = 'none';
+      document.getElementById('blocoPrincipal').classList.remove('revelando');
+      document.getElementById('instrucoesIniciais').classList.add('escondido');
+      if (vencedor === 'empate') { document.getElementById('status').textContent = '🤝 Empate!'; }
+      else if (vencedor === minhaEquipe) { document.getElementById('status').textContent = '🏆 VOCÊS VENCERAM! 🎉'; }
+      else { document.getElementById('status').textContent = '🏁 Fim. A outra equipe venceu.'; }
+      document.getElementById('instrucao').innerHTML = `Vermelha: <b>${placar.vermelha}</b> | Azul: <b>${placar.azul}</b><br><i>Aguarde o Maestro.</i>`;
+      document.getElementById('msgExtra').textContent = '';
+    });
+    socket.on('erro', ({ mensagem }) => { document.getElementById('mensagem').textContent = '⚠️ ' + mensagem; });
+    socket.on('jogador:removido', () => { document.body.innerHTML = '<h1 style="margin-top:50vh; transform:translateY(-50%); font-size:5vh;">Você foi removido.</h1>'; });
+  </script>
+</body>
+</html>
