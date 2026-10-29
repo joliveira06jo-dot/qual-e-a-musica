@@ -104,7 +104,7 @@
     #jogadores-lobby { font-size: 2.2vh; font-weight: 500; color: rgba(255,255,255,0.85); text-align: center; max-width: 80vw; line-height: 1.4; text-transform: uppercase; letter-spacing: 0.1vw; }
 
     /* ==========================================================================
-       3. RODADA
+       3. RODADA (DICAS SEMPRE VISÍVEIS)
        ========================================================================== */
     #rodada.ativa { display: grid; grid-template-columns: 28vw 1fr 22vw; grid-template-rows: auto 1fr auto; padding: 15vh 3vw 2vh 3vw; gap: 2vw; align-items: center; }
 
@@ -112,7 +112,12 @@
     .titulo-estagio { font-size: 5vh; font-weight: 800; line-height: 1.1; letter-spacing: 0.1vw; text-shadow: 0 0 2vh rgba(250,204,21,0.3); }
     .subtitulo { font-size: 3vh; font-weight: 600; color: var(--yellow); margin-top: 0.5vh; }
 
-    .bloco-dicas { background: rgba(6, 20, 51, 0.7); border: 2px solid rgba(250, 204, 21, 0.6); border-radius: 1.5vh; padding: 2.5vh; display: flex; flex-direction: column; gap: 1.5vh; text-align: left; box-shadow: 0 1vh 4vh rgba(0,0,0,0.5); backdrop-filter: blur(8px); align-self: start; }
+    .bloco-dicas { 
+      background: rgba(6, 20, 51, 0.7); border: 2px solid rgba(250, 204, 21, 0.6); border-radius: 1.5vh; 
+      padding: 2.5vh; display: flex !important; flex-direction: column; gap: 1.5vh; 
+      text-align: left; box-shadow: 0 1vh 4vh rgba(0,0,0,0.5); backdrop-filter: blur(8px); 
+      align-self: start; visibility: visible !important;
+    }
     .bloco-dicas h3 { font-size: 2.8vh; color: var(--yellow); text-transform: uppercase; letter-spacing: 0.1vw; margin-bottom: 1vh; text-align: center; }
     .dica-item { font-size: 3.2vh; color: #cbd5e1; line-height: 1.4; padding: 1vh; border-bottom: 1px dashed rgba(255,255,255,0.1); transition: all 0.5s; display: flex; align-items: center; gap: 1vw; text-transform: uppercase; }
     .dica-item.ativa { color: var(--white); font-weight: 600; }
@@ -212,10 +217,10 @@
     #final-msg { font-size: 2.5vh; opacity: 0.7; font-weight: 500; margin-top: 2vh; }
 
     /* ==========================================================================
-       6. FOOTER
+       6. FOOTER (COM AUMENTO DA PONTUAÇÃO)
        ========================================================================== */
     /* AUMENTO DO FOOTER PARA ACOMODAR O TEXTO GIGANTE */
-    #footer { height: 22vh; background: var(--dark-bar); padding: 0 3vw; display: flex; justify-content: center; align-items: center; gap: 3vw; position: relative; z-index: 10; border-top: 2px solid rgba(255,255,255,0.1); box-shadow: 0 -1vh 4vh rgba(0,0,0,0.8); }
+    #footer { height: 24vh; background: var(--dark-bar); padding: 0 3vw; display: flex; justify-content: center; align-items: center; gap: 3vw; position: relative; z-index: 10; border-top: 2px solid rgba(255,255,255,0.1); box-shadow: 0 -1vh 4vh rgba(0,0,0,0.8); }
     
     .container-equipe { display: flex; flex-direction: column; align-items: center; gap: 1vh; }
 
@@ -224,7 +229,7 @@
 
     /* CARD MAIS ALTO E COM FLEXBOX PARA NÃO CORTAR */
     .card-equipe {
-      width: 22vw; min-width: 260px; height: 16vh;
+      width: 24vw; min-width: 280px; height: 18vh;
       border-radius: 1.5vh;
       background: var(--cor-fundo-gradiente);
       border: 2px solid var(--cor-borda);
@@ -246,14 +251,15 @@
     .card-pontos { 
       flex: 1; width: 100%;
       display: flex; align-items: center; justify-content: center;
-      font-size: 12vh; font-weight: 800; color: #ffffff; 
+      font-size: 14vh; font-weight: 800; color: #ffffff; 
       letter-spacing: -0.02em; line-height: 1; text-shadow: 0 4px 8px rgba(0, 0, 0, 0.7); 
     }
-    .card-pontos span { font-size: 3.5vh; margin-left: 0.5vw; }
+    /* AQUI ESTÁ A CORREÇÃO DO TAMANHO DO "pts" */
+    .card-pontos span { font-size: 7.0vh; margin-left: 0.5vw; margin-bottom: 1vh; }
 
     /* MARQUEE PARA NOMES DOS JOGADORES */
     .team-jogadores {
-      width: 22vw; max-width: 22vw; overflow: hidden; position: relative;
+      width: 24vw; max-width: 24vw; overflow: hidden; position: relative;
       text-align: left; white-space: nowrap; padding: 0 1vw; margin-top: 1vh;
     }
     .marquee-inner { display: inline-block; white-space: nowrap; color: inherit; font-size: 2.2vh; font-weight: 600; text-transform: uppercase; }
@@ -617,12 +623,21 @@
       document.getElementById('num-rodada').textContent = `RODADA ${r.numero} — ${r.pontos} PONTOS`;
       document.getElementById('info-estagio').textContent = `Estágio ${r.estagio + 1} • ${r.duracao}s de música`;
       
-      const dicas = r.musica.dicas;
+      // LÓGICA DAS DICAS (SEMPRE VISÍVEL, MAS SÓ LIBERA CONFORME O ESTÁGIO)
+      const dicas = r.musica.dicas || ["", "", ""];
       for (let i = 1; i <= 3; i++) {
         const el = document.getElementById(`dica-${i}`);
-        if (el && dicas) {
-          if (r.estagio >= i) { el.innerHTML = `<span class="lupa">🔍</span> DICA ${i}: ${dicas[i-1]}`; el.classList.add('ativa'); } 
-          else { el.innerHTML = `DICA ${i}: ?`; el.classList.remove('ativa'); }
+        if (el) {
+          // i=1 (Dica 1) libera no estagio 1 (que é o segundo estágio, 4s)
+          // i=2 (Dica 2) libera no estagio 2 (sexto estágio, 6s)
+          // i=3 (Dica 3) libera no estagio 3 (último estágio, 10s)
+          if (r.estagio >= i) { 
+            el.innerHTML = `<span class="lupa">🔍</span> DICA ${i}: ${dicas[i-1]}`; 
+            el.classList.add('ativa'); 
+          } else { 
+            el.innerHTML = `DICA ${i}: ?`; 
+            el.classList.remove('ativa'); 
+          }
         }
       }
 
@@ -719,7 +734,6 @@
       document.getElementById('sidebar-global').style.visibility = 'hidden';
     });
 
-    // CORREÇÃO CRÍTICA AQUI: A ORDEM DE CHAMADA DOS MÉTODOS
     socket.on('sala:estado', (sala) => {
       renderizarFooter(sala);
 
@@ -735,14 +749,14 @@
       }
       
       if (sala.rodada.estado === 'REVELACAO') { 
-        irParaModo('REVELACAO'); // 1. Muda o modo PRIMEIRO
-        renderizarSidebar(sala); // 2. Agora desenha a sidebar (modoAtual já é REVELACAO)
-        renderizarRevelacao(sala); // 3. Desenha o resto
+        irParaModo('REVELACAO'); 
+        renderizarSidebar(sala); 
+        renderizarRevelacao(sala); 
         return; 
       }
       
       irParaModo('RODADA'); 
-      renderizarSidebar(sala); // Esconde a sidebar
+      renderizarSidebar(sala); 
       renderizarRodada(sala);
     });
 
