@@ -1,0 +1,752 @@
+[
+  {
+    "id": "mus_001",
+    "titulo": "Ai Se Eu Te Pego",
+    "artista": "Michel Teló",
+    "ano": 2011,
+    "categoria": "Sertanejo Universitário",
+    "capaUrl": "img/mus_001.jpg",
+    "previewUrl": "audio/mus_001.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Artista brasileiro",
+      "Grande hit de 2011",
+      "Ficou famosa em toda a Europa"
+    ]
+  },
+  {
+    "id": "mus_002",
+    "titulo": "Fugidinha",
+    "artista": "Michel Teló",
+    "ano": 2010,
+    "categoria": "Sertanejo Universitário",
+    "capaUrl": "img/mus_002.jpg",
+    "previewUrl": "audio/mus_002.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Artista brasileiro",
+      "Sertanejo universitário dos anos 2010",
+      "Do mesmo cantor de \"Ai Se Eu Te Pego\""
+    ]
+  },
+  {
+    "id": "mus_003",
+    "titulo": "Leão",
+    "artista": "Marília Mendonça",
+    "ano": 2020,
+    "categoria": "Feminejo",
+    "capaUrl": "img/mus_003.jpg",
+    "previewUrl": "audio/mus_003.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Artista brasileira",
+      "Sucesso recente",
+      "Da \"Rainha da Sofrência\""
+    ]
+  },
+  {
+    "id": "mus_004",
+    "titulo": "Infiel",
+    "artista": "Marília Mendonça",
+    "ano": 2016,
+    "categoria": "Feminejo",
+    "capaUrl": "img/mus_004.jpg",
+    "previewUrl": "audio/mus_004.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Artista brasileira",
+      "Sertanejo dos anos 2010",
+      "Um dos maiores hits da carreira da cantora"
+    ]
+  },
+  {
+    "id": "mus_005",
+    "titulo": "Eu Sei de Cor",
+    "artista": "Marília Mendonça",
+    "ano": 2016,
+    "categoria": "Feminejo",
+    "capaUrl": "img/mus_005.jpg",
+    "previewUrl": "audio/mus_005.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Artista brasileira",
+      "Feminejo",
+      "Do mesmo álbum de \"Infiel\""
+    ]
+  },
+  {
+    "id": "mus_006",
+    "titulo": "Tubarões",
+    "artista": "Diego & Victor Hugo",
+    "ano": 2024,
+    "categoria": "Sertanejo",
+    "capaUrl": "img/mus_006.jpg",
+    "previewUrl": "audio/mus_006.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Artista brasileiro",
+      "Dupla sertaneja",
+      "Hit recente de 2024"
+    ]
+  },
+  {
+    "id": "mus_007",
+    "titulo": "Última Saudade",
+    "artista": "Henrique & Juliano",
+    "ano": 2024,
+    "categoria": "Sertanejo",
+    "capaUrl": "img/mus_007.jpg",
+    "previewUrl": "audio/mus_007.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Artista brasileiro",
+      "Dupla sertaneja famosa",
+      "Do álbum \"Manuel\" (2024)"
+    ]
+  },
+  {
+    "id": "mus_008",
+    "titulo": "Cuida Bem Dela",
+    "artista": "Henrique & Juliano",
+    "ano": 2014,
+    "categoria": "Sertanejo",
+    "capaUrl": "img/mus_008.jpg",
+    "previewUrl": "audio/mus_008.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Artista brasileiro",
+      "Dupla sertaneja",
+      "Grande sucesso de 2014"
+    ]
+  },
+  {
+    "id": "mus_009",
+    "titulo": "Colo",
+    "artista": "Jorge & Mateus",
+    "ano": 2015,
+    "categoria": "Sertanejo",
+    "capaUrl": "img/mus_009.jpg",
+    "previewUrl": "audio/mus_009.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Artista brasileiro",
+      "Dupla sertaneja",
+      "Hit dos anos 2010"
+    ]
+  },
+  {
+    "id": "mus_010",
+    "titulo": "Amo Noite e Dia",
+    "artista": "Jorge & Mateus",
+    "ano": 2010,
+    "categoria": "Sertanejo",
+    "capaUrl": "img/mus_010.jpg",
+    "previewUrl": "audio/mus_010.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Artista brasileiro",
+      "Sertanejo universitário",
+      "Começo da carreira da dupla"
+    ]
+  },
+  {
+    "id": "mus_011",
+    "titulo": "Dou a Vida por um Beijo",
+    "artista": "Zezé Di Camargo & Luciano",
+    "ano": 2000,
+    "categoria": "Sertanejo",
+    "capaUrl": "img/mus_011.jpg",
+    "previewUrl": "audio/mus_011.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Artista brasileiro",
+      "Sertanejo romântico dos anos 2000",
+      "Dupla famosa pelo hit \"É o Amor\""
+    ]
+  },
+  {
+    "id": "mus_012",
+    "titulo": "Dormi na Praça",
+    "artista": "Bruno & Marrone",
+    "ano": 2001,
+    "categoria": "Sertanejo",
+    "capaUrl": "img/mus_012.jpg",
+    "previewUrl": "audio/mus_012.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Artista brasileiro",
+      "Sertanejo dos anos 2000",
+      "Dupla com o hit \"Choram as Rosas\""
+    ]
+  },
+  {
+    "id": "mus_013",
+    "titulo": "Choram as Rosas",
+    "artista": "Bruno & Marrone",
+    "ano": 2003,
+    "categoria": "Sertanejo",
+    "capaUrl": "img/mus_013.jpg",
+    "previewUrl": "audio/mus_013.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Artista brasileiro",
+      "Sertanejo romântico",
+      "Um dos maiores sucessos da dupla"
+    ]
+  },
+  {
+    "id": "mus_014",
+    "titulo": "P do Pecado",
+    "artista": "Grupo Menos é Mais e Simone Mendes",
+    "ano": 2024,
+    "categoria": "Pagode",
+    "capaUrl": "img/mus_014.jpg",
+    "previewUrl": "audio/mus_014.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Artista brasileiro",
+      "Pagode recente",
+      "Parceria de 2024 com Simone Mendes"
+    ]
+  },
+  {
+    "id": "mus_015",
+    "titulo": "Coração Partido",
+    "artista": "Grupo Menos é Mais",
+    "ano": 2024,
+    "categoria": "Pagode",
+    "capaUrl": "img/mus_015.jpg",
+    "previewUrl": "audio/mus_015.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Artista brasileiro",
+      "Pagode",
+      "Do mesmo grupo de \"P do Pecado\""
+    ]
+  },
+  {
+    "id": "mus_016",
+    "titulo": "Tá Vendo Aquela Lua",
+    "artista": "Exaltasamba",
+    "ano": 2010,
+    "categoria": "Pagode",
+    "capaUrl": "img/mus_016.jpg",
+    "previewUrl": "audio/mus_016.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Artista brasileiro",
+      "Pagode dos anos 2010",
+      "Grande sucesso do grupo"
+    ]
+  },
+  {
+    "id": "mus_017",
+    "titulo": "Guerra Fria",
+    "artista": "Sorriso Maroto",
+    "ano": 2010,
+    "categoria": "Pagode",
+    "capaUrl": "img/mus_017.jpg",
+    "previewUrl": "audio/mus_017.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Artista brasileiro",
+      "Pagode romântico",
+      "Hit do grupo Sorriso Maroto"
+    ]
+  },
+  {
+    "id": "mus_018",
+    "titulo": "Vai Vadiar",
+    "artista": "Zeca Pagodinho",
+    "ano": 2000,
+    "categoria": "Samba",
+    "capaUrl": "img/mus_018.jpg",
+    "previewUrl": "audio/mus_018.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Artista brasileiro",
+      "Samba carioca dos anos 2000",
+      "Do mesmo cantor de \"Deixa a Vida Me Levar\""
+    ]
+  },
+  {
+    "id": "mus_019",
+    "titulo": "Deixa A Vida Me Levar",
+    "artista": "Zeca Pagodinho",
+    "ano": 2002,
+    "categoria": "Samba",
+    "capaUrl": "img/mus_019.jpg",
+    "previewUrl": "audio/mus_019.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Artista brasileiro",
+      "Samba de 2002",
+      "Muito tocada em rodas de samba"
+    ]
+  },
+  {
+    "id": "mus_020",
+    "titulo": "Você Abusou",
+    "artista": "Jorge Aragão",
+    "ano": 2001,
+    "categoria": "Samba",
+    "capaUrl": "img/mus_020.jpg",
+    "previewUrl": "audio/mus_020.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Artista brasileiro",
+      "Samba",
+      "Regravação de clássico de Antônio Carlos & Jocafi"
+    ]
+  },
+  {
+    "id": "mus_021",
+    "titulo": "Mel Na Boca",
+    "artista": "Almir Guineto",
+    "ano": 2000,
+    "categoria": "Samba",
+    "capaUrl": "img/mus_021.jpg",
+    "previewUrl": "audio/mus_021.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Artista brasileiro",
+      "Samba dos anos 2000",
+      "Do fundador do grupo Fundo de Quintal"
+    ]
+  },
+  {
+    "id": "mus_022",
+    "titulo": "Agachadinho",
+    "artista": "Harmonia do Samba",
+    "ano": 2000,
+    "categoria": "Pagode Baiano",
+    "capaUrl": "img/mus_022.jpg",
+    "previewUrl": "audio/mus_022.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Artista brasileiro",
+      "Axé/Pagode baiano",
+      "Hit de 2000 na Bahia"
+    ]
+  },
+  {
+    "id": "mus_023",
+    "titulo": "Vem Neném",
+    "artista": "Harmonia do Samba",
+    "ano": 2000,
+    "categoria": "Pagode Baiano",
+    "capaUrl": "img/mus_023.jpg",
+    "previewUrl": "audio/mus_023.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Artista brasileiro",
+      "Pagode baiano",
+      "Do mesmo grupo de \"Agachadinho\""
+    ]
+  },
+  {
+    "id": "mus_024",
+    "titulo": "Xote dos Milagres",
+    "artista": "Falamansa",
+    "ano": 2000,
+    "categoria": "Forró",
+    "capaUrl": "img/mus_024.jpg",
+    "previewUrl": "audio/mus_024.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Artista brasileiro",
+      "Forró universitário",
+      "Grande sucesso do início dos anos 2000"
+    ]
+  },
+  {
+    "id": "mus_025",
+    "titulo": "Rindo à Toa",
+    "artista": "Falamansa",
+    "ano": 2001,
+    "categoria": "Forró",
+    "capaUrl": "img/mus_025.jpg",
+    "previewUrl": "audio/mus_025.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Artista brasileiro",
+      "Forró",
+      "Do mesmo grupo de \"Xote dos Milagres\""
+    ]
+  },
+  {
+    "id": "mus_026",
+    "titulo": "Esperando na Janela",
+    "artista": "Gilberto Gil",
+    "ano": 2000,
+    "categoria": "Forró",
+    "capaUrl": "img/mus_026.jpg",
+    "previewUrl": "audio/mus_026.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Artista brasileiro",
+      "Forró/MPB",
+      "Trilha do filme \"Eu, Tu, Eles\""
+    ]
+  },
+  {
+    "id": "mus_027",
+    "titulo": "Eu Quero Tchu, Eu Quero Tcha",
+    "artista": "João Lucas & Marcelo",
+    "ano": 2011,
+    "categoria": "Sertanejo",
+    "capaUrl": "img/mus_027.jpg",
+    "previewUrl": "audio/mus_027.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Artista brasileiro",
+      "Hit de 2011",
+      "Música que viralizou com Neymar"
+    ]
+  },
+  {
+    "id": "mus_028",
+    "titulo": "Trem-Bala",
+    "artista": "Ana Vilela",
+    "ano": 2016,
+    "categoria": "MPB",
+    "capaUrl": "img/mus_028.jpg",
+    "previewUrl": "audio/mus_028.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Artista brasileira",
+      "MPB de 2016",
+      "Viralizou nas redes sociais"
+    ]
+  },
+  {
+    "id": "mus_029",
+    "titulo": "Pra Você Guardei o Amor",
+    "artista": "Nando Reis e Marisa Monte",
+    "ano": 2009,
+    "categoria": "MPB",
+    "capaUrl": "img/mus_029.jpg",
+    "previewUrl": "audio/mus_029.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Artista brasileiro",
+      "MPB dos anos 2000",
+      "Dueto famoso de 2009"
+    ]
+  },
+  {
+    "id": "mus_030",
+    "titulo": "Ainda Bem",
+    "artista": "Marisa Monte",
+    "ano": 2011,
+    "categoria": "MPB",
+    "capaUrl": "img/mus_030.jpg",
+    "previewUrl": "audio/mus_030.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Artista brasileira",
+      "MPB de 2011",
+      "Do álbum \"O Que Você Quer Saber de Verdade\""
+    ]
+  },
+  {
+    "id": "mus_031",
+    "titulo": "Amor I Love You",
+    "artista": "Marisa Monte",
+    "ano": 2000,
+    "categoria": "MPB",
+    "capaUrl": "img/mus_031.jpg",
+    "previewUrl": "audio/mus_031.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Artista brasileira",
+      "MPB dos anos 2000",
+      "Famosa pela participação de Carlinhos Brown"
+    ]
+  },
+  {
+    "id": "mus_032",
+    "titulo": "Velha Infância",
+    "artista": "Tribalistas",
+    "ano": 2002,
+    "categoria": "MPB",
+    "capaUrl": "img/mus_032.jpg",
+    "previewUrl": "audio/mus_032.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Artista brasileiro",
+      "MPB dos anos 2000",
+      "Tema da novela \"Mulheres Apaixonadas\""
+    ]
+  },
+  {
+    "id": "mus_033",
+    "titulo": "Já Sei Namorar",
+    "artista": "Tribalistas",
+    "ano": 2002,
+    "categoria": "MPB",
+    "capaUrl": "img/mus_033.jpg",
+    "previewUrl": "audio/mus_033.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Artista brasileiro",
+      "MPB de 2002",
+      "Do trio formado por Marisa, Carlinhos e Arnaldo"
+    ]
+  },
+  {
+    "id": "mus_034",
+    "titulo": "Ai, Ai, Ai",
+    "artista": "Vanessa da Mata",
+    "ano": 2007,
+    "categoria": "MPB",
+    "capaUrl": "img/mus_034.jpg",
+    "previewUrl": "audio/mus_034.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Artista brasileira",
+      "MPB dos anos 2000",
+      "Da cantora de \"Boa Sorte\""
+    ]
+  },
+  {
+    "id": "mus_035",
+    "titulo": "Boa Sorte/Good Luck",
+    "artista": "Vanessa da Mata e Ben Harper",
+    "ano": 2007,
+    "categoria": "MPB",
+    "capaUrl": "img/mus_035.jpg",
+    "previewUrl": "audio/mus_035.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Artista brasileira",
+      "MPB de 2007",
+      "Dueto com cantor americano"
+    ]
+  },
+  {
+    "id": "mus_036",
+    "titulo": "Envolver",
+    "artista": "Anitta",
+    "ano": 2021,
+    "categoria": "Funk",
+    "capaUrl": "img/mus_036.jpg",
+    "previewUrl": "audio/mus_036.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Artista brasileira",
+      "Hit recente",
+      "Ficou famosa mundialmente em 2022"
+    ]
+  },
+  {
+    "id": "mus_037",
+    "titulo": "Paradinha",
+    "artista": "Anitta",
+    "ano": 2017,
+    "categoria": "Funk",
+    "capaUrl": "img/mus_037.jpg",
+    "previewUrl": "audio/mus_037.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Artista brasileira",
+      "Funk pop",
+      "Sucesso de 2017"
+    ]
+  },
+  {
+    "id": "mus_038",
+    "titulo": "Vai Malandra",
+    "artista": "Anitta",
+    "ano": 2017,
+    "categoria": "Funk",
+    "capaUrl": "img/mus_038.jpg",
+    "previewUrl": "audio/mus_038.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Artista brasileira",
+      "Funk de 2017",
+      "Clipe gravado no Morro do Vidigal"
+    ]
+  },
+  {
+    "id": "mus_039",
+    "titulo": "Bola Rebola",
+    "artista": "Anitta, Tropkillaz, J Balvin",
+    "ano": 2019,
+    "categoria": "Funk",
+    "capaUrl": "img/mus_039.jpg",
+    "previewUrl": "audio/mus_039.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Artista brasileira",
+      "Parceria internacional de 2019",
+      "Com J Balvin e Tropkillaz"
+    ]
+  },
+  {
+    "id": "mus_040",
+    "titulo": "Favela Chegou",
+    "artista": "Ludmilla e Anitta",
+    "ano": 2019,
+    "categoria": "Funk",
+    "capaUrl": "img/mus_040.jpg",
+    "previewUrl": "audio/mus_040.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Artista brasileira",
+      "Funk de 2019",
+      "Parceria entre duas grandes cantoras"
+    ]
+  },
+  {
+    "id": "mus_041",
+    "titulo": "Onda Diferente",
+    "artista": "Anitta, Ludmilla, Snoop Dogg",
+    "ano": 2019,
+    "categoria": "Funk",
+    "capaUrl": "img/mus_041.jpg",
+    "previewUrl": "audio/mus_041.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Artista brasileira",
+      "Parceria internacional",
+      "Com Snoop Dogg"
+    ]
+  },
+  {
+    "id": "mus_042",
+    "titulo": "Socadona",
+    "artista": "Ludmilla",
+    "ano": 2021,
+    "categoria": "Funk",
+    "capaUrl": "img/mus_042.jpg",
+    "previewUrl": "audio/mus_042.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Artista brasileira",
+      "Funk recente",
+      "Hit de 2021"
+    ]
+  },
+  {
+    "id": "mus_043",
+    "titulo": "Rainha da Favela",
+    "artista": "Ludmilla",
+    "ano": 2020,
+    "categoria": "Funk",
+    "capaUrl": "img/mus_043.jpg",
+    "previewUrl": "audio/mus_043.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Artista brasileira",
+      "Funk pop",
+      "Sucesso de 2020"
+    ]
+  },
+  {
+    "id": "mus_044",
+    "titulo": "Verdinha",
+    "artista": "Ludmilla",
+    "ano": 2019,
+    "categoria": "Funk",
+    "capaUrl": "img/mus_044.jpg",
+    "previewUrl": "audio/mus_044.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Artista brasileira",
+      "Funk",
+      "Hit de 2019"
+    ]
+  },
+  {
+    "id": "mus_045",
+    "titulo": "Cheguei",
+    "artista": "Ludmilla",
+    "ano": 2017,
+    "categoria": "Funk",
+    "capaUrl": "img/mus_045.jpg",
+    "previewUrl": "audio/mus_045.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Artista brasileira",
+      "Funk pop",
+      "Um dos primeiros hits da cantora"
+    ]
+  },
+  {
+    "id": "mus_046",
+    "titulo": "Se Eu Não Te Amasse Tanto Assim",
+    "artista": "Ivete Sangalo",
+    "ano": 2000,
+    "categoria": "MPB",
+    "capaUrl": "img/mus_046.jpg",
+    "previewUrl": "audio/mus_046.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Artista brasileira",
+      "MPB/pop dos anos 2000",
+      "Regravação de Roberto Carlos"
+    ]
+  },
+  {
+    "id": "mus_047",
+    "titulo": "Extravasa",
+    "artista": "Claudia Leitte",
+    "ano": 2010,
+    "categoria": "Axé",
+    "capaUrl": "img/mus_047.jpg",
+    "previewUrl": "audio/mus_047.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Artista brasileira",
+      "Axé dos anos 2010",
+      "Hit de carnaval"
+    ]
+  },
+  {
+    "id": "mus_048",
+    "titulo": "Xibom Bombom",
+    "artista": "As Meninas",
+    "ano": 2000,
+    "categoria": "Axé",
+    "capaUrl": "img/mus_048.jpg",
+    "previewUrl": "audio/mus_048.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Artista brasileiro",
+      "Axé dos anos 2000",
+      "Hit de carnaval do grupo baiano"
+    ]
+  },
+  {
+    "id": "mus_049",
+    "titulo": "Leilão",
+    "artista": "César Menotti & Fabiano",
+    "ano": 2005,
+    "categoria": "Sertanejo",
+    "capaUrl": "img/mus_049.jpg",
+    "previewUrl": "audio/mus_049.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Artista brasileiro",
+      "Sertanejo dos anos 2000",
+      "Da dupla mineira de sucesso"
+    ]
+  },
+  {
+    "id": "mus_050",
+    "titulo": "Vem me Amar",
+    "artista": "Alexandre Pires",
+    "ano": 2000,
+    "categoria": "Samba",
+    "capaUrl": "img/mus_050.jpg",
+    "previewUrl": "audio/mus_050.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Artista brasileiro",
+      "Samba/pagode dos anos 2000",
+      "Do ex-vocalista do Soweto"
+    ]
+  }
+]
