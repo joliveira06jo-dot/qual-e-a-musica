@@ -1648,5 +1648,305 @@
       "Dupla ou parceria musical — Maiara & Maraisa",
       "Do álbum \"Ao Vivo em Goiânia\""
     ]
+  },
+  {
+    "id": "mus_111",
+    "titulo": "Foi por Conveniência",
+    "artista": "Marília Mendonça",
+    "ano": 2021,
+    "categoria": "Feminejo",
+    "capaUrl": "img/mus_111.jpg",
+    "previewUrl": "audio/mus_111.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Hit feminejo dos anos 2020",
+      "Cantora solo — Marília Mendonça",
+      "Do álbum \"Nosso Amor Envelheceu - EP\""
+    ]
+  },
+  {
+    "id": "mus_112",
+    "titulo": "Infiel (Ao Vivo)",
+    "artista": "Marília Mendonça",
+    "ano": 2012,
+    "categoria": "Feminejo",
+    "capaUrl": "img/mus_112.jpg",
+    "previewUrl": "audio/mus_112.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Hit feminejo dos anos 2010",
+      "Cantora solo — Marília Mendonça",
+      "Do álbum \"Marília Mendonça (Ao Vivo)\""
+    ]
+  },
+  {
+    "id": "mus_113",
+    "titulo": "Mal Feito",
+    "artista": "Hugo & Guilherme & Marília Mendonça",
+    "ano": 2022,
+    "categoria": "Feminejo",
+    "capaUrl": "img/mus_113.jpg",
+    "previewUrl": "audio/mus_113.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Hit feminejo dos anos 2020",
+      "Cantora solo — Hugo & Guilherme & Marília Mendonça",
+      "Sucesso da \"Rainha da Sofrência\""
+    ]
+  },
+  {
+    "id": "mus_114",
+    "titulo": "Intenção (feat. GAAB) [Ao Vivo]",
+    "artista": "Marília Mendonça",
+    "ano": 2019,
+    "categoria": "Feminejo",
+    "capaUrl": "img/mus_114.jpg",
+    "previewUrl": "audio/mus_114.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Hit feminejo dos anos 2010",
+      "Cantora solo — Marília Mendonça",
+      "Sucesso da \"Rainha da Sofrência\""
+    ]
+  },
+  {
+    "id": "mus_115",
+    "titulo": "Bem Pior Que Eu (Ao Vivo)",
+    "artista": "Marília Mendonça",
+    "ano": 2012,
+    "categoria": "Feminejo",
+    "capaUrl": "img/mus_115.jpg",
+    "previewUrl": "audio/mus_115.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Hit feminejo dos anos 2010",
+      "Cantora solo — Marília Mendonça",
+      "Do álbum \"Todos os Cantos, Vol. 1 (Ao Vivo)\""
+    ]
+  },
+  {
+    "id": "mus_116",
+    "titulo": "Amante Não Tem Lar (Ao Vivo)",
+    "artista": "Marília Mendonça",
+    "ano": 2012,
+    "categoria": "Feminejo",
+    "capaUrl": "img/mus_116.jpg",
+    "previewUrl": "audio/mus_116.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Hit feminejo dos anos 2010",
+      "Cantora solo — Marília Mendonça",
+      "Do álbum \"Marília Mendonça (Ao Vivo) - EP\""
+    ]
+  },
+  {
+    "id": "mus_117",
+    "titulo": "Estranho (Acústico)",
+    "artista": "Marília Mendonça",
+    "ano": 2018,
+    "categoria": "Feminejo",
+    "capaUrl": "img/mus_117.jpg",
+    "previewUrl": "audio/mus_117.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Hit feminejo dos anos 2010",
+      "Cantora solo — Marília Mendonça",
+      "Do álbum \"Agora É Que São Elas 2 (Ao Vivo) - Acústico\""
+    ]
+  },
+  {
+    "id": "mus_118",
+    "titulo": "Como Faz Com Ela (Ao Vivo)",
+    "artista": "Marília Mendonça",
+    "ano": 2012,
+    "categoria": "Feminejo",
+    "capaUrl": "img/mus_118.jpg",
+    "previewUrl": "audio/mus_118.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Hit feminejo dos anos 2010",
+      "Cantora solo — Marília Mendonça",
+      "Do álbum \"Marília Mendonça (Ao Vivo)\""
+    ]
+  },
+  {
+    "id": "mus_119",
+    "titulo": "Supera (Ao Vivo)",
+    "artista": "Marília Mendonça",
+    "ano": 2019,
+    "categoria": "Feminejo",
+    "capaUrl": "img/mus_119.jpg",
+    "previewUrl": "audio/mus_119.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Hit feminejo dos anos 2010",
+      "Cantora solo — Marília Mendonça",
+      "Sucesso da \"Rainha da Sofrência\""
+    ]
+  },
+  {
+    "id": "mus_120",
+    "titulo": "Bebi Liguei (Ao Vivo)",
+    "artista": "Marília Mendonça",
+    "ano": 2018,
+    "categoria": "Feminejo",
+    "capaUrl": "img/mus_120.jpg",
+    "previewUrl": "audio/mus_120.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Hit feminejo dos anos 2010",
+      "Cantora solo — Marília Mendonça",
+      "Do álbum \"Todos os Cantos, Vol. 1 (Ao Vivo)\""
+    ]
+  },
+  {
+    "id": "mus_121",
+    "titulo": "Esqueça-Me Se For Capaz",
+    "artista": "Marília Mendonça & Maiara & Maraisa",
+    "ano": 2021,
+    "categoria": "Feminejo",
+    "capaUrl": "img/mus_121.jpg",
+    "previewUrl": "audio/mus_121.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Hit feminejo dos anos 2020",
+      "Cantora solo — Marília Mendonça & Maiara & Maraisa",
+      "Do álbum \"Festa das Patroas 35%\""
+    ]
+  },
+  {
+    "id": "mus_122",
+    "titulo": "Ciumeira (Ao Vivo)",
+    "artista": "Marília Mendonça",
+    "ano": 2018,
+    "categoria": "Feminejo",
+    "capaUrl": "img/mus_122.jpg",
+    "previewUrl": "audio/mus_122.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Hit feminejo dos anos 2010",
+      "Cantora solo — Marília Mendonça",
+      "Sucesso da \"Rainha da Sofrência\""
+    ]
+  },
+  {
+    "id": "mus_123",
+    "titulo": "O Que É Amor pra Você (Ao Vivo)",
+    "artista": "Marília Mendonça",
+    "ano": 2015,
+    "categoria": "Feminejo",
+    "capaUrl": "img/mus_123.jpg",
+    "previewUrl": "audio/mus_123.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Hit feminejo dos anos 2010",
+      "Cantora solo — Marília Mendonça",
+      "Do álbum \"Marília Mendonça (Ao Vivo)\""
+    ]
+  },
+  {
+    "id": "mus_124",
+    "titulo": "Graveto (Ao Vivo)",
+    "artista": "Marília Mendonça",
+    "ano": 2020,
+    "categoria": "Feminejo",
+    "capaUrl": "img/mus_124.jpg",
+    "previewUrl": "audio/mus_124.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Hit feminejo dos anos 2020",
+      "Cantora solo — Marília Mendonça",
+      "Sucesso da \"Rainha da Sofrência\""
+    ]
+  },
+  {
+    "id": "mus_125",
+    "titulo": "Quero Você do Jeito Que Quiser",
+    "artista": "Marília Mendonça & Maiara & Maraisa",
+    "ano": 2020,
+    "categoria": "Feminejo",
+    "capaUrl": "img/mus_125.jpg",
+    "previewUrl": "audio/mus_125.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Hit feminejo dos anos 2020",
+      "Cantora solo — Marília Mendonça & Maiara & Maraisa",
+      "Do álbum \"Festa das Patroas  1 - EP\""
+    ]
+  },
+  {
+    "id": "mus_126",
+    "titulo": "Sentimento Louco (Ao Vivo)",
+    "artista": "Marília Mendonça",
+    "ano": 2015,
+    "categoria": "Feminejo",
+    "capaUrl": "img/mus_126.jpg",
+    "previewUrl": "audio/mus_126.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Hit feminejo dos anos 2010",
+      "Cantora solo — Marília Mendonça",
+      "Do álbum \"Marília Mendonça (Ao Vivo)\""
+    ]
+  },
+  {
+    "id": "mus_127",
+    "titulo": "Todo Mundo Vai Sofrer (Ao Vivo)",
+    "artista": "Marília Mendonça",
+    "ano": 2019,
+    "categoria": "Feminejo",
+    "capaUrl": "img/mus_127.jpg",
+    "previewUrl": "audio/mus_127.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Hit feminejo dos anos 2010",
+      "Cantora solo — Marília Mendonça",
+      "Sucesso da \"Rainha da Sofrência\""
+    ]
+  },
+  {
+    "id": "mus_128",
+    "titulo": "Folgado (Ao Vivo)",
+    "artista": "Marília Mendonça",
+    "ano": 2015,
+    "categoria": "Feminejo",
+    "capaUrl": "img/mus_128.jpg",
+    "previewUrl": "audio/mus_128.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Hit feminejo dos anos 2010",
+      "Cantora solo — Marília Mendonça",
+      "Do álbum \"Marília Mendonça (Ao Vivo)\""
+    ]
+  },
+  {
+    "id": "mus_129",
+    "titulo": "Segundo Amor da Sua Vida",
+    "artista": "Marília Mendonça",
+    "ano": 2025,
+    "categoria": "Feminejo",
+    "capaUrl": "img/mus_129.jpg",
+    "previewUrl": "audio/mus_129.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Hit feminejo dos anos 2020",
+      "Cantora solo — Marília Mendonça",
+      "Sucesso da \"Rainha da Sofrência\""
+    ]
+  },
+  {
+    "id": "mus_130",
+    "titulo": "Hoje Somos Só Metade (Ao Vivo)",
+    "artista": "Marília Mendonça",
+    "ano": 2015,
+    "categoria": "Feminejo",
+    "capaUrl": "img/mus_130.jpg",
+    "previewUrl": "audio/mus_130.m4a",
+    "duracaoPreview": 30,
+    "dicas": [
+      "Hit feminejo dos anos 2010",
+      "Cantora solo — Marília Mendonça",
+      "Do álbum \"Marília Mendonça (Ao Vivo)\""
+    ]
   }
 ]
