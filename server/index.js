@@ -15,7 +15,6 @@ app.get('/telao', (req, res) => res.sendFile(path.join(__dirname, '../public/tel
 app.get('/celular', (req, res) => res.sendFile(path.join(__dirname, '../public/celular/index.html')));
 app.get('/admin', (req, res) => res.sendFile(path.join(__dirname, '../public/admin/index.html')));
 
-// NOVO: URL base dinâmica (Render injeta RENDER_EXTERNAL_URL automaticamente)
 const BASE_URL = process.env.RENDER_EXTERNAL_URL || `http://localhost:${process.env.PORT || 3000}`;
 
 const CATALOGO = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/musicas.json'), 'utf8'));
@@ -55,7 +54,8 @@ function estadoPublico(sala) {
       musica: {
         titulo: sala.rodada.musica.titulo, artista: sala.rodada.musica.artista,
         ano: sala.rodada.musica.ano, categoria: sala.rodada.musica.categoria,
-        capaUrl: sala.rodada.musica.capaUrl
+        capaUrl: sala.rodada.musica.capaUrl,
+        dicas: sala.rodada.musica.dicas // IMPORTANTE PARA O TELÃO
       }
     } : null,
     placar: sala.placar, log: sala.log,
@@ -86,8 +86,6 @@ function finalizarRodadaNoHistorico(s) {
 }
 
 io.on('connection', (socket) => {
-  console.log('Conectado:', socket.id);
-
   socket.on('admin:criar_sala', async () => {
     const codigo = gerarCodigo();
     salas[codigo] = criarEstadoSala(codigo, socket.id);
@@ -348,7 +346,4 @@ const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
   console.log(`Base URL: ${BASE_URL}`);
-  console.log(`Telão:   ${BASE_URL}/telao`);
-  console.log(`Celular: ${BASE_URL}/celular`);
-  console.log(`Admin:   ${BASE_URL}/admin`);
 });
