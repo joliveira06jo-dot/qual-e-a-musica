@@ -6,17 +6,19 @@
   <title>Qual é a Música? — Telão</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg-top: #040714;
-      --bg-bottom: #3533CD;
+      --bg-bottom: #12104a;
       --dark-bar: #020C17;
       --yellow: #FFDC33;
       --yellow-pill: #F5C518;
       --red: #FF3333;
+      --red-dark: #8B0000;
       --red-soft: #ff4d4d;
       --blue: #1800C6;
+      --blue-dark: #0a0066;
       --blue-dot: #1E74FD;
       --white: #FFFFFF;
       --green: #22C55E;
@@ -24,50 +26,65 @@
     }
     * { box-sizing: border-box; margin: 0; padding: 0; scrollbar-width: none; -ms-overflow-style: none; }
     ::-webkit-scrollbar { display: none; }
+    
     html, body { height: 100vh; width: 100vw; overflow: hidden; }
+    
     body {
       font-family: 'Poppins', sans-serif; color: var(--white);
       display: flex; flex-direction: column;
-      background: linear-gradient(180deg, var(--bg-top) 0%, #1a1f5e 45%, var(--bg-bottom) 100%);
+      background: radial-gradient(circle at 50% 0%, #1a1f5e 0%, var(--bg-top) 70%);
+      position: relative;
     }
-    body::after {
-      content: ''; position: fixed; inset: 0; pointer-events: none;
-      background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.5) 100%); z-index: 1;
+    
+    /* SPOTLIGHTS NO FUNDO */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; pointer-events: none; z-index: 0;
+      background: 
+        radial-gradient(ellipse at 20% 0%, rgba(53, 51, 205, 0.2) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 0%, rgba(233, 69, 96, 0.15) 0%, transparent 50%);
     }
-    #header { position: absolute; top: 3vh; left: 3vw; z-index: 10; pointer-events: none; }
-    #logoPequeno { height: 20vh; width: auto; opacity: 0; transition: opacity 0.3s; filter: drop-shadow(0 0 1.5vh rgba(149,180,232,0.4)); }
+
+    /* NOTAS MUSICAIS FLUTUANTES (Fundo) */
+    .nota-musical {
+      position: fixed; font-size: 2rem; color: rgba(255,255,255,0.05);
+      pointer-events: none; z-index: 0; animation: flutuar 15s linear infinite;
+    }
+    @keyframes flutuar {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+    }
+
+    #header { position: absolute; top: 3vh; left: 3vw; z-index: 10; display: flex; justify-content: space-between; width: 94vw; align-items: flex-start; pointer-events: none; }
+    #logoPequeno { 
+      height: 18vh; width: auto; opacity: 0; transition: opacity 0.3s; 
+      filter: drop-shadow(0 0 2vh rgba(149,180,232,0.8)) drop-shadow(0 0 4vh rgba(149,180,232,0.4)); 
+    }
     #logoPequeno.ativo { opacity: 1; }
+    #salaHeader { font-size: 2.5vh; font-weight: 600; color: var(--gray); letter-spacing: 0.2vw; }
+    #salaHeader span { color: var(--white); font-weight: 700; font-size: 3.5vh; margin-left: 0.5vw; }
+
     #main { flex: 1; position: relative; z-index: 2; overflow: hidden; }
     .tela { position: absolute; inset: 0; display: none; width: 100%; height: 100%; }
 
-    /* SIDEBAR GLOBAL (histórico sempre visível em jogo, exceto no final) */
+    /* SIDEBAR GLOBAL */
     #sidebar-global {
-      position: absolute;
-      top: 25vh;
-      left: 2vw;
-      width: 26vw;
-      max-width: 480px;
-      max-height: 52vh;
-      overflow-y: auto;
-      z-index: 5;
-      display: flex;
-      flex-direction: column;
-      gap: 1.5vh;
-      text-align: left;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
+      position: absolute; top: 22vh; left: 3vw; width: 24vw; max-width: 400px;
+      max-height: 55vh; overflow-y: auto; z-index: 5;
+      display: flex; flex-direction: column; gap: 1.5vh; text-align: left;
     }
-    #sidebar-global::-webkit-scrollbar { display: none; }
     #sidebar-global.escondido { display: none; }
-    #sidebar-global .hist-title { font-size: 2.8vh; font-weight: 600; margin-bottom: 0.5vh; color: var(--white); }
-    #sidebar-global .hist-item { display: flex; gap: 1.2vh; align-items: center; }
-    #sidebar-global .hist-item img { width: 6vw; height: 6vw; max-width: 110px; max-height: 110px; object-fit: cover; border-radius: 0.8vh; flex-shrink: 0; }
+    #sidebar-global .hist-title { font-size: 2.8vh; font-weight: 700; margin-bottom: 0.5vh; color: var(--yellow); text-shadow: 0 0 1vh rgba(255,220,51,0.5); }
+    #sidebar-global .hist-item { display: flex; gap: 1.2vh; align-items: center; background: rgba(0,0,0,0.4); padding: 1vh; border-radius: 1vh; border: 1px solid rgba(255,255,255,0.05); }
+    #sidebar-global .hist-item img { width: 6vw; height: 6vw; max-width: 90px; max-height: 90px; object-fit: cover; border-radius: 0.8vh; }
     #sidebar-global .hist-info { flex: 1; min-width: 0; line-height: 1.2; }
-    #sidebar-global .hist-info b { font-size: 3.2vh; font-weight: 700; color: var(--yellow); display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    #sidebar-global .hist-info small { font-size: 2.7vh; color: var(--gray); display: block; margin-bottom: 0.4vh; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    #sidebar-global .badge { display: inline-block; font-size: 2.4vh; font-weight: 700; padding: 0.5vh 1.2vh; border-radius: 0.4vh; background: rgba(255,255,255,0.1); color: white; }
-    #sidebar-global .badge.vermelha { background: var(--red); }
-    #sidebar-global .badge.azul { background: var(--blue); }
+    #sidebar-global .hist-info b { font-size: 2.4vh; font-weight: 700; color: var(--yellow); display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    #sidebar-global .hist-info small { font-size: 2vh; color: var(--gray); display: block; margin-bottom: 0.4vh; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    #sidebar-global .badge { display: inline-block; font-size: 1.8vh; font-weight: 700; padding: 0.5vh 1.2vh; border-radius: 0.4vh; background: rgba(255,255,255,0.1); color: white; }
+    #sidebar-global .badge.vermelha { background: var(--red); box-shadow: 0 0 1vh rgba(255,51,51,0.5); }
+    #sidebar-global .badge.azul { background: var(--blue); box-shadow: 0 0 1vh rgba(24,0,198,0.5); }
     #sidebar-global .badge.zero { background: #444; color: #ff8fa3; }
     #sidebar-global .badge.ninguem { background: #555; }
 
@@ -75,101 +92,182 @@
     #lobby.ativa { display: flex; flex-direction: column; }
     .lobby-absolute-top { position: absolute; top: 4vh; left: 4vw; right: 4vw; display: flex; justify-content: space-between; align-items: flex-start; }
     .sala-bloco { display: flex; flex-direction: column; align-items: flex-start; }
-    .sala-label { font-size: 3.5vh; font-weight: 500; letter-spacing: 0.4vw; }
-    .codigo-grande { font-size: 13vh; font-weight: 700; letter-spacing: 0.6vw; line-height: 0.9; }
+    .sala-label { font-size: 3.5vh; font-weight: 500; letter-spacing: 0.4vw; color: var(--gray); }
+    .codigo-grande { font-size: 13vh; font-weight: 800; letter-spacing: 0.6vw; line-height: 0.9; text-shadow: 0 0 3vh rgba(255,255,255,0.3); }
     .qr-bloco { display: flex; justify-content: flex-end; align-items: flex-start; }
     #qr { display: none; }
     #qr.tem-conteudo { display: block; }
-    #qr img { display: block; width: 48vh; height: 48vh; }
+    #qr img { display: block; width: 45vh; height: 45vh; filter: drop-shadow(0 0 2vh rgba(255,255,255,0.2)); border-radius: 1vh; }
     .lobby-center { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-    .logo-gigante { height: 50vh; width: auto; max-width: 90vw; object-fit: contain; filter: drop-shadow(0 0 3vh rgba(149,180,232,0.5)); margin-bottom: 3vh; }
-    .aguardando-texto { font-size: 3.5vh; font-weight: 500; margin-top: 3vh; margin-bottom: 1vh; }
-    #jogadores-lobby { font-size: 2.2vh; font-weight: 500; color: rgba(255,255,255,0.85); text-align: center; max-width: 80vw; line-height: 1.4; text-transform: uppercase; }
+    .logo-gigante { height: 45vh; width: auto; max-width: 90vw; object-fit: contain; filter: drop-shadow(0 0 4vh rgba(149,180,232,0.6)) drop-shadow(0 0 8vh rgba(149,180,232,0.3)); margin-bottom: 3vh; animation: pulseLogo 3s infinite alternate; }
+    @keyframes pulseLogo { from { transform: scale(1); } to { transform: scale(1.02); } }
+    .aguardando-texto { font-size: 3.5vh; font-weight: 600; margin-top: 3vh; margin-bottom: 1vh; color: var(--yellow); }
+    #jogadores-lobby { font-size: 2.2vh; font-weight: 500; color: rgba(255,255,255,0.85); text-align: center; max-width: 80vw; line-height: 1.4; text-transform: uppercase; letter-spacing: 0.1vw; }
 
-    /* RODADA */
-    #rodada.ativa { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
-    .titulo-estagio { font-size: 6vh; font-weight: 600; line-height: 1.1; margin-bottom: 0.5vh; }
-    .subtitulo { font-size: 3.3vh; font-weight: 500; color: var(--yellow); margin-bottom: 3vh; }
-    .pill-status { display: inline-flex; align-items: center; gap: 1.5vh; background: var(--yellow-pill); color: var(--white); padding: 1.5vh 3.5vw; border-radius: 999px; font-size: 3.2vh; font-weight: 700; margin-bottom: 4vh; box-shadow: 0 0.5vh 2.5vh rgba(245,197,24,0.3); }
-    .pill-icon { font-size: 4vh; }
-    #status-texto { font-size: 4vh; font-weight: 500; margin-top: 3vh; }
-    #quem-apertou { display: none; font-size: 5vh; font-weight: 700; padding: 2vh 4vw; border-radius: 1vh; margin-top: 2vh; }
-    #quem-apertou.vermelha { background: var(--red); box-shadow: 0 0.6vh 3vh rgba(255,51,51,0.4); }
-    #quem-apertou.azul { background: var(--blue); box-shadow: 0 0.6vh 3vh rgba(24,0,198,0.5); }
-    #aviso-virada { display: none; font-size: 3.2vh; font-weight: 700; padding: 1.5vh 3vw; border-radius: 1vh; background: var(--yellow-pill); color: #1a1a2e; border: 0.3vh solid var(--yellow); margin-top: 2vh; }
-    #aviso-virada.passe { background: #2a2d3e; color: var(--white); border-color: #6b6e80; }
+    /* RODADA (O GRANDE UPGRADE) */
+    #rodada.ativa { 
+      display: grid; 
+      grid-template-columns: 25vw 1fr 25vw; 
+      grid-template-rows: auto 1fr auto;
+      padding: 15vh 3vw 5vh 3vw; 
+      gap: 2vw;
+      align-items: center;
+    }
+
+    /* Header da Rodada (Banner) */
+    .banner-rodada {
+      grid-column: 1 / -1;
+      justify-self: center;
+      background: linear-gradient(90deg, transparent, rgba(53, 51, 205, 0.4), transparent);
+      border-top: 2px solid var(--yellow);
+      border-bottom: 2px solid var(--yellow);
+      padding: 1vh 5vw;
+      text-align: center;
+      margin-bottom: 2vh;
+    }
+    .titulo-estagio { font-size: 5vh; font-weight: 800; line-height: 1.1; letter-spacing: 0.1vw; text-shadow: 0 0 2vh rgba(255,220,51,0.3); }
+    .subtitulo { font-size: 3vh; font-weight: 600; color: var(--yellow); margin-top: 0.5vh; }
+
+    /* Dicas (Esquerda) */
+    .bloco-dicas {
+      background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); border-radius: 1.5vh;
+      padding: 2vh; display: flex; flex-direction: column; gap: 1vh; text-align: left;
+      box-shadow: 0 1vh 3vh rgba(0,0,0,0.5); backdrop-filter: blur(10px);
+    }
+    .bloco-dicas h3 { font-size: 2.2vh; color: var(--yellow); text-transform: uppercase; letter-spacing: 0.1vw; margin-bottom: 1vh; display: flex; align-items: center; gap: 1vw; }
+    .dica-item { font-size: 2vh; color: #ccc; line-height: 1.4; padding: 1vh; border-left: 3px solid rgba(255,255,255,0.1); transition: all 0.5s; }
+    .dica-item.ativa { color: var(--white); border-left-color: var(--yellow); background: rgba(255,220,51,0.05); font-weight: 600; }
+
+    /* Centro (Onda sonora e Status) */
+    .bloco-centro { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; width: 100%; }
+    
+    .status-titulo { font-size: 4vh; font-weight: 700; margin-bottom: 2vh; text-shadow: 0 0 2vh rgba(255,255,255,0.2); min-height: 5vh; }
+    
+    /* Waveform Animada */
+    .waveform { display: flex; align-items: center; justify-content: center; gap: 0.5vw; height: 10vh; margin-bottom: 3vh; opacity: 0.3; transition: opacity 0.3s; }
+    .waveform.ativo { opacity: 1; }
+    .wave-bar { width: 0.6vw; background: var(--yellow); border-radius: 1vh; height: 10%; transition: height 0.1s; }
+    .waveform.ativo .wave-bar { animation: waveAnim 1s infinite alternate ease-in-out; }
+    .wave-bar:nth-child(1) { animation-delay: 0.1s; }
+    .wave-bar:nth-child(2) { animation-delay: 0.3s; }
+    .wave-bar:nth-child(3) { animation-delay: 0.0s; }
+    .wave-bar:nth-child(4) { animation-delay: 0.4s; }
+    .wave-bar:nth-child(5) { animation-delay: 0.2s; }
+    .wave-bar:nth-child(6) { animation-delay: 0.5s; }
+    .wave-bar:nth-child(7) { animation-delay: 0.1s; }
+    @keyframes waveAnim {
+      0% { height: 10%; }
+      100% { height: 100%; box-shadow: 0 0 2vh var(--yellow); }
+    }
+
+    /* Timer e Buzina (Direita) */
+    .bloco-timer {
+      display: flex; flex-direction: column; align-items: center; gap: 2vh;
+      background: rgba(0,0,0,0.3); padding: 3vh 2vw; border-radius: 2vh;
+      border: 1px solid rgba(255,255,255,0.05); opacity: 0.3; transition: all 0.5s;
+    }
+    .bloco-timer.ativo { opacity: 1; box-shadow: 0 0 3vh rgba(255,51,51,0.3); border-color: rgba(255,51,51,0.5); }
+    
+    .timer-circle { position: relative; width: 12vh; height: 12vh; }
+    .timer-svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+    .timer-bg { fill: none; stroke: rgba(255,255,255,0.1); stroke-width: 6; }
+    .timer-progress { fill: none; stroke: var(--yellow); stroke-width: 6; stroke-dasharray: 283; stroke-dashoffset: 0; stroke-linecap: round; }
+    .bloco-timer.ativo .timer-progress { animation: countdown 10s linear forwards; }
+    @keyframes countdown { from { stroke-dashoffset: 0; } to { stroke-dashoffset: 283; } }
+    .timer-text { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 3.5vh; font-weight: 800; color: var(--white); }
+
+    .pill-buzina { background: var(--red); padding: 1.5vh 3vw; border-radius: 999px; font-size: 2.5vh; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1vw; display: none; animation: pulseBuzina 1s infinite alternate; }
+    .pill-buzina.ativo { display: block; }
+    @keyframes pulseBuzina { from { transform: scale(1); box-shadow: 0 0 1vh var(--red); } to { transform: scale(1.05); box-shadow: 0 0 3vh var(--red); } }
+
+    /* Quem Apertou */
+    #quem-apertou { grid-column: 1 / -1; text-align: center; font-size: 5vh; font-weight: 800; padding: 2vh 4vw; border-radius: 1.5vh; margin-top: 2vh; display: none; }
+    #quem-apertou.vermelha { background: linear-gradient(90deg, var(--red-dark), var(--red), var(--red-dark)); box-shadow: 0 0 4vh rgba(255,51,51,0.6); border: 2px solid #ff8fa3; }
+    #quem-apertou.azul { background: linear-gradient(90deg, var(--blue-dark), var(--blue), var(--blue-dark)); box-shadow: 0 0 4vh rgba(24,0,198,0.6); border: 2px solid #6b9aff; }
+    
+    #aviso-virada { grid-column: 1 / -1; display: none; text-align: center; font-size: 3.5vh; font-weight: 800; padding: 1.5vh 3vw; border-radius: 1vh; background: var(--yellow-pill); color: #1a1a2e; border: 3px solid var(--yellow); margin-top: 1vh; box-shadow: 0 0 3vh rgba(245,197,24,0.5); }
+    #aviso-virada.passe { background: #2a2d3e; color: var(--white); border-color: #6b6e80; box-shadow: none; }
 
     /* REVELAÇÃO */
-    #revelacao.ativa { display: flex; align-items: center; justify-content: center; gap: 5vw; padding: 2vh 3vw; }
+    #revelacao.ativa { display: flex; align-items: center; justify-content: center; gap: 6vw; padding: 15vh 5vw 5vh 5vw; }
     .reveal-centro { display: flex; flex-direction: column; align-items: center; gap: 2vh; text-align: center; }
-    #capa { width: 38vh; height: 38vh; object-fit: cover; border-radius: 1vh; box-shadow: 0 1vh 4vh rgba(0,0,0,0.6); opacity: 0; transition: opacity 0.4s; }
+    #capa { width: 42vh; height: 42vh; object-fit: cover; border-radius: 2vh; box-shadow: 0 0 6vh rgba(0,0,0,0.8), 0 0 2vh rgba(255,255,255,0.2); border: 2px solid rgba(255,255,255,0.1); opacity: 0; transition: opacity 0.4s; }
     #capa.carregada { opacity: 1; }
-    #mus-titulo { font-size: 5.5vh; font-weight: 700; color: var(--yellow); line-height: 1.1; }
-    #mus-info { font-size: 2.6vh; font-weight: 500; color: var(--white); }
-    .reveal-direita { display: flex; flex-direction: column; align-items: center; gap: 2.5vh; text-align: center; }
-    .icon-badge { width: 15vh; height: 15vh; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 8vh; font-weight: 700; color: var(--white); }
-    .icon-badge.verde { background: var(--green); box-shadow: 0 0 4vh rgba(34,197,94,0.4); }
-    .icon-badge.vermelho { background: var(--red); box-shadow: 0 0 4vh rgba(255,51,51,0.4); }
-    .icon-badge.neutro { background: #555; }
-    .resultado-badge { font-size: 4.6vh; font-weight: 700; padding: 1vh 2vw; border-radius: 0.5vh; color: var(--white); line-height: 1.1; }
-    .resultado-badge.verde { background: var(--green); }
-    .resultado-badge.vermelho { background: var(--red); }
+    #mus-titulo { font-size: 5.5vh; font-weight: 800; color: var(--yellow); line-height: 1.1; text-shadow: 0 0 2vh rgba(255,220,51,0.4); }
+    #mus-info { font-size: 2.8vh; font-weight: 500; color: var(--white); }
+    
+    .reveal-direita { display: flex; flex-direction: column; align-items: center; gap: 2.5vh; text-align: center; background: rgba(0,0,0,0.3); padding: 4vh 3vw; border-radius: 2vh; border: 1px solid rgba(255,255,255,0.05); }
+    .icon-badge { width: 16vh; height: 16vh; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 9vh; font-weight: 800; color: var(--white); }
+    .icon-badge.verde { background: linear-gradient(135deg, #22C55E, #166534); box-shadow: 0 0 5vh rgba(34,197,94,0.6); border: 3px solid #86efac; }
+    .icon-badge.vermelho { background: linear-gradient(135deg, var(--red), var(--red-dark)); box-shadow: 0 0 5vh rgba(255,51,51,0.6); border: 3px solid #ff8fa3; }
+    .icon-badge.neutro { background: linear-gradient(135deg, #555, #222); border: 3px solid #888; }
+    
+    .resultado-badge { font-size: 4.6vh; font-weight: 800; padding: 1.5vh 3vw; border-radius: 1vh; color: var(--white); line-height: 1.1; text-transform: uppercase; letter-spacing: 0.1vw; }
+    .resultado-badge.verde { background: var(--green); box-shadow: 0 0 2vh rgba(34,197,94,0.5); }
+    .resultado-badge.vermelho { background: var(--red); box-shadow: 0 0 2vh rgba(255,51,51,0.5); }
     .resultado-badge.neutro { background: #555; font-size: 3.5vh; }
-    #resultado-pontos { font-size: 2.6vh; font-weight: 700; }
-    #resultado-equipe { font-size: 2.4vh; font-weight: 700; padding: 1.2vh 2vw; border-radius: 0.5vh; }
-    #resultado-equipe.vermelha { background: var(--red); }
-    #resultado-equipe.azul { background: var(--blue); }
+    
+    #resultado-pontos { font-size: 3vh; font-weight: 700; }
+    #resultado-equipe { font-size: 2.8vh; font-weight: 800; padding: 1.5vh 2.5vw; border-radius: 1vh; text-transform: uppercase; letter-spacing: 0.1vw; }
+    #resultado-equipe.vermelha { background: var(--red); box-shadow: 0 0 2vh rgba(255,51,51,0.5); }
+    #resultado-equipe.azul { background: var(--blue); box-shadow: 0 0 2vh rgba(24,0,198,0.5); }
     #resultado-equipe:empty { display: none; }
 
     /* FINAL */
-    #final.ativa { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3vh; text-align: center; }
-    #final h2 { font-size: 7vh; font-weight: 700; color: var(--yellow); }
-    #vencedor { font-size: 6vh; font-weight: 700; padding: 3vh 5vw; border-radius: 1.4vh; }
-    #vencedor.vermelha { background: var(--red); box-shadow: 0 0 4vh rgba(255,51,51,0.4); }
-    #vencedor.azul { background: var(--blue); box-shadow: 0 0 4vh rgba(24,0,198,0.6); }
-    #vencedor.empate { background: var(--yellow-pill); color: #1a1a2e; }
-    #final-placar { font-size: 4.5vh; font-weight: 700; display: flex; gap: 5vw; }
-    #final-placar .v { color: var(--red); }
-    #final-placar .a { color: #6b9aff; }
-    #final-msg { font-size: 2.2vh; opacity: 0.7; font-weight: 500; }
+    #final.ativa { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4vh; text-align: center; padding-top: 10vh; }
+    #final h2 { font-size: 8vh; font-weight: 800; color: var(--yellow); text-shadow: 0 0 4vh rgba(255,220,51,0.5); }
+    #vencedor { font-size: 7vh; font-weight: 800; padding: 4vh 6vw; border-radius: 2vh; text-transform: uppercase; }
+    #vencedor.vermelha { background: linear-gradient(135deg, var(--red), var(--red-dark)); box-shadow: 0 0 6vh rgba(255,51,51,0.6); border: 3px solid #ff8fa3; }
+    #vencedor.azul { background: linear-gradient(135deg, var(--blue), var(--blue-dark)); box-shadow: 0 0 6vh rgba(24,0,198,0.6); border: 3px solid #6b9aff; }
+    #vencedor.empate { background: var(--yellow-pill); color: #1a1a2e; box-shadow: 0 0 4vh rgba(245,197,24,0.5); }
+    #final-placar { font-size: 5vh; font-weight: 800; display: flex; gap: 6vw; }
+    #final-placar .v { color: var(--red-soft); } #final-placar .a { color: #6b9aff; }
+    #final-msg { font-size: 2.5vh; opacity: 0.7; font-weight: 500; margin-top: 2vh; }
 
-    /* FOOTER */
-    #footer { height: 20vh; background: var(--dark-bar); padding: 0 3vw; display: grid; grid-template-columns: auto 1fr 1fr auto; gap: 3vw; align-items: center; position: relative; z-index: 10; box-shadow: 0 -0.5vh 2vh rgba(0,0,0,0.3); }
-
-    /* TEAM CARD — 2 LINHAS */
-    .team-card {
-      width: 25vw; max-width: 450px; height: 14vh;
-      border-radius: 1vh;
-      display: flex; align-items: center; justify-content: center;
-      padding: 0 1.5vw; gap: 1.5vw;
-      transition: all 0.3s ease;
-      overflow: hidden;
+    /* FOOTER (Cards Estilo E-sports) */
+    #footer { 
+      height: 20vh; background: var(--dark-bar); padding: 0 3vw; 
+      display: grid; grid-template-columns: 1fr auto 1fr; gap: 3vw; 
+      align-items: center; position: relative; z-index: 10; 
+      border-top: 2px solid rgba(255,255,255,0.1);
+      box-shadow: 0 -1vh 4vh rgba(0,0,0,0.8);
     }
-    .team-card .team-dot { width: 4vh; height: 4vh; border-radius: 50%; flex-shrink: 0; }
-    .team-card.vermelha { background: var(--red); }
-    .team-card.vermelha .team-dot { background: rgba(0,0,0,0.3); }
-    .team-card.azul { background: var(--blue); }
-    .team-card.azul .team-dot { background: var(--blue-dot); }
-    .team-card.ativo { transform: scale(1.05); box-shadow: 0 0 0 0.5vh var(--yellow), 0 0.8vh 2.5vh rgba(245,197,24,0.4); }
-    .team-info { display: flex; flex-direction: column; line-height: 1; text-align: left; }
-    .team-nome { font-size: 2.8vh; font-weight: 700; color: var(--white); letter-spacing: 0.05vw; }
-    .team-pts { font-size: 6vh; font-weight: 700; color: var(--white); }
+    
+    .card-equipe {
+      height: 14vh; border-radius: 1.5vh;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      position: relative; overflow: hidden; transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+    
+    /* Glassmorphism interno */
+    .card-equipe::after {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      box-shadow: inset 0 0 20px rgba(255,255,255,0.15);
+      border-radius: 1.5vh;
+    }
 
-    .lista-jogadores { font-size: 3.5vh; font-weight: 600; line-height: 1.3; max-height: 14vh; overflow-y: auto; display: block; text-transform: uppercase; }
-    .lista-jogadores.esquerda { text-align: left; color: var(--red-soft); }
-    .lista-jogadores.direita { text-align: right; color: var(--white); opacity: 0.9; }
-    .lista-jogadores div { display: inline; }
-    .lista-jogadores div:not(:last-child)::after { content: ' • '; opacity: 0.6; }
-    .lista-jogadores .vazio { display: block; font-size: 2.5vh; opacity: 0.4; font-style: italic; text-transform: none; }
+    .card-equipe.vermelha { background: linear-gradient(180deg, #FF3333 0%, #8B0000 100%); border-color: #ff8fa3; }
+    .card-equipe.azul { background: linear-gradient(180deg, #1E74FD 0%, #1800C6 100%); border-color: #6b9aff; }
+    
+    .card-equipe.ativo { transform: scale(1.05); z-index: 2; }
+    .card-equipe.vermelha.ativo { box-shadow: 0 0 4vh rgba(255,51,51,0.8); }
+    .card-equipe.azul.ativo { box-shadow: 0 0 4vh rgba(30,116,253,0.8); }
 
-    .dots { display: flex; align-items: center; justify-content: center; gap: 1.4vh; }
-    .dot-pq { width: 1vh; height: 1vh; border-radius: 50%; background: white; opacity: 0.6; animation: pulsePq 1.6s infinite; }
-    .dot-gr { width: 3vh; height: 3vh; border-radius: 50%; background: white; animation: pulseGr 1.6s infinite 0.2s; }
-    @keyframes pulsePq { 0%, 100% { opacity: 0.4; transform: scale(1); } 50% { opacity: 1; transform: scale(1.3); } }
-    @keyframes pulseGr { 0%, 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0.5); } 50% { box-shadow: 0 0 0 1.5vh rgba(255,255,255,0); } }
+    .team-nome { font-size: 2.5vh; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1vw; color: rgba(255,255,255,0.9); margin-bottom: 0.5vh; }
+    .team-pts { font-size: 6vh; font-weight: 800; color: var(--white); text-shadow: 0 0.5vh 1vh rgba(0,0,0,0.5); line-height: 1; }
+    .team-nome span { font-size: 1.5vh; font-weight: 600; display: block; opacity: 0.7; }
 
+    /* O "VS" no meio do Footer */
+    .vs-badge {
+      font-size: 6vh; font-weight: 800; font-style: italic; color: var(--yellow);
+      text-shadow: 0 0 2vh rgba(255,220,51,0.8); letter-spacing: -0.2vw;
+      transform: skew(-10deg); background: rgba(0,0,0,0.5); padding: 1vh 2vw; border-radius: 1vh; border: 1px solid rgba(255,220,51,0.3);
+    }
+
+    /* OVERLAY & ANIMAÇÕES */
     #overlay-audio { position: fixed; inset: 0; background: rgba(0,0,0,0.95); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 2vh; z-index: 9999; cursor: pointer; }
-    #overlay-audio h2 { font-size: 5vh; color: var(--yellow); font-weight: 700; }
+    #overlay-audio h2 { font-size: 5vh; color: var(--yellow); font-weight: 800; text-shadow: 0 0 2vh rgba(255,220,51,0.5); }
     #overlay-audio p { font-size: 2.2vh; color: var(--gray); }
     #overlay-audio.escondido { display: none; }
 
@@ -182,6 +280,12 @@
   </style>
 </head>
 <body>
+  <!-- Elementos de fundo -->
+  <div class="nota-musical" style="left: 10%; animation-delay: 0s;">🎵</div>
+  <div class="nota-musical" style="left: 30%; animation-delay: 3s;">🎶</div>
+  <div class="nota-musical" style="left: 70%; animation-delay: 6s;">🎵</div>
+  <div class="nota-musical" style="left: 90%; animation-delay: 9s;">🎶</div>
+
   <div id="overlay-audio">
     <h2>🔊 Clique para ativar o áudio</h2>
     <p>Necessário apenas uma vez, no início</p>
@@ -195,14 +299,17 @@
 
   <div id="header">
     <img id="logoPequeno" src="/img/logo.png" alt="Qual é a Música?">
+    <div id="salaHeader" class="escondido">SALA: <span id="codigoHeader">----</span></div>
   </div>
 
   <div id="main">
+    <!-- Histórico Global -->
     <div id="sidebar-global" class="escondido">
       <div class="hist-title">📜 Histórico</div>
       <div id="sidebar-lista"></div>
     </div>
 
+    <!-- LOBBY -->
     <div id="lobby" class="tela ativa">
       <div class="lobby-absolute-top">
         <div class="sala-bloco">
@@ -219,19 +326,48 @@
       </div>
     </div>
 
+    <!-- RODADA -->
     <div id="rodada" class="tela">
-      <div class="titulo-estagio" id="num-rodada">Música 1 de 5</div>
-      <div class="subtitulo" id="info-estagio">Estágio 1 • 2s de música • Vale 1000 pts</div>
-      <div class="pill-status">
-        <span class="pill-icon" id="pill-icon">🎧</span>
-        <span id="dica-text">Ouça com atenção...</span>
+      <div class="banner-rodada">
+        <div class="titulo-estagio" id="num-rodada">RODADA 1 — 1000 PONTOS</div>
+        <div class="subtitulo" id="info-estagio">Estágio 1 • 2s de música</div>
       </div>
-      <div class="dots"><span class="dot-pq"></span><span class="dot-gr"></span></div>
-      <div class="aguardando-texto" id="status-texto">Aguardando o Maestro tocar...</div>
-      <div id="quem-apertou"></div>
-      <div id="aviso-virada"></div>
+
+      <div class="bloco-dicas">
+        <h3>💡 Dicas da Música</h3>
+        <div id="lista-dicas">
+          <div class="dica-item" id="dica-1">Dica 1: ?</div>
+          <div class="dica-item" id="dica-2">Dica 2: ?</div>
+          <div class="dica-item" id="dica-3">Dica 3: ?</div>
+        </div>
+      </div>
+
+      <div class="bloco-centro">
+        <div class="status-titulo" id="status-texto">Aguardando o Maestro tocar...</div>
+        
+        <div class="waveform" id="waveform">
+          <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+          <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+          <div class="wave-bar"></div>
+        </div>
+
+        <div id="quem-apertou"></div>
+        <div id="aviso-virada"></div>
+      </div>
+
+      <div class="bloco-timer" id="blocoTimer">
+        <div class="timer-circle">
+          <svg class="timer-svg" viewBox="0 0 100 100">
+            <circle class="timer-bg" cx="50" cy="50" r="45"></circle>
+            <circle class="timer-progress" cx="50" cy="50" r="45"></circle>
+          </svg>
+          <div class="timer-text" id="timerText">10</div>
+        </div>
+        <div class="pill-buzina" id="pillBuzina">🔔 Buzina Liberada!</div>
+      </div>
     </div>
 
+    <!-- REVELAÇÃO -->
     <div id="revelacao" class="tela">
       <div class="reveal-centro">
         <img id="capa" alt="">
@@ -246,6 +382,7 @@
       </div>
     </div>
 
+    <!-- FINAL -->
     <div id="final" class="tela">
       <h2>🏁 Fim de Partida!</h2>
       <div id="vencedor"></div>
@@ -258,21 +395,16 @@
   </div>
 
   <div id="footer">
-    <div class="team-card vermelha" id="cardVerm">
-      <span class="team-dot"></span>
-      <div class="team-info">
-        <div class="team-nome">Vermelha</div>
-        <div class="team-pts"><span id="p-verm">0</span></div>
-      </div>
+    <div class="card-equipe vermelha" id="cardVerm">
+      <div class="team-nome">Equipe Vermelha <span>VOCÊS</span></div>
+      <div class="team-pts"><span id="p-verm">0</span> <span style="font-size:2vh;">pts</span></div>
     </div>
-    <div class="lista-jogadores esquerda" id="lista-verm"></div>
-    <div class="lista-jogadores direita" id="lista-azul"></div>
-    <div class="team-card azul" id="cardAzul">
-      <span class="team-dot"></span>
-      <div class="team-info">
-        <div class="team-nome">Azul</div>
-        <div class="team-pts"><span id="p-azul">0</span></div>
-      </div>
+    
+    <div class="vs-badge">VS</div>
+    
+    <div class="card-equipe azul" id="cardAzul">
+      <div class="team-nome">Equipe Azul <span>ELES</span></div>
+      <div class="team-pts"><span id="p-azul">0</span> <span style="font-size:2vh;">pts</span></div>
     </div>
   </div>
 
@@ -288,6 +420,7 @@
 
     let timeoutParar = null; let buzinaCtx = null; let fadeInterval = null; let estadoAtual = 'LOBBY';
     let modoAtual = 'LOBBY';
+    let timerInterval = null;
 
     document.getElementById('overlay-audio').addEventListener('click', () => {
       document.getElementById('overlay-audio').classList.add('escondido');
@@ -349,28 +482,21 @@
       document.querySelectorAll('.tela').forEach(t => t.classList.remove('ativa'));
       const alvo = { LOBBY: 'lobby', RODADA: 'rodada', REVELACAO: 'revelacao', FINAL: 'final' }[modo];
       if (alvo) document.getElementById(alvo).classList.add('ativa');
-      document.getElementById('logoPequeno').classList.toggle('ativo', modo !== 'LOBBY');
+      
+      const logoSrc = document.getElementById('logoPequeno');
+      const salaHeader = document.getElementById('salaHeader');
+      
+      if (modo === 'LOBBY') {
+        logoSrc.classList.remove('ativo');
+        salaHeader.classList.add('escondido');
+      } else {
+        logoSrc.classList.add('ativo');
+        salaHeader.classList.remove('escondido');
+      }
     }
 
     function iniciarAutoScroll(id) {
-      const el = document.getElementById(id); if (!el) return;
-      if (el.intervaloScroll) clearInterval(el.intervaloScroll);
-      if (el.timeoutScroll) clearTimeout(el.timeoutScroll);
-      el.scrollTop = 0;
-      el.timeoutScroll = setTimeout(() => {
-        if (el.scrollHeight <= el.clientHeight + 2) return;
-        let descendo = true, pausado = false;
-        el.intervaloScroll = setInterval(() => {
-          if (pausado) return;
-          if (descendo) {
-            el.scrollTop += 1;
-            if (el.scrollTop + el.clientHeight >= el.scrollHeight - 1) { pausado = true; descendo = false; setTimeout(() => { pausado = false; }, 2000); }
-          } else {
-            el.scrollTop -= 1;
-            if (el.scrollTop <= 0) { pausado = true; descendo = true; setTimeout(() => { pausado = false; }, 2000); }
-          }
-        }, 40);
-      }, 1000);
+      // Simplificado para a sidebar global
     }
 
     function renderizarSidebar(sala) {
@@ -378,7 +504,7 @@
       const lista = document.getElementById('sidebar-lista');
       const hist = sala.historicoMusicas || [];
 
-      if (!sala.partidaIniciada || !sala.rodada || modoAtual === 'FINAL') {
+      if (!sala.partidaIniciada || !sala.rodada || modoAtual === 'FINAL' || modoAtual === 'LOBBY') {
         sidebar.classList.add('escondido'); return;
       }
 
@@ -396,49 +522,87 @@
         if (h.resultado === 'acertou') label = (h.equipeVencedora === 'vermelha' ? 'VERMELHA' : 'AZUL') + ' +' + h.pontos;
         else if (h.resultado === 'zerou') label = 'ZEROU';
         else label = 'NINGUÉM';
-        return `<div class="hist-item"><img src="/${h.capaUrl}" alt=""><div class="hist-info"><b>${h.titulo}</b><small>${h.artista} • ${h.ano}</small><span class="badge ${classe}">${label}</span></div></div>`;
+        return `<div class="hist-item"><img src="/${h.capaUrl}" alt=""><div class="hist-info"><b>${h.titulo}</b><small>${h.artista}</small><span class="badge ${classe}">${label}</span></div></div>`;
       }).join('');
     }
 
     function renderizarFooter(sala) {
       document.getElementById('p-verm').textContent = sala.placar.vermelha;
       document.getElementById('p-azul').textContent = sala.placar.azul;
-      const verms = sala.jogadores.filter(j => j.equipe === 'vermelha');
-      const azuis = sala.jogadores.filter(j => j.equipe === 'azul');
-      document.getElementById('lista-verm').innerHTML = verms.length ? verms.map(j => `<div>${j.nome}</div>`).join('') : '<div class="vazio">aguardando...</div>';
-      document.getElementById('lista-azul').innerHTML = azuis.length ? azuis.map(j => `<div>${j.nome}</div>`).join('') : '<div class="vazio">aguardando...</div>';
+      
       document.getElementById('cardVerm').classList.toggle('ativo', sala.rodada && sala.rodada.equipeDaVez === 'vermelha');
       document.getElementById('cardAzul').classList.toggle('ativo', sala.rodada && sala.rodada.equipeDaVez === 'azul');
-      iniciarAutoScroll('lista-verm'); iniciarAutoScroll('lista-azul');
     }
 
-    function renderizarLobby(sala) { document.getElementById('jogadores-lobby').textContent = sala.jogadores.map(j => j.nome).join(' • '); }
+    function renderizarLobby(sala) { 
+      document.getElementById('jogadores-lobby').textContent = sala.jogadores.map(j => j.nome).join(' • '); 
+    }
 
+    // ATUALIZAÇÃO VISUAL DA RODADA
     function renderizarRodada(sala) {
       if (!sala.rodada) return;
       const r = sala.rodada;
-      document.getElementById('num-rodada').textContent = 'Música ' + r.numero + ' de ' + r.totalMusicas;
-      document.getElementById('info-estagio').textContent = 'Estágio ' + (r.estagio + 1) + ' • ' + r.duracao + 's de música • Vale ' + r.pontos + ' pts';
-      document.getElementById('pill-icon').textContent = r.dica ? '💡' : '🎧';
-      document.getElementById('dica-text').textContent = r.dica ? 'Dica: ' + r.dica : 'Ouça com atenção...';
+      document.getElementById('num-rodada').textContent = `RODADA ${r.numero} — ${r.pontos} PONTOS`;
+      document.getElementById('info-estagio').textContent = `Estágio ${r.estagio + 1} • ${r.duracao}s de música`;
+      
+      // Atualiza Dicas
+      const dicas = r.musica.dicas;
+      for (let i = 1; i <= 3; i++) {
+        const el = document.getElementById(`dica-${i}`);
+        if (r.estagio >= i) {
+          el.textContent = `Dica ${i}: ${dicas[i-1]}`;
+          el.classList.add('ativa');
+        } else {
+          el.textContent = `Dica ${i}: ?`;
+          el.classList.remove('ativa');
+        }
+      }
 
-      const st = document.getElementById('status-texto'), q = document.getElementById('quem-apertou'), aviso = document.getElementById('aviso-virada');
+      const st = document.getElementById('status-texto');
+      const q = document.getElementById('quem-apertou');
+      const aviso = document.getElementById('aviso-virada');
+      const waveform = document.getElementById('waveform');
+      const blocoTimer = document.getElementById('blocoTimer');
+      const pillBuzina = document.getElementById('pillBuzina');
+      const timerText = document.getElementById('timerText');
 
       if (r.estado === 'AGUARDANDO') {
-        st.textContent = 'Aguardando o Maestro tocar...'; q.style.display = 'none'; aviso.style.display = 'none';
+        st.textContent = 'Aguardando o Maestro tocar...';
+        q.style.display = 'none'; aviso.style.display = 'none';
+        waveform.classList.remove('ativo');
+        blocoTimer.classList.remove('ativo');
+        pillBuzina.classList.remove('ativo');
         if (estadoAtual !== 'SUSPENSE') tocarTrilha('SUSPENSE');
       } else if (r.estado === 'TOCANDO') {
-        st.textContent = '🎵 Tocando ' + r.duracao + 's...'; q.style.display = 'none'; aviso.style.display = 'none';
+        st.textContent = `🎵 Tocando trecho de ${r.duracao}s...`;
+        q.style.display = 'none'; aviso.style.display = 'none';
+        waveform.classList.add('ativo');
+        blocoTimer.classList.remove('ativo');
+        pillBuzina.classList.remove('ativo');
       } else if (r.estado === 'BUZINA') {
-        st.textContent = '🔔 BUZINA LIBERADA!'; q.style.display = 'none'; aviso.style.display = 'none';
+        st.textContent = 'Quem souber, aperte agora!';
+        q.style.display = 'none'; aviso.style.display = 'none';
+        waveform.classList.remove('ativo');
+        blocoTimer.classList.add('ativo');
+        pillBuzina.classList.add('ativo');
         if (estadoAtual !== 'TENSAO') tocarTrilha('TENSAO');
       } else if (r.estado === 'RESPONDENDO' && r.equipeDaVez) {
-        st.textContent = ''; q.textContent = (r.equipeDaVez === 'vermelha' ? '🔴 Vermelha' : '🔵 Azul') + ' está respondendo!';
+        st.textContent = '';
+        q.textContent = (r.equipeDaVez === 'vermelha' ? '🔴 Equipe Vermelha' : '🔵 Equipe Azul') + ' está respondendo!';
         q.className = r.equipeDaVez; q.style.display = 'block';
-        if (r.modo === 'virada') { aviso.textContent = '🔄 VIROU O DISCO! Vale ' + (r.pontos * 2) + ' pts se acertar!'; aviso.style.display = 'block'; aviso.classList.remove('passe'); }
-        else if (r.jaPassou) { aviso.textContent = '↔️ PASSE: ' + (r.equipeDaVez === 'vermelha' ? 'Vermelha' : 'Azul') + ' foi passada e é obrigada a responder (vale ' + r.pontos + ' pts).'; aviso.style.display = 'block'; aviso.classList.add('passe'); }
+        waveform.classList.remove('ativo');
+        blocoTimer.classList.remove('ativo');
+        pillBuzina.classList.remove('ativo');
+        
+        if (r.modo === 'virada') { aviso.textContent = '🔄 VIROU O DISCO! Vale ' + (r.pontos * 2) + ' pts!'; aviso.style.display = 'block'; aviso.classList.remove('passe'); }
+        else if (r.jaPassou) { aviso.textContent = '↔️ PASSE: equipe obrigada a responder.'; aviso.style.display = 'block'; aviso.classList.add('passe'); }
         else { aviso.style.display = 'none'; }
-      } else if (r.estado === 'REVELACAO') { q.style.display = 'none'; aviso.style.display = 'none'; }
+      } else if (r.estado === 'REVELACAO') { 
+        q.style.display = 'none'; aviso.style.display = 'none'; 
+        waveform.classList.remove('ativo');
+        blocoTimer.classList.remove('ativo');
+        pillBuzina.classList.remove('ativo');
+      }
     }
 
     function renderizarRevelacao(sala) {
@@ -477,6 +641,7 @@
 
     socket.on('sala:criada', ({ codigo, qrCode }) => {
       document.getElementById('codigo').textContent = codigo;
+      document.getElementById('codigoHeader').textContent = codigo;
       const qr = document.getElementById('qr'); qr.innerHTML = '<img src="' + qrCode + '" alt="QR">'; qr.classList.add('tem-conteudo');
     });
 
@@ -500,25 +665,64 @@
     socket.on('rodada:iniciada', (sala) => {
       if (!sala.rodada) return;
       if (!audioEl.paused) fadeOut(audioEl, 4000); else cancelarFade();
-      pararTrilhas(); irParaModo('RODADA'); document.getElementById('quem-apertou').style.display = 'none'; document.getElementById('aviso-virada').style.display = 'none';
+      pararTrilhas(); irParaModo('RODADA'); 
+      document.getElementById('quem-apertou').style.display = 'none'; 
+      document.getElementById('aviso-virada').style.display = 'none';
       setTimeout(() => { if (estadoAtual !== 'SUSPENSE' && !audioEl.paused) return; tocarTrilha('SUSPENSE'); }, 4000);
       renderizarRodada(sala);
     });
 
     socket.on('audio:tocar', ({ url, duracao }) => {
       cancelarFade(); if (duracao < 30) pararTrilhas();
-      const st = document.getElementById('status-texto'); st.textContent = '🎵 Tocando ' + duracao + 's...';
+      const st = document.getElementById('status-texto'); st.textContent = `🎵 Tocando trecho de ${duracao}s...`;
       audioEl.src = '/' + url; audioEl.volume = 1; audioEl.currentTime = 0;
       audioEl.play().catch(() => { st.textContent = '⚠️ Clique na tela para liberar o áudio!'; });
-      if (timeoutParar) clearTimeout(timeoutParar); if (duracao < 30) timeoutParar = setTimeout(() => audioEl.pause(), duracao * 1000);
+      if (timeoutParar) clearTimeout(timeoutParar); 
+      if (duracao < 30) timeoutParar = setTimeout(() => audioEl.pause(), duracao * 1000);
+      
+      // Ativa animação visual da onda
+      document.getElementById('waveform').classList.add('ativo');
     });
 
-    socket.on('buzina:habilitada', () => { tocarTrilha('TENSAO'); });
+    socket.on('buzina:habilitada', () => { 
+      tocarTrilha('TENSAO'); 
+      
+      // Ativa timer visual
+      const blocoTimer = document.getElementById('blocoTimer');
+      const pillBuzina = document.getElementById('pillBuzina');
+      const timerProgress = document.querySelector('.timer-progress');
+      const timerText = document.getElementById('timerText');
+      
+      blocoTimer.classList.add('ativo');
+      pillBuzina.classList.add('ativo');
+      
+      // Reinicia animação do timer CSS
+      timerProgress.style.animation = 'none';
+      timerProgress.offsetHeight; /* trigger reflow */
+      timerProgress.style.animation = 'countdown 10s linear forwards';
+      
+      let tempoRestante = 10;
+      timerText.textContent = tempoRestante;
+      
+      if (timerInterval) clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        tempoRestante--;
+        timerText.textContent = tempoRestante > 0 ? tempoRestante : 0;
+        if (tempoRestante <= 0) clearInterval(timerInterval);
+      }, 1000);
+    });
 
     socket.on('buzina:apertada', ({ equipe }) => {
       pararTrilhas(); tocarBuzina(); animarBuzinas(); soltarConfete();
-      const q = document.getElementById('quem-apertou'); q.textContent = (equipe === 'vermelha' ? '🔴 Vermelha' : '🔵 Azul') + ' apertou primeiro!';
-      q.className = equipe; q.style.display = 'block'; document.getElementById('status-texto').textContent = 'Aguardando decisão do Maestro...';
+      
+      if (timerInterval) clearInterval(timerInterval);
+      document.getElementById('blocoTimer').classList.remove('ativo');
+      document.getElementById('pillBuzina').classList.remove('ativo');
+      document.getElementById('waveform').classList.remove('ativo');
+
+      const q = document.getElementById('quem-apertou'); q.textContent = (equipe === 'vermelha' ? '🔴 Equipe Vermelha' : '🔵 Equipe Azul') + ' apertou primeiro!';
+      q.className = equipe; q.style.display = 'block'; 
+      document.getElementById('status-texto').textContent = 'Aguardando decisão do Maestro...';
     });
 
     socket.on('resultado:zerou', ({ equipe }) => {
