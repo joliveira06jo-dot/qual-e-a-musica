@@ -6,23 +6,25 @@
   <title>Qual é a Música? — Telão</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;0,800;0,900;1,900&display=swap" rel="stylesheet">
   <style>
+    /* ==========================================================================
+       1. VARIÁVEIS E RESET
+       ========================================================================== */
     :root {
-      --bg-top: #040714;
-      --bg-bottom: #12104a;
-      --dark-bar: #020C17;
-      --yellow: #FFDC33;
-      --yellow-pill: #F5C518;
-      --red: #FF3333;
-      --red-dark: #8B0000;
-      --red-soft: #ff4d4d;
-      --blue: #1800C6;
-      --blue-dark: #0a0066;
-      --blue-dot: #1E74FD;
+      --bg-top: #1342a8;
+      --bg-mid: #081d52;
+      --bg-bottom: #020717;
+      --dark-bar: #020612;
+      --yellow: #facc15;
+      --yellow-dark: #ca8a04;
+      --red: #ef4444;
+      --red-dark: #7f1d1d;
+      --blue: #0ea5e9;
+      --blue-dark: #082f49;
       --white: #FFFFFF;
       --green: #22C55E;
-      --gray: #B0B3C0;
+      --gray: #94a3b8;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; scrollbar-width: none; -ms-overflow-style: none; }
     ::-webkit-scrollbar { display: none; }
@@ -32,63 +34,62 @@
     body {
       font-family: 'Poppins', sans-serif; color: var(--white);
       display: flex; flex-direction: column;
-      background: radial-gradient(circle at 50% 0%, #1a1f5e 0%, var(--bg-top) 70%);
+      background: radial-gradient(circle at 50% 25%, var(--bg-top) 0%, var(--bg-mid) 45%, var(--bg-bottom) 100%);
       position: relative;
     }
+
+    /* ==========================================================================
+       2. ATMOSFERA TV SHOW (HOLOFOTES E PARTÍCULAS - AI STUDIO)
+       ========================================================================== */
+    .cenario-luzes { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; overflow: hidden; }
     
-    /* SPOTLIGHTS NO FUNDO */
-    body::before {
-      content: '';
-      position: fixed; inset: 0; pointer-events: none; z-index: 0;
-      background: 
-        radial-gradient(ellipse at 20% 0%, rgba(53, 51, 205, 0.2) 0%, transparent 50%),
-        radial-gradient(ellipse at 80% 0%, rgba(233, 69, 96, 0.15) 0%, transparent 50%);
+    .holofote {
+      position: absolute; top: -10vh; width: 35vw; height: 120vh;
+      background: linear-gradient(180deg, rgba(56, 189, 248, 0.2) 0%, rgba(14, 165, 233, 0.05) 50%, transparent 80%);
+      filter: blur(25px); transform-origin: top center; mix-blend-mode: screen;
     }
+    .holofote-esquerdo { left: -5vw; clip-path: polygon(45% 0%, 55% 0%, 100% 100%, 0% 100%); transform: rotate(20deg); animation: oscilar-luz-esq 8s ease-in-out infinite alternate; }
+    .holofote-direito { right: -5vw; clip-path: polygon(45% 0%, 55% 0%, 100% 100%, 0% 100%); transform: rotate(-20deg); animation: oscilar-luz-dir 8s ease-in-out infinite alternate; }
+    @keyframes oscilar-luz-esq { 0% { transform: rotate(16deg); } 100% { transform: rotate(25deg); } }
+    @keyframes oscilar-luz-dir { 0% { transform: rotate(-16deg); } 100% { transform: rotate(-25deg); } }
 
-    /* NOTAS MUSICAIS FLUTUANTES (Fundo) */
-    .nota-musical {
-      position: fixed; font-size: 2rem; color: rgba(255,255,255,0.05);
-      pointer-events: none; z-index: 0; animation: flutuar 15s linear infinite;
-    }
-    @keyframes flutuar {
-      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-      10% { opacity: 1; }
-      90% { opacity: 1; }
-      100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
-    }
+    .cenario-particulas { position: absolute; inset: 0; pointer-events: none; z-index: 2; }
+    .nota-musical, .estrela { position: absolute; color: var(--yellow); user-select: none; will-change: transform; }
+    .nota-1 { top: 15vh; left: 8vw; font-size: 2.2vw; opacity: 0.6; filter: drop-shadow(0 0 6px rgba(250, 204, 21, 0.6)); animation: flutuar-suave 5s ease-in-out infinite alternate; }
+    .nota-2 { top: 22vh; right: 10vw; font-size: 2.8vw; opacity: 0.7; filter: drop-shadow(0 0 8px rgba(250, 204, 21, 0.8)); animation: flutuar-suave 6s ease-in-out infinite alternate-reverse; }
+    .estrela-1 { bottom: 25vh; left: 5vw; font-size: 1.5vw; opacity: 0.5; animation: piscar 2.5s infinite alternate; }
+    .estrela-2 { top: 10vh; right: 6vw; font-size: 2vw; opacity: 0.8; animation: piscar 3.5s infinite alternate; }
+    @keyframes flutuar-suave { 0% { transform: translateY(0px) rotate(0deg); } 100% { transform: translateY(-1.5vh) rotate(12deg); } }
+    @keyframes piscar { 0% { opacity: 0.2; transform: scale(0.8); } 100% { opacity: 0.9; transform: scale(1.15); filter: drop-shadow(0 0 10px #fef08a); } }
 
+    /* ==========================================================================
+       3. HEADER E LOBBY
+       ========================================================================== */
     #header { position: absolute; top: 3vh; left: 3vw; z-index: 10; display: flex; justify-content: space-between; width: 94vw; align-items: flex-start; pointer-events: none; }
-    #logoPequeno { 
-      height: 18vh; width: auto; opacity: 0; transition: opacity 0.3s; 
-      filter: drop-shadow(0 0 2vh rgba(149,180,232,0.8)) drop-shadow(0 0 4vh rgba(149,180,232,0.4)); 
-    }
+    #logoPequeno { height: 18vh; width: auto; opacity: 0; transition: opacity 0.3s; filter: drop-shadow(0 0 2vh rgba(149,180,232,0.8)) drop-shadow(0 0 4vh rgba(149,180,232,0.4)); }
     #logoPequeno.ativo { opacity: 1; }
-    #salaHeader { font-size: 2.5vh; font-weight: 600; color: var(--gray); letter-spacing: 0.2vw; }
+    
+    #salaHeader { font-size: 2.5vh; font-weight: 600; color: var(--gray); letter-spacing: 0.2vw; opacity: 0; transition: opacity 0.3s; }
+    #salaHeader.ativo { opacity: 1; }
     #salaHeader span { color: var(--white); font-weight: 700; font-size: 3.5vh; margin-left: 0.5vw; }
 
-    #main { flex: 1; position: relative; z-index: 2; overflow: hidden; }
+    #main { flex: 1; position: relative; z-index: 10; overflow: hidden; }
     .tela { position: absolute; inset: 0; display: none; width: 100%; height: 100%; }
 
-    /* SIDEBAR GLOBAL */
-    #sidebar-global {
-      position: absolute; top: 22vh; left: 3vw; width: 24vw; max-width: 400px;
-      max-height: 55vh; overflow-y: auto; z-index: 5;
-      display: flex; flex-direction: column; gap: 1.5vh; text-align: left;
-    }
+    #sidebar-global { position: absolute; top: 22vh; left: 3vw; width: 24vw; max-width: 400px; max-height: 55vh; overflow-y: auto; z-index: 5; display: flex; flex-direction: column; gap: 1.5vh; text-align: left; }
     #sidebar-global.escondido { display: none; }
-    #sidebar-global .hist-title { font-size: 2.8vh; font-weight: 700; margin-bottom: 0.5vh; color: var(--yellow); text-shadow: 0 0 1vh rgba(255,220,51,0.5); }
-    #sidebar-global .hist-item { display: flex; gap: 1.2vh; align-items: center; background: rgba(0,0,0,0.4); padding: 1vh; border-radius: 1vh; border: 1px solid rgba(255,255,255,0.05); }
+    #sidebar-global .hist-title { font-size: 2.8vh; font-weight: 700; margin-bottom: 0.5vh; color: var(--yellow); text-shadow: 0 0 1vh rgba(250,204,21,0.5); }
+    #sidebar-global .hist-item { display: flex; gap: 1.2vh; align-items: center; background: rgba(0,0,0,0.5); padding: 1vh; border-radius: 1vh; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(8px); }
     #sidebar-global .hist-item img { width: 6vw; height: 6vw; max-width: 90px; max-height: 90px; object-fit: cover; border-radius: 0.8vh; }
     #sidebar-global .hist-info { flex: 1; min-width: 0; line-height: 1.2; }
     #sidebar-global .hist-info b { font-size: 2.4vh; font-weight: 700; color: var(--yellow); display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     #sidebar-global .hist-info small { font-size: 2vh; color: var(--gray); display: block; margin-bottom: 0.4vh; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     #sidebar-global .badge { display: inline-block; font-size: 1.8vh; font-weight: 700; padding: 0.5vh 1.2vh; border-radius: 0.4vh; background: rgba(255,255,255,0.1); color: white; }
-    #sidebar-global .badge.vermelha { background: var(--red); box-shadow: 0 0 1vh rgba(255,51,51,0.5); }
-    #sidebar-global .badge.azul { background: var(--blue); box-shadow: 0 0 1vh rgba(24,0,198,0.5); }
+    #sidebar-global .badge.vermelha { background: var(--red); box-shadow: 0 0 1vh rgba(239,68,68,0.5); }
+    #sidebar-global .badge.azul { background: var(--blue); box-shadow: 0 0 1vh rgba(14,165,233,0.5); }
     #sidebar-global .badge.zero { background: #444; color: #ff8fa3; }
     #sidebar-global .badge.ninguem { background: #555; }
 
-    /* LOBBY */
     #lobby.ativa { display: flex; flex-direction: column; }
     .lobby-absolute-top { position: absolute; top: 4vh; left: 4vw; right: 4vw; display: flex; justify-content: space-between; align-items: flex-start; }
     .sala-bloco { display: flex; flex-direction: column; align-items: flex-start; }
@@ -104,170 +105,147 @@
     .aguardando-texto { font-size: 3.5vh; font-weight: 600; margin-top: 3vh; margin-bottom: 1vh; color: var(--yellow); }
     #jogadores-lobby { font-size: 2.2vh; font-weight: 500; color: rgba(255,255,255,0.85); text-align: center; max-width: 80vw; line-height: 1.4; text-transform: uppercase; letter-spacing: 0.1vw; }
 
-    /* RODADA (O GRANDE UPGRADE) */
-    #rodada.ativa { 
-      display: grid; 
-      grid-template-columns: 25vw 1fr 25vw; 
-      grid-template-rows: auto 1fr auto;
-      padding: 15vh 3vw 5vh 3vw; 
-      gap: 2vw;
-      align-items: center;
-    }
+    /* ==========================================================================
+       4. RODADA (LAYOUT E TIMER DO AI STUDIO)
+       ========================================================================== */
+    #rodada.ativa { display: grid; grid-template-columns: 28vw 1fr 22vw; grid-template-rows: auto 1fr auto; padding: 15vh 3vw 2vh 3vw; gap: 2vw; align-items: center; }
 
-    /* Header da Rodada (Banner) */
-    .banner-rodada {
-      grid-column: 1 / -1;
-      justify-self: center;
-      background: linear-gradient(90deg, transparent, rgba(53, 51, 205, 0.4), transparent);
-      border-top: 2px solid var(--yellow);
-      border-bottom: 2px solid var(--yellow);
-      padding: 1vh 5vw;
-      text-align: center;
-      margin-bottom: 2vh;
-    }
-    .titulo-estagio { font-size: 5vh; font-weight: 800; line-height: 1.1; letter-spacing: 0.1vw; text-shadow: 0 0 2vh rgba(255,220,51,0.3); }
+    .banner-rodada { grid-column: 1 / -1; justify-self: center; background: linear-gradient(90deg, transparent, rgba(14, 165, 233, 0.3), transparent); border-top: 2px solid var(--yellow); border-bottom: 2px solid var(--yellow); padding: 1vh 5vw; text-align: center; margin-bottom: 2vh; }
+    .titulo-estagio { font-size: 5vh; font-weight: 800; line-height: 1.1; letter-spacing: 0.1vw; text-shadow: 0 0 2vh rgba(250,204,21,0.3); }
     .subtitulo { font-size: 3vh; font-weight: 600; color: var(--yellow); margin-top: 0.5vh; }
 
-    /* Dicas (Esquerda) */
-    .bloco-dicas {
-      background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); border-radius: 1.5vh;
-      padding: 2vh; display: flex; flex-direction: column; gap: 1vh; text-align: left;
-      box-shadow: 0 1vh 3vh rgba(0,0,0,0.5); backdrop-filter: blur(10px);
-    }
-    .bloco-dicas h3 { font-size: 2.2vh; color: var(--yellow); text-transform: uppercase; letter-spacing: 0.1vw; margin-bottom: 1vh; display: flex; align-items: center; gap: 1vw; }
-    .dica-item { font-size: 2vh; color: #ccc; line-height: 1.4; padding: 1vh; border-left: 3px solid rgba(255,255,255,0.1); transition: all 0.5s; }
-    .dica-item.ativa { color: var(--white); border-left-color: var(--yellow); background: rgba(255,220,51,0.05); font-weight: 600; }
+    .bloco-dicas { background: rgba(6, 20, 51, 0.7); border: 2px solid rgba(250, 204, 21, 0.6); border-radius: 1.5vh; padding: 2.5vh; display: flex; flex-direction: column; gap: 1.5vh; text-align: left; box-shadow: 0 1vh 4vh rgba(0,0,0,0.5); backdrop-filter: blur(8px); align-self: start; }
+    .bloco-dicas h3 { font-size: 2.5vh; color: var(--yellow); text-transform: uppercase; letter-spacing: 0.1vw; margin-bottom: 1vh; text-align: center; }
+    .dica-item { font-size: 2.5vh; color: #cbd5e1; line-height: 1.4; padding: 1vh; border-bottom: 1px dashed rgba(255,255,255,0.1); transition: all 0.5s; display: flex; align-items: center; gap: 1vw; }
+    .dica-item.ativa { color: var(--white); font-weight: 600; }
+    .dica-item .lupa { color: var(--yellow); font-size: 2vh; opacity: 0; transition: opacity 0.5s; }
+    .dica-item.ativa .lupa { opacity: 1; }
 
-    /* Centro (Onda sonora e Status) */
     .bloco-centro { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; width: 100%; }
-    
     .status-titulo { font-size: 4vh; font-weight: 700; margin-bottom: 2vh; text-shadow: 0 0 2vh rgba(255,255,255,0.2); min-height: 5vh; }
-    
-    /* Waveform Animada */
-    .waveform { display: flex; align-items: center; justify-content: center; gap: 0.5vw; height: 10vh; margin-bottom: 3vh; opacity: 0.3; transition: opacity 0.3s; }
-    .waveform.ativo { opacity: 1; }
-    .wave-bar { width: 0.6vw; background: var(--yellow); border-radius: 1vh; height: 10%; transition: height 0.1s; }
-    .waveform.ativo .wave-bar { animation: waveAnim 1s infinite alternate ease-in-out; }
-    .wave-bar:nth-child(1) { animation-delay: 0.1s; }
-    .wave-bar:nth-child(2) { animation-delay: 0.3s; }
-    .wave-bar:nth-child(3) { animation-delay: 0.0s; }
-    .wave-bar:nth-child(4) { animation-delay: 0.4s; }
-    .wave-bar:nth-child(5) { animation-delay: 0.2s; }
-    .wave-bar:nth-child(6) { animation-delay: 0.5s; }
-    .wave-bar:nth-child(7) { animation-delay: 0.1s; }
-    @keyframes waveAnim {
-      0% { height: 10%; }
-      100% { height: 100%; box-shadow: 0 0 2vh var(--yellow); }
-    }
 
-    /* Timer e Buzina (Direita) */
-    .bloco-timer {
-      display: flex; flex-direction: column; align-items: center; gap: 2vh;
-      background: rgba(0,0,0,0.3); padding: 3vh 2vw; border-radius: 2vh;
-      border: 1px solid rgba(255,255,255,0.05); opacity: 0.3; transition: all 0.5s;
-    }
-    .bloco-timer.ativo { opacity: 1; box-shadow: 0 0 3vh rgba(255,51,51,0.3); border-color: rgba(255,51,51,0.5); }
+    /* WAVEFORM DO AI STUDIO */
+    .audio-card { background: rgba(6, 20, 51, 0.7); border: 2px solid #eab308; border-radius: 1.5vh; padding: 1.5vh 2vw; display: flex; flex-direction: column; align-items: center; backdrop-filter: blur(8px); }
+    .audio-titulo { font-size: 1.8vh; font-weight: 700; color: #facc15; letter-spacing: 0.1vw; margin-bottom: 1vh; text-transform: uppercase; }
+    .waveform-container { display: flex; align-items: center; justify-content: center; gap: 0.5vw; height: 6vh; width: 100%; }
+    .onda-barra { width: 0.4vw; height: 100%; background: linear-gradient(180deg, #fef08a 0%, #eab308 50%, #ca8a04 100%); border-radius: 999px; transform: scaleY(0.15); transform-origin: center; transition: opacity 0.3s ease; opacity: 0.3; animation: pulsar-onda 1s ease-in-out infinite alternate; animation-play-state: paused; }
+    .waveform-container.tocando .onda-barra { animation-play-state: running; opacity: 1; }
+    .onda-barra:nth-child(2n) { animation-duration: 0.6s; }
+    .onda-barra:nth-child(3n) { animation-duration: 0.85s; }
+    .onda-barra:nth-child(4n) { animation-duration: 0.45s; }
+    .onda-barra:nth-child(5n) { animation-duration: 0.75s; }
+    .onda-barra:nth-child(odd) { animation-delay: 0.15s; }
+    .onda-barra:nth-child(even) { animation-delay: 0.3s; }
+    @keyframes pulsar-onda { 0% { transform: scaleY(0.15); } 100% { transform: scaleY(1); filter: drop-shadow(0 0 3px #fde047); } }
+
+    /* TIMER DO AI STUDIO */
+    .bloco-timer { display: flex; flex-direction: column; align-items: center; gap: 2vh; background: rgba(6, 20, 51, 0.7); padding: 3vh 2vw; border-radius: 1.5vh; border: 2px solid rgba(250, 204, 21, 0.6); opacity: 0.3; transition: all 0.5s; backdrop-filter: blur(8px); }
+    .bloco-timer.ativo { opacity: 1; box-shadow: 0 0 4vh rgba(239,68,68,0.4); border-color: var(--red); }
     
-    .timer-circle { position: relative; width: 12vh; height: 12vh; }
+    .timer-container { position: relative; width: 12vh; height: 12vh; display: flex; align-items: center; justify-content: center; }
     .timer-svg { width: 100%; height: 100%; transform: rotate(-90deg); }
-    .timer-bg { fill: none; stroke: rgba(255,255,255,0.1); stroke-width: 6; }
-    .timer-progress { fill: none; stroke: var(--yellow); stroke-width: 6; stroke-dasharray: 283; stroke-dashoffset: 0; stroke-linecap: round; }
-    .bloco-timer.ativo .timer-progress { animation: countdown 10s linear forwards; }
-    @keyframes countdown { from { stroke-dashoffset: 0; } to { stroke-dashoffset: 283; } }
-    .timer-text { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 3.5vh; font-weight: 800; color: var(--white); }
+    .timer-trilho { fill: none; stroke: rgba(250, 204, 21, 0.25); stroke-width: 6; stroke-dasharray: 4, 3; }
+    .timer-barra { fill: none; stroke: #facc15; stroke-width: 6; stroke-linecap: round; stroke-dasharray: 276.46; stroke-dashoffset: 0; filter: drop-shadow(0 0 6px #eab308); transition: stroke 0.3s; }
+    .timer-animando { animation: countdown-10s 10s linear forwards; stroke: var(--red); filter: drop-shadow(0 0 6px var(--red)); }
+    @keyframes countdown-10s { from { stroke-dashoffset: 0; } to { stroke-dashoffset: 276.46; } }
+    .timer-texto { position: absolute; font-size: 3.5vh; font-weight: 800; color: #facc15; text-shadow: 0 0 8px rgba(250, 204, 21, 0.5); }
+    .timer-animando ~ .timer-texto { color: var(--red); text-shadow: 0 0 8px rgba(239,68,68,0.5); }
 
-    .pill-buzina { background: var(--red); padding: 1.5vh 3vw; border-radius: 999px; font-size: 2.5vh; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1vw; display: none; animation: pulseBuzina 1s infinite alternate; }
-    .pill-buzina.ativo { display: block; }
-    @keyframes pulseBuzina { from { transform: scale(1); box-shadow: 0 0 1vh var(--red); } to { transform: scale(1.05); box-shadow: 0 0 3vh var(--red); } }
+    .pill-buzina { display: flex; align-items: center; justify-content: center; gap: 0.5vw; font-size: 2.2vh; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1vw; color: var(--white); display: none; margin-top: 1vh; text-shadow: 0 0 8px #38bdf8, 0 0 16px #0284c7, 0 0 24px rgba(2, 132, 199, 0.6); }
+    .pill-buzina.ativo { display: flex; animation: pulseBuzina 1s infinite alternate; }
+    .pill-buzina .arco { color: #f43f5e; font-size: 3vh; font-weight: 800; }
+    .pill-buzina .arco.azul { color: #38bdf8; }
+    @keyframes pulseBuzina { from { transform: scale(1); } to { transform: scale(1.05); } }
 
-    /* Quem Apertou */
     #quem-apertou { grid-column: 1 / -1; text-align: center; font-size: 5vh; font-weight: 800; padding: 2vh 4vw; border-radius: 1.5vh; margin-top: 2vh; display: none; }
     #quem-apertou.vermelha { background: linear-gradient(90deg, var(--red-dark), var(--red), var(--red-dark)); box-shadow: 0 0 4vh rgba(255,51,51,0.6); border: 2px solid #ff8fa3; }
     #quem-apertou.azul { background: linear-gradient(90deg, var(--blue-dark), var(--blue), var(--blue-dark)); box-shadow: 0 0 4vh rgba(24,0,198,0.6); border: 2px solid #6b9aff; }
-    
-    #aviso-virada { grid-column: 1 / -1; display: none; text-align: center; font-size: 3.5vh; font-weight: 800; padding: 1.5vh 3vw; border-radius: 1vh; background: var(--yellow-pill); color: #1a1a2e; border: 3px solid var(--yellow); margin-top: 1vh; box-shadow: 0 0 3vh rgba(245,197,24,0.5); }
+    #aviso-virada { grid-column: 1 / -1; display: none; text-align: center; font-size: 3.5vh; font-weight: 800; padding: 1.5vh 3vw; border-radius: 1vh; background: var(--yellow); color: #1a1a2e; border: 3px solid #fff; margin-top: 1vh; box-shadow: 0 0 3vh rgba(245,197,24,0.5); }
     #aviso-virada.passe { background: #2a2d3e; color: var(--white); border-color: #6b6e80; box-shadow: none; }
 
-    /* REVELAÇÃO */
+    /* ==========================================================================
+       5. REVELAÇÃO
+       ========================================================================== */
     #revelacao.ativa { display: flex; align-items: center; justify-content: center; gap: 6vw; padding: 15vh 5vw 5vh 5vw; }
     .reveal-centro { display: flex; flex-direction: column; align-items: center; gap: 2vh; text-align: center; }
     #capa { width: 42vh; height: 42vh; object-fit: cover; border-radius: 2vh; box-shadow: 0 0 6vh rgba(0,0,0,0.8), 0 0 2vh rgba(255,255,255,0.2); border: 2px solid rgba(255,255,255,0.1); opacity: 0; transition: opacity 0.4s; }
     #capa.carregada { opacity: 1; }
-    #mus-titulo { font-size: 5.5vh; font-weight: 800; color: var(--yellow); line-height: 1.1; text-shadow: 0 0 2vh rgba(255,220,51,0.4); }
+    #mus-titulo { font-size: 5.5vh; font-weight: 800; color: var(--yellow); line-height: 1.1; text-shadow: 0 0 2vh rgba(250,204,21,0.4); }
     #mus-info { font-size: 2.8vh; font-weight: 500; color: var(--white); }
-    
-    .reveal-direita { display: flex; flex-direction: column; align-items: center; gap: 2.5vh; text-align: center; background: rgba(0,0,0,0.3); padding: 4vh 3vw; border-radius: 2vh; border: 1px solid rgba(255,255,255,0.05); }
+    .reveal-direita { display: flex; flex-direction: column; align-items: center; gap: 2.5vh; text-align: center; background: rgba(0,0,0,0.4); padding: 4vh 3vw; border-radius: 2vh; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(10px); }
     .icon-badge { width: 16vh; height: 16vh; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 9vh; font-weight: 800; color: var(--white); }
     .icon-badge.verde { background: linear-gradient(135deg, #22C55E, #166534); box-shadow: 0 0 5vh rgba(34,197,94,0.6); border: 3px solid #86efac; }
     .icon-badge.vermelho { background: linear-gradient(135deg, var(--red), var(--red-dark)); box-shadow: 0 0 5vh rgba(255,51,51,0.6); border: 3px solid #ff8fa3; }
     .icon-badge.neutro { background: linear-gradient(135deg, #555, #222); border: 3px solid #888; }
-    
     .resultado-badge { font-size: 4.6vh; font-weight: 800; padding: 1.5vh 3vw; border-radius: 1vh; color: var(--white); line-height: 1.1; text-transform: uppercase; letter-spacing: 0.1vw; }
     .resultado-badge.verde { background: var(--green); box-shadow: 0 0 2vh rgba(34,197,94,0.5); }
     .resultado-badge.vermelho { background: var(--red); box-shadow: 0 0 2vh rgba(255,51,51,0.5); }
     .resultado-badge.neutro { background: #555; font-size: 3.5vh; }
-    
     #resultado-pontos { font-size: 3vh; font-weight: 700; }
     #resultado-equipe { font-size: 2.8vh; font-weight: 800; padding: 1.5vh 2.5vw; border-radius: 1vh; text-transform: uppercase; letter-spacing: 0.1vw; }
     #resultado-equipe.vermelha { background: var(--red); box-shadow: 0 0 2vh rgba(255,51,51,0.5); }
     #resultado-equipe.azul { background: var(--blue); box-shadow: 0 0 2vh rgba(24,0,198,0.5); }
     #resultado-equipe:empty { display: none; }
 
-    /* FINAL */
+    /* ==========================================================================
+       6. FINAL
+       ========================================================================== */
     #final.ativa { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4vh; text-align: center; padding-top: 10vh; }
-    #final h2 { font-size: 8vh; font-weight: 800; color: var(--yellow); text-shadow: 0 0 4vh rgba(255,220,51,0.5); }
+    #final h2 { font-size: 8vh; font-weight: 800; color: var(--yellow); text-shadow: 0 0 4vh rgba(250,204,21,0.5); }
     #vencedor { font-size: 7vh; font-weight: 800; padding: 4vh 6vw; border-radius: 2vh; text-transform: uppercase; }
     #vencedor.vermelha { background: linear-gradient(135deg, var(--red), var(--red-dark)); box-shadow: 0 0 6vh rgba(255,51,51,0.6); border: 3px solid #ff8fa3; }
     #vencedor.azul { background: linear-gradient(135deg, var(--blue), var(--blue-dark)); box-shadow: 0 0 6vh rgba(24,0,198,0.6); border: 3px solid #6b9aff; }
-    #vencedor.empate { background: var(--yellow-pill); color: #1a1a2e; box-shadow: 0 0 4vh rgba(245,197,24,0.5); }
+    #vencedor.empate { background: var(--yellow); color: #1a1a2e; box-shadow: 0 0 4vh rgba(245,197,24,0.5); }
     #final-placar { font-size: 5vh; font-weight: 800; display: flex; gap: 6vw; }
-    #final-placar .v { color: var(--red-soft); } #final-placar .a { color: #6b9aff; }
+    #final-placar .v { color: #fca5a5; } #final-placar .a { color: #93c5fd; }
     #final-msg { font-size: 2.5vh; opacity: 0.7; font-weight: 500; margin-top: 2vh; }
 
-    /* FOOTER (Cards Estilo E-sports) */
-    #footer { 
-      height: 20vh; background: var(--dark-bar); padding: 0 3vw; 
-      display: grid; grid-template-columns: 1fr auto 1fr; gap: 3vw; 
-      align-items: center; position: relative; z-index: 10; 
-      border-top: 2px solid rgba(255,255,255,0.1);
-      box-shadow: 0 -1vh 4vh rgba(0,0,0,0.8);
-    }
+    /* ==========================================================================
+       7. FOOTER (CARDS E VS DO AI STUDIO)
+       ========================================================================== */
+    #footer { height: 20vh; background: var(--dark-bar); padding: 0 3vw; display: flex; justify-content: center; align-items: center; gap: 3vw; position: relative; z-index: 10; border-top: 2px solid rgba(255,255,255,0.1); box-shadow: 0 -1vh 4vh rgba(0,0,0,0.8); }
     
+    .container-equipe { display: flex; flex-direction: column; align-items: center; gap: 1vh; }
+
+    .equipe-vermelha { --cor-tag: #7f1d1d; --cor-fundo-gradiente: linear-gradient(180deg, rgba(185, 28, 28, 0.85) 0%, rgba(69, 10, 10, 0.95) 100%); --cor-borda: rgba(239, 68, 68, 0.6); --cor-brilho-interno: rgba(254, 202, 202, 0.25); }
+    .equipe-azul { --cor-tag: #0369a1; --cor-fundo-gradiente: linear-gradient(180deg, rgba(2, 132, 199, 0.85) 0%, rgba(8, 47, 73, 0.95) 100%); --cor-borda: rgba(56, 189, 248, 0.6); --cor-brilho-interno: rgba(186, 230, 253, 0.25); }
+
     .card-equipe {
-      height: 14vh; border-radius: 1.5vh;
-      display: flex; flex-direction: column; justify-content: center; align-items: center;
-      position: relative; overflow: hidden; transition: all 0.3s ease;
-      border: 2px solid transparent;
-    }
-    
-    /* Glassmorphism interno */
-    .card-equipe::after {
-      content: ''; position: absolute; inset: 0; pointer-events: none;
-      box-shadow: inset 0 0 20px rgba(255,255,255,0.15);
+      width: 20vw; min-width: 220px;
       border-radius: 1.5vh;
+      background: var(--cor-fundo-gradiente);
+      border: 2px solid var(--cor-borda);
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      box-shadow: inset 0 1px 1px var(--cor-brilho-interno), inset 0 -4px 12px rgba(0, 0, 0, 0.6), 0 8px 24px rgba(0, 0, 0, 0.5);
+      display: flex; flex-direction: column; align-items: center;
+      padding: 1vh 1vw 1.5vh 1vw; transition: all 0.3s;
     }
 
-    .card-equipe.vermelha { background: linear-gradient(180deg, #FF3333 0%, #8B0000 100%); border-color: #ff8fa3; }
-    .card-equipe.azul { background: linear-gradient(180deg, #1E74FD 0%, #1800C6 100%); border-color: #6b9aff; }
-    
-    .card-equipe.ativo { transform: scale(1.05); z-index: 2; }
-    .card-equipe.vermelha.ativo { box-shadow: 0 0 4vh rgba(255,51,51,0.8); }
-    .card-equipe.azul.ativo { box-shadow: 0 0 4vh rgba(30,116,253,0.8); }
+    .card-equipe.ativo { transform: scale(1.05); box-shadow: 0 0 4vh var(--cor-borda), inset 0 1px 1px var(--cor-brilho-interno); }
 
-    .team-nome { font-size: 2.5vh; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1vw; color: rgba(255,255,255,0.9); margin-bottom: 0.5vh; }
-    .team-pts { font-size: 6vh; font-weight: 800; color: var(--white); text-shadow: 0 0.5vh 1vh rgba(0,0,0,0.5); line-height: 1; }
-    .team-nome span { font-size: 1.5vh; font-weight: 600; display: block; opacity: 0.7; }
+    .card-header-badge { background: var(--cor-tag); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 999px; padding: 0.5vh 1.5vw; font-size: 2vh; font-weight: 700; color: #ffffff; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1vh; box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.4); width: 100%; text-align: center; }
+    .card-pontos { font-size: 6vh; font-weight: 800; color: #ffffff; letter-spacing: -0.01em; line-height: 1; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7); }
+    .card-pontos span { font-size: 2.5vh; }
 
-    /* O "VS" no meio do Footer */
+    .team-jogadores { font-size: 2vh; font-weight: 600; color: rgba(255,255,255,0.9); text-align: center; text-transform: uppercase; max-width: 20vw; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .team-jogadores.vermelha { color: #fca5a5; }
+    .team-jogadores.azul { color: #93c5fd; }
+    .team-jogadores.vazio { color: #666; font-style: italic; }
+
+    /* TEXTO VS 3D DO AI STUDIO */
     .vs-badge {
-      font-size: 6vh; font-weight: 800; font-style: italic; color: var(--yellow);
-      text-shadow: 0 0 2vh rgba(255,220,51,0.8); letter-spacing: -0.2vw;
-      transform: skew(-10deg); background: rgba(0,0,0,0.5); padding: 1vh 2vw; border-radius: 1vh; border: 1px solid rgba(255,220,51,0.3);
+      font-family: 'Poppins', sans-serif; font-size: 6vh; font-weight: 900; font-style: italic; letter-spacing: 0.05em;
+      background: linear-gradient(180deg, #fffbeb 0%, #fde047 40%, #ca8a04 70%, #854d0e 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 1px 0 #ca8a04) drop-shadow(0 3px 0 #422006) drop-shadow(0 6px 10px rgba(0, 0, 0, 0.9));
+      align-self: center; user-select: none; margin: 0 2vw;
     }
 
-    /* OVERLAY & ANIMAÇÕES */
+    /* ==========================================================================
+       8. OVERLAYS E ANIMAÇÕES GERAIS
+       ========================================================================== */
     #overlay-audio { position: fixed; inset: 0; background: rgba(0,0,0,0.95); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 2vh; z-index: 9999; cursor: pointer; }
-    #overlay-audio h2 { font-size: 5vh; color: var(--yellow); font-weight: 800; text-shadow: 0 0 2vh rgba(255,220,51,0.5); }
+    #overlay-audio h2 { font-size: 5vh; color: var(--yellow); font-weight: 800; text-shadow: 0 0 2vh rgba(250,204,21,0.5); }
     #overlay-audio p { font-size: 2.2vh; color: var(--gray); }
     #overlay-audio.escondido { display: none; }
 
@@ -280,11 +258,17 @@
   </style>
 </head>
 <body>
-  <!-- Elementos de fundo -->
-  <div class="nota-musical" style="left: 10%; animation-delay: 0s;">🎵</div>
-  <div class="nota-musical" style="left: 30%; animation-delay: 3s;">🎶</div>
-  <div class="nota-musical" style="left: 70%; animation-delay: 6s;">🎵</div>
-  <div class="nota-musical" style="left: 90%; animation-delay: 9s;">🎶</div>
+  <!-- Efeitos de Fundo (AI Studio) -->
+  <div class="cenario-luzes">
+    <div class="holofote holofote-esquerdo"></div>
+    <div class="holofote holofote-direito"></div>
+  </div>
+  <div class="cenario-particulas">
+    <span class="nota-musical nota-1">♪</span>
+    <span class="nota-musical nota-2">♫</span>
+    <span class="estrela estrela-1">★</span>
+    <span class="estrela estrela-2">★</span>
+  </div>
 
   <div id="overlay-audio">
     <h2>🔊 Clique para ativar o áudio</h2>
@@ -299,11 +283,10 @@
 
   <div id="header">
     <img id="logoPequeno" src="/img/logo.png" alt="Qual é a Música?">
-    <div id="salaHeader" class="escondido">SALA: <span id="codigoHeader">----</span></div>
+    <div id="salaHeader">SALA: <span id="codigoHeader">----</span></div>
   </div>
 
   <div id="main">
-    <!-- Histórico Global -->
     <div id="sidebar-global" class="escondido">
       <div class="hist-title">📜 Histórico</div>
       <div id="sidebar-lista"></div>
@@ -334,7 +317,7 @@
       </div>
 
       <div class="bloco-dicas">
-        <h3>💡 Dicas da Música</h3>
+        <h3>💡 DICAS DA MÚSICA</h3>
         <div id="lista-dicas">
           <div class="dica-item" id="dica-1">Dica 1: ?</div>
           <div class="dica-item" id="dica-2">Dica 2: ?</div>
@@ -345,25 +328,36 @@
       <div class="bloco-centro">
         <div class="status-titulo" id="status-texto">Aguardando o Maestro tocar...</div>
         
-        <div class="waveform" id="waveform">
-          <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
-          <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
-          <div class="wave-bar"></div>
+        <!-- WAVEFORM DO AI STUDIO -->
+        <div class="audio-card">
+          <div class="audio-titulo">TOCANDO TRECHO</div>
+          <div class="waveform-container" id="waveform">
+            <span class="onda-barra"></span><span class="onda-barra"></span><span class="onda-barra"></span>
+            <span class="onda-barra"></span><span class="onda-barra"></span><span class="onda-barra"></span>
+            <span class="onda-barra"></span><span class="onda-barra"></span><span class="onda-barra"></span>
+            <span class="onda-barra"></span><span class="onda-barra"></span><span class="onda-barra"></span>
+            <span class="onda-barra"></span><span class="onda-barra"></span><span class="onda-barra"></span>
+          </div>
         </div>
 
         <div id="quem-apertou"></div>
         <div id="aviso-virada"></div>
       </div>
 
+      <!-- TIMER DO AI STUDIO -->
       <div class="bloco-timer" id="blocoTimer">
-        <div class="timer-circle">
+        <div class="timer-container">
           <svg class="timer-svg" viewBox="0 0 100 100">
-            <circle class="timer-bg" cx="50" cy="50" r="45"></circle>
-            <circle class="timer-progress" cx="50" cy="50" r="45"></circle>
+            <circle class="timer-trilho" cx="50" cy="50" r="44"></circle>
+            <circle class="timer-barra" id="timer-circulo" cx="50" cy="50" r="44"></circle>
           </svg>
-          <div class="timer-text" id="timerText">10</div>
+          <div class="timer-texto" id="timer-contador">10</div>
         </div>
-        <div class="pill-buzina" id="pillBuzina">🔔 Buzina Liberada!</div>
+        <div class="pill-buzina" id="pillBuzina">
+          <span class="arco">(</span><span class="arco azul">(</span>
+          BUZINA LIBERADA!
+          <span class="arco azul">)</span><span class="arco">)</span>
+        </div>
       </div>
     </div>
 
@@ -394,17 +388,24 @@
     </div>
   </div>
 
+  <!-- FOOTER (CARDS E VS DO AI STUDIO) -->
   <div id="footer">
-    <div class="card-equipe vermelha" id="cardVerm">
-      <div class="team-nome">Equipe Vermelha <span>VOCÊS</span></div>
-      <div class="team-pts"><span id="p-verm">0</span> <span style="font-size:2vh;">pts</span></div>
+    <div class="container-equipe">
+      <div class="card-equipe equipe-vermelha" id="cardVerm">
+        <div class="card-header-badge">EQUIPE VERMELHA</div>
+        <div class="card-pontos"><span id="p-verm">0</span> <span>pts</span></div>
+      </div>
+      <div class="team-jogadores vermelha vazio" id="jogadores-verm">aguardando...</div>
     </div>
     
     <div class="vs-badge">VS</div>
     
-    <div class="card-equipe azul" id="cardAzul">
-      <div class="team-nome">Equipe Azul <span>ELES</span></div>
-      <div class="team-pts"><span id="p-azul">0</span> <span style="font-size:2vh;">pts</span></div>
+    <div class="container-equipe">
+      <div class="card-equipe equipe-azul" id="cardAzul">
+        <div class="card-header-badge">EQUIPE AZUL</div>
+        <div class="card-pontos"><span id="p-azul">0</span> <span>pts</span></div>
+      </div>
+      <div class="team-jogadores azul vazio" id="jogadores-azul">aguardando...</div>
     </div>
   </div>
 
@@ -488,15 +489,11 @@
       
       if (modo === 'LOBBY') {
         logoSrc.classList.remove('ativo');
-        salaHeader.classList.add('escondido');
+        salaHeader.classList.remove('ativo');
       } else {
         logoSrc.classList.add('ativo');
-        salaHeader.classList.remove('escondido');
+        salaHeader.classList.add('ativo');
       }
-    }
-
-    function iniciarAutoScroll(id) {
-      // Simplificado para a sidebar global
     }
 
     function renderizarSidebar(sala) {
@@ -532,29 +529,36 @@
       
       document.getElementById('cardVerm').classList.toggle('ativo', sala.rodada && sala.rodada.equipeDaVez === 'vermelha');
       document.getElementById('cardAzul').classList.toggle('ativo', sala.rodada && sala.rodada.equipeDaVez === 'azul');
+
+      const verms = sala.jogadores.filter(j => j.equipe === 'vermelha');
+      const azuis = sala.jogadores.filter(j => j.equipe === 'azul');
+      
+      const elVerm = document.getElementById('jogadores-verm');
+      const elAzul = document.getElementById('jogadores-azul');
+
+      if (verms.length) { elVerm.textContent = verms.map(j => j.nome).join(' • '); elVerm.classList.remove('vazio'); } 
+      else { elVerm.textContent = 'aguardando...'; elVerm.classList.add('vazio'); }
+
+      if (azuis.length) { elAzul.textContent = azuis.map(j => j.nome).join(' • '); elAzul.classList.remove('vazio'); } 
+      else { elAzul.textContent = 'aguardando...'; elAzul.classList.add('vazio'); }
     }
 
     function renderizarLobby(sala) { 
       document.getElementById('jogadores-lobby').textContent = sala.jogadores.map(j => j.nome).join(' • '); 
     }
 
-    // ATUALIZAÇÃO VISUAL DA RODADA
     function renderizarRodada(sala) {
       if (!sala.rodada) return;
       const r = sala.rodada;
       document.getElementById('num-rodada').textContent = `RODADA ${r.numero} — ${r.pontos} PONTOS`;
       document.getElementById('info-estagio').textContent = `Estágio ${r.estagio + 1} • ${r.duracao}s de música`;
       
-      // Atualiza Dicas
       const dicas = r.musica.dicas;
       for (let i = 1; i <= 3; i++) {
         const el = document.getElementById(`dica-${i}`);
-        if (r.estagio >= i) {
-          el.textContent = `Dica ${i}: ${dicas[i-1]}`;
-          el.classList.add('ativa');
-        } else {
-          el.textContent = `Dica ${i}: ?`;
-          el.classList.remove('ativa');
+        if (el && dicas) {
+          if (r.estagio >= i) { el.innerHTML = `<span class="lupa">🔍</span> Dica ${i}: ${dicas[i-1]}`; el.classList.add('ativa'); } 
+          else { el.innerHTML = `Dica ${i}: ?`; el.classList.remove('ativa'); }
         }
       }
 
@@ -564,25 +568,25 @@
       const waveform = document.getElementById('waveform');
       const blocoTimer = document.getElementById('blocoTimer');
       const pillBuzina = document.getElementById('pillBuzina');
-      const timerText = document.getElementById('timerText');
+      const timerCircle = document.getElementById('timer-circulo');
 
       if (r.estado === 'AGUARDANDO') {
         st.textContent = 'Aguardando o Maestro tocar...';
         q.style.display = 'none'; aviso.style.display = 'none';
-        waveform.classList.remove('ativo');
+        waveform.classList.remove('tocando');
         blocoTimer.classList.remove('ativo');
         pillBuzina.classList.remove('ativo');
         if (estadoAtual !== 'SUSPENSE') tocarTrilha('SUSPENSE');
       } else if (r.estado === 'TOCANDO') {
         st.textContent = `🎵 Tocando trecho de ${r.duracao}s...`;
         q.style.display = 'none'; aviso.style.display = 'none';
-        waveform.classList.add('ativo');
+        waveform.classList.add('tocando');
         blocoTimer.classList.remove('ativo');
         pillBuzina.classList.remove('ativo');
       } else if (r.estado === 'BUZINA') {
         st.textContent = 'Quem souber, aperte agora!';
         q.style.display = 'none'; aviso.style.display = 'none';
-        waveform.classList.remove('ativo');
+        waveform.classList.remove('tocando');
         blocoTimer.classList.add('ativo');
         pillBuzina.classList.add('ativo');
         if (estadoAtual !== 'TENSAO') tocarTrilha('TENSAO');
@@ -590,7 +594,7 @@
         st.textContent = '';
         q.textContent = (r.equipeDaVez === 'vermelha' ? '🔴 Equipe Vermelha' : '🔵 Equipe Azul') + ' está respondendo!';
         q.className = r.equipeDaVez; q.style.display = 'block';
-        waveform.classList.remove('ativo');
+        waveform.classList.remove('tocando');
         blocoTimer.classList.remove('ativo');
         pillBuzina.classList.remove('ativo');
         
@@ -599,7 +603,7 @@
         else { aviso.style.display = 'none'; }
       } else if (r.estado === 'REVELACAO') { 
         q.style.display = 'none'; aviso.style.display = 'none'; 
-        waveform.classList.remove('ativo');
+        waveform.classList.remove('tocando');
         blocoTimer.classList.remove('ativo');
         pillBuzina.classList.remove('ativo');
       }
@@ -680,26 +684,25 @@
       if (timeoutParar) clearTimeout(timeoutParar); 
       if (duracao < 30) timeoutParar = setTimeout(() => audioEl.pause(), duracao * 1000);
       
-      // Ativa animação visual da onda
-      document.getElementById('waveform').classList.add('ativo');
+      document.getElementById('waveform').classList.add('tocando');
     });
 
     socket.on('buzina:habilitada', () => { 
       tocarTrilha('TENSAO'); 
+      document.getElementById('waveform').classList.remove('tocando');
       
-      // Ativa timer visual
       const blocoTimer = document.getElementById('blocoTimer');
       const pillBuzina = document.getElementById('pillBuzina');
-      const timerProgress = document.querySelector('.timer-progress');
-      const timerText = document.getElementById('timerText');
+      const timerCircle = document.getElementById('timer-circulo');
+      const timerText = document.getElementById('timer-contador');
       
       blocoTimer.classList.add('ativo');
       pillBuzina.classList.add('ativo');
       
-      // Reinicia animação do timer CSS
-      timerProgress.style.animation = 'none';
-      timerProgress.offsetHeight; /* trigger reflow */
-      timerProgress.style.animation = 'countdown 10s linear forwards';
+      // Reinicia a animação CSS (AI Studio)
+      timerCircle.classList.remove('timer-animando');
+      void timerCircle.offsetWidth; // Força reflow
+      timerCircle.classList.add('timer-animando');
       
       let tempoRestante = 10;
       timerText.textContent = tempoRestante;
@@ -718,7 +721,7 @@
       if (timerInterval) clearInterval(timerInterval);
       document.getElementById('blocoTimer').classList.remove('ativo');
       document.getElementById('pillBuzina').classList.remove('ativo');
-      document.getElementById('waveform').classList.remove('ativo');
+      document.getElementById('waveform').classList.remove('tocando');
 
       const q = document.getElementById('quem-apertou'); q.textContent = (equipe === 'vermelha' ? '🔴 Equipe Vermelha' : '🔵 Equipe Azul') + ' apertou primeiro!';
       q.className = equipe; q.style.display = 'block'; 
