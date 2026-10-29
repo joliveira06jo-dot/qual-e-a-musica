@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Qual é a Música? — Telão</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-top: #040714;
+      --bg-bottom: #3533CD;
+      --dark-bar: #020C17;
+      --yellow: #FFDC33;
+      --yellow-pill: #F5C518;
+      --red: #FF3333;
+      --red-soft: #ff4d4d;
+      --blue: #1800C6;
+      --blue-dot: #1E74FD;
+      --white: #FFFFFF;
+      --green: #22C55E;
+      --gray: #B0B3C0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; scrollbar-width: none; -ms-overflow-style: none; }
+    ::-webkit-scrollbar { display: none; }
+    html, body { height: 100vh; width: 100vw; overflow: hidden; }
+    body {
+      font-family: 'Poppins', sans-serif; color: var(--white);
+      display: flex; flex-direction: column;
+      background: linear-gradient(180deg, var(--bg-top) 0%, #1a1f5e 45%, var(--bg-bottom) 100%);
+    }
+    body::after {
+      content: ''; position: fixed; inset: 0; pointer-events: none;
+      background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.5) 100%); z-index: 1;
+    }
+    #header { position: absolute; top: 3vh; left: 3vw; z-index: 10; pointer-events: none; }
+    #logoPequeno { height: 20vh; width: auto; opacity: 0; transition: opacity 0.3s; filter: drop-shadow(0 0 1.5vh rgba(149,180,232,0.4)); }
+    #logoPequeno.ativo { opacity: 1; }
+    #main { flex: 1; position: relative; z-index: 2; overflow: hidden; }
+    .tela { position: absolute; inset: 0; display: none; width: 100%; height: 100%; }
+
+    /* SIDEBAR GLOBAL (histórico sempre visível em jogo, exceto no final) */
+    #sidebar-global {
+      position: absolute;
+      top: 25vh;
+      left: 2vw;
+      width: 26vw;
+      max-width: 480px;
+      max-height: 52vh;
+      overflow-y: auto;
+      z-index: 5;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5vh;
+      text-align: left;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    #sidebar-global::-webkit-scrollbar { display: none; }
+    #sidebar-global.escondido { display: none; }
+    #sidebar-global .hist-title { font-size: 2.8vh; font-weight: 600; margin-bottom: 0.5vh; color: var(--white); }
+    #sidebar-global .hist-item { display: flex; gap: 1.2vh; align-items: center; }
+    #sidebar-global .hist-item img { width: 6vw; height: 6vw; max-width: 110px; max-height: 110px; object-fit: cover; border-radius: 0.8vh; flex-shrink: 0; }
+    #sidebar-global .hist-info { flex: 1; min-width: 0; line-height: 1.2; }
+    #sidebar-global .hist-info b { font-size: 3.2vh; font-weight: 700; color: var(--yellow); display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    #sidebar-global .hist-info small { font-size: 2.7vh; color: var(--gray); display: block; margin-bottom: 0.4vh; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    #sidebar-global .badge { display: inline-block; font-size: 2.4vh; font-weight: 700; padding: 0.5vh 1.2vh; border-radius: 0.4vh; background: rgba(255,255,255,0.1); color: white; }
+    #sidebar-global .badge.vermelha { background: var(--red); }
+    #sidebar-global .badge.azul { background: var(--blue); }
+    #sidebar-global .badge.zero { background: #444; color: #ff8fa3; }
+    #sidebar-global .badge.ninguem { background: #555; }
+
+    /* LOBBY */
+    #lobby.ativa { display: flex; flex-direction: column; }
+    .lobby-absolute-top { position: absolute; top: 4vh; left: 4vw; right: 4vw; display: flex; justify-content: space-between; align-items: flex-start; }
+    .sala-bloco { display: flex; flex-direction: column; align-items: flex-start; }
+    .sala-label { font-size: 3.5vh; font-weight: 500; letter-spacing: 0.4vw; }
+    .codigo-grande { font-size: 13vh; font-weight: 700; letter-spacing: 0.6vw; line-height: 0.9; }
+    .qr-bloco { display: flex; justify-content: flex-end; align-items: flex-start; }
+    #qr { display: none; }
+    #qr.tem-conteudo { display: block; }
+    #qr img { display: block; width: 48vh; height: 48vh; }
+    .lobby-center { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    .logo-gigante { height: 50vh; width: auto; max-width: 90vw; object-fit: contain; filter: drop-shadow(0 0 3vh rgba(149,180,232,0.5)); margin-bottom: 3vh; }
+    .aguardando-texto { font-size: 3.5vh; font-weight: 500; margin-top: 3vh; margin-bottom: 1vh; }
+    #jogadores-lobby { font-size: 2.2vh; font-weight: 500; color: rgba(255,255,255,0.85); text-align: center; max-width: 80vw; line-height: 1.4; text-transform: uppercase; }
+
+    /* RODADA */
+    #rodada.ativa { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+    .titulo-estagio { font-size: 6vh; font-weight: 600; line-height: 1.1; margin-bottom: 0.5vh; }
+    .subtitulo { font-size: 3.3vh; font-weight: 500; color: var(--yellow); margin-bottom: 3vh; }
+    .pill-status { display: inline-flex; align-items: center; gap: 1.5vh; background: var(--yellow-pill); color: var(--white); padding: 1.5vh 3.5vw; border-radius: 999px; font-size: 3.2vh; font-weight: 700; margin-bottom: 4vh; box-shadow: 0 0.5vh 2.5vh rgba(245,197,24,0.3); }
+    .pill-icon { font-size: 4vh; }
+    #status-texto { font-size: 4vh; font-weight: 500; margin-top: 3vh; }
+    #quem-apertou { display: none; font-size: 5vh; font-weight: 700; padding: 2vh 4vw; border-radius: 1vh; margin-top: 2vh; }
+    #quem-apertou.vermelha { background: var(--red); box-shadow: 0 0.6vh 3vh rgba(255,51,51,0.4); }
+    #quem-apertou.azul { background: var(--blue); box-shadow: 0 0.6vh 3vh rgba(24,0,198,0.5); }
+    #aviso-virada { display: none; font-size: 3.2vh; font-weight: 700; padding: 1.5vh 3vw; border-radius: 1vh; background: var(--yellow-pill); color: #1a1a2e; border: 0.3vh solid var(--yellow); margin-top: 2vh; }
+    #aviso-virada.passe { background: #2a2d3e; color: var(--white); border-color: #6b6e80; }
+
+    /* REVELAÇÃO */
+    #revelacao.ativa { display: flex; align-items: center; justify-content: center; gap: 5vw; padding: 2vh 3vw; }
+    .reveal-centro { display: flex; flex-direction: column; align-items: center; gap: 2vh; text-align: center; }
+    #capa { width: 38vh; height: 38vh; object-fit: cover; border-radius: 1vh; box-shadow: 0 1vh 4vh rgba(0,0,0,0.6); opacity: 0; transition: opacity 0.4s; }
+    #capa.carregada { opacity: 1; }
+    #mus-titulo { font-size: 5.5vh; font-weight: 700; color: var(--yellow); line-height: 1.1; }
+    #mus-info { font-size: 2.6vh; font-weight: 500; color: var(--white); }
+    .reveal-direita { display: flex; flex-direction: column; align-items: center; gap: 2.5vh; text-align: center; }
+    .icon-badge { width: 15vh; height: 15vh; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 8vh; font-weight: 700; color: var(--white); }
+    .icon-badge.verde { background: var(--green); box-shadow: 0 0 4vh rgba(34,197,94,0.4); }
+    .icon-badge.vermelho { background: var(--red); box-shadow: 0 0 4vh rgba(255,51,51,0.4); }
+    .icon-badge.neutro { background: #555; }
+    .resultado-badge { font-size: 4.6vh; font-weight: 700; padding: 1vh 2vw; border-radius: 0.5vh; color: var(--white); line-height: 1.1; }
+    .resultado-badge.verde { background: var(--green); }
+    .resultado-badge.vermelho { background: var(--red); }
+    .resultado-badge.neutro { background: #555; font-size: 3.5vh; }
+    #resultado-pontos { font-size: 2.6vh; font-weight: 700; }
+    #resultado-equipe { font-size: 2.4vh; font-weight: 700; padding: 1.2vh 2vw; border-radius: 0.5vh; }
+    #resultado-equipe.vermelha { background: var(--red); }
+    #resultado-equipe.azul { background: var(--blue); }
+    #resultado-equipe:empty { display: none; }
+
+    /* FINAL */
+    #final.ativa { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3vh; text-align: center; }
+    #final h2 { font-size: 7vh; font-weight: 700; color: var(--yellow); }
+    #vencedor { font-size: 6vh; font-weight: 700; padding: 3vh 5vw; border-radius: 1.4vh; }
+    #vencedor.vermelha { background: var(--red); box-shadow: 0 0 4vh rgba(255,51,51,0.4); }
+    #vencedor.azul { background: var(--blue); box-shadow: 0 0 4vh rgba(24,0,198,0.6); }
+    #vencedor.empate { background: var(--yellow-pill); color: #1a1a2e; }
+    #final-placar { font-size: 4.5vh; font-weight: 700; display: flex; gap: 5vw; }
+    #final-placar .v { color: var(--red); }
+    #final-placar .a { color: #6b9aff; }
+    #final-msg { font-size: 2.2vh; opacity: 0.7; font-weight: 500; }
+
+    /* FOOTER */
+    #footer { height: 20vh; background: var(--dark-bar); padding: 0 3vw; display: grid; grid-template-columns: auto 1fr 1fr auto; gap: 3vw; align-items: center; position: relative; z-index: 10; box-shadow: 0 -0.5vh 2vh rgba(0,0,0,0.3); }
+
+    /* TEAM CARD — 2 LINHAS */
+    .team-card {
+      width: 25vw; max-width: 450px; height: 14vh;
+      border-radius: 1vh;
+      display: flex; align-items: center; justify-content: center;
+      padding: 0 1.5vw; gap: 1.5vw;
+      transition: all 0.3s ease;
+      overflow: hidden;
+    }
+    .team-card .team-dot { width: 4vh; height: 4vh; border-radius: 50%; flex-shrink: 0; }
+    .team-card.vermelha { background: var(--red); }
+    .team-card.vermelha .team-dot { background: rgba(0,0,0,0.3); }
+    .team-card.azul { background: var(--blue); }
+    .team-card.azul .team-dot { background: var(--blue-dot); }
+    .team-card.ativo { transform: scale(1.05); box-shadow: 0 0 0 0.5vh var(--yellow), 0 0.8vh 2.5vh rgba(245,197,24,0.4); }
+    .team-info { display: flex; flex-direction: column; line-height: 1; text-align: left; }
+    .team-nome { font-size: 2.8vh; font-weight: 700; color: var(--white); letter-spacing: 0.05vw; }
+    .team-pts { font-size: 6vh; font-weight: 700; color: var(--white); }
+
+    .lista-jogadores { font-size: 3.5vh; font-weight: 600; line-height: 1.3; max-height: 14vh; overflow-y: auto; display: block; text-transform: uppercase; }
+    .lista-jogadores.esquerda { text-align: left; color: var(--red-soft); }
+    .lista-jogadores.direita { text-align: right; color: var(--white); opacity: 0.9; }
+    .lista-jogadores div { display: inline; }
+    .lista-jogadores div:not(:last-child)::after { content: ' • '; opacity: 0.6; }
+    .lista-jogadores .vazio { display: block; font-size: 2.5vh; opacity: 0.4; font-style: italic; text-transform: none; }
+
+    .dots { display: flex; align-items: center; justify-content: center; gap: 1.4vh; }
+    .dot-pq { width: 1vh; height: 1vh; border-radius: 50%; background: white; opacity: 0.6; animation: pulsePq 1.6s infinite; }
+    .dot-gr { width: 3vh; height: 3vh; border-radius: 50%; background: white; animation: pulseGr 1.6s infinite 0.2s; }
+    @keyframes pulsePq { 0%, 100% { opacity: 0.4; transform: scale(1); } 50% { opacity: 1; transform: scale(1.3); } }
+    @keyframes pulseGr { 0%, 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0.5); } 50% { box-shadow: 0 0 0 1.5vh rgba(255,255,255,0); } }
+
+    #overlay-audio { position: fixed; inset: 0; background: rgba(0,0,0,0.95); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 2vh; z-index: 9999; cursor: pointer; }
+    #overlay-audio h2 { font-size: 5vh; color: var(--yellow); font-weight: 700; }
+    #overlay-audio p { font-size: 2.2vh; color: var(--gray); }
+    #overlay-audio.escondido { display: none; }
+
+    .buzinaItem { position: fixed; z-index: 5000; pointer-events: none; opacity: 0; animation: buzinaPop 2s ease-out forwards; }
+    @keyframes buzinaPop { 0% { transform: scale(0) rotate(-25deg); opacity: 0; } 20% { transform: scale(1.4) rotate(15deg); opacity: 1; } 40% { transform: scale(1) rotate(-10deg); } 60% { transform: scale(1.2) rotate(5deg); } 85% { transform: scale(1) rotate(-2deg); opacity: 1; } 100% { transform: scale(0.5) rotate(0); opacity: 0; } }
+    .confete { position: fixed; top: -20px; width: 1.2vh; height: 1.2vh; border-radius: 0.2vh; z-index: 4000; pointer-events: none; animation: cair 3s linear forwards; }
+    @keyframes cair { to { transform: translateY(110vh) rotate(720deg); opacity: 0; } }
+
+    audio { display: none; }
+  </style>
+</head>
+<body>
+  <div id="overlay-audio">
+    <h2>🔊 Clique para ativar o áudio</h2>
+    <p>Necessário apenas uma vez, no início</p>
+  </div>
+
+  <audio id="audio" preload="auto"></audio>
+  <audio id="audioLobby" src="/audio/lobby.mp3" preload="auto" loop></audio>
+  <audio id="audioSuspense" src="/audio/trilha-suspense.mp3" preload="auto" loop></audio>
+  <audio id="audioTensao" src="/audio/trilha-tensao.mp3" preload="auto" loop></audio>
+  <audio id="audioBuzina" src="/audio/buzina.mp3" preload="auto"></audio>
+
+  <div id="header">
+    <img id="logoPequeno" src="/img/logo.png" alt="Qual é a Música?">
+  </div>
+
+  <div id="main">
+    <div id="sidebar-global" class="escondido">
+      <div class="hist-title">📜 Histórico</div>
+      <div id="sidebar-lista"></div>
+    </div>
+
+    <div id="lobby" class="tela ativa">
+      <div class="lobby-absolute-top">
+        <div class="sala-bloco">
+          <div class="sala-label">SALA</div>
+          <div class="codigo-grande" id="codigo">----</div>
+        </div>
+        <div class="qr-bloco"><div id="qr"></div></div>
+      </div>
+      <div class="lobby-center">
+        <img src="/img/logo.png" class="logo-gigante" alt="Qual é a Música?">
+        <div class="dots"><span class="dot-pq"></span><span class="dot-gr"></span></div>
+        <div class="aguardando-texto">Aguardando jogadores...</div>
+        <div id="jogadores-lobby"></div>
+      </div>
+    </div>
+
+    <div id="rodada" class="tela">
+      <div class="titulo-estagio" id="num-rodada">Música 1 de 5</div>
+      <div class="subtitulo" id="info-estagio">Estágio 1 • 2s de música • Vale 1000 pts</div>
+      <div class="pill-status">
+        <span class="pill-icon" id="pill-icon">🎧</span>
+        <span id="dica-text">Ouça com atenção...</span>
+      </div>
+      <div class="dots"><span class="dot-pq"></span><span class="dot-gr"></span></div>
+      <div class="aguardando-texto" id="status-texto">Aguardando o Maestro tocar...</div>
+      <div id="quem-apertou"></div>
+      <div id="aviso-virada"></div>
+    </div>
+
+    <div id="revelacao" class="tela">
+      <div class="reveal-centro">
+        <img id="capa" alt="">
+        <div id="mus-titulo"></div>
+        <div id="mus-info"></div>
+      </div>
+      <div class="reveal-direita">
+        <div id="resultado-icon" class="icon-badge neutro">?</div>
+        <div id="resultado-texto" class="resultado-badge neutro">—</div>
+        <div id="resultado-pontos"></div>
+        <div id="resultado-equipe"></div>
+      </div>
+    </div>
+
+    <div id="final" class="tela">
+      <h2>🏁 Fim de Partida!</h2>
+      <div id="vencedor"></div>
+      <div id="final-placar">
+        <span class="v">🔴 Vermelha: <span id="fv">0</span></span>
+        <span class="a">🔵 Azul: <span id="fa">0</span></span>
+      </div>
+      <div id="final-msg">Aguardando o Maestro iniciar nova partida...</div>
+    </div>
+  </div>
+
+  <div id="footer">
+    <div class="team-card vermelha" id="cardVerm">
+      <span class="team-dot"></span>
+      <div class="team-info">
+        <div class="team-nome">Vermelha</div>
+        <div class="team-pts"><span id="p-verm">0</span></div>
+      </div>
+    </div>
+    <div class="lista-jogadores esquerda" id="lista-verm"></div>
+    <div class="lista-jogadores direita" id="lista-azul"></div>
+    <div class="team-card azul" id="cardAzul">
+      <span class="team-dot"></span>
+      <div class="team-info">
+        <div class="team-nome">Azul</div>
+        <div class="team-pts"><span id="p-azul">0</span></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+    const audioEl = document.getElementById('audio');
+    const audioLobby = document.getElementById('audioLobby');
+    const audioSuspense = document.getElementById('audioSuspense');
+    const audioTensao = document.getElementById('audioTensao');
+    const audioBuzina = document.getElementById('audioBuzina');
+    audioLobby.volume = 1; audioSuspense.volume = 0.2; audioTensao.volume = 0.2; audioBuzina.volume = 1;
+
+    let timeoutParar = null; let buzinaCtx = null; let fadeInterval = null; let estadoAtual = 'LOBBY';
+    let modoAtual = 'LOBBY';
+
+    document.getElementById('overlay-audio').addEventListener('click', () => {
+      document.getElementById('overlay-audio').classList.add('escondido');
+      try { buzinaCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch(e) {}
+      audioEl.src = 'data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQAAAAA=';
+      audioEl.play().then(() => audioEl.pause()).catch(()=>{});
+      tocarTrilha('LOBBY');
+    });
+
+    function cancelarFade() { if (fadeInterval) { clearInterval(fadeInterval); fadeInterval = null; } audioEl.volume = 1; }
+    function fadeOut(el, duration) {
+      cancelarFade(); const start = el.volume, startTime = Date.now();
+      fadeInterval = setInterval(() => {
+        const p = Math.min((Date.now() - startTime) / duration, 1);
+        el.volume = start * (1 - p);
+        if (p >= 1) { clearInterval(fadeInterval); fadeInterval = null; el.pause(); el.volume = 1; }
+      }, 50);
+    }
+    function pararTrilhas() { [audioLobby, audioSuspense, audioTensao].forEach(a => { a.pause(); a.currentTime = 0; }); }
+    function tocarTrilha(tipo) {
+      pararTrilhas(); estadoAtual = tipo;
+      const el = { LOBBY: audioLobby, SUSPENSE: audioSuspense, TENSAO: audioTensao }[tipo];
+      if (el) el.play().catch(()=>{});
+    }
+    function tocarBuzina() { audioBuzina.currentTime = 0; const p = audioBuzina.play(); if (p) p.catch(() => tocarSomBuzinaFallback()); }
+    function tocarSomBuzinaFallback() {
+      if (!buzinaCtx) return; const t = buzinaCtx.currentTime;
+      for (let i = 0; i < 4; i++) {
+        const o = buzinaCtx.createOscillator(), g = buzinaCtx.createGain();
+        o.type = 'sawtooth'; o.frequency.setValueAtTime(500, t + i * 0.35);
+        o.frequency.linearRampToValueAtTime(220, t + i * 0.35 + 0.3);
+        g.gain.setValueAtTime(0, t + i * 0.35); g.gain.linearRampToValueAtTime(0.9, t + i * 0.35 + 0.03);
+        g.gain.setValueAtTime(0.9, t + i * 0.35 + 0.25); g.gain.linearRampToValueAtTime(0, t + i * 0.35 + 0.32);
+        o.connect(g); g.connect(buzinaCtx.destination); o.start(t + i * 0.35); o.stop(t + i * 0.35 + 0.35);
+      }
+    }
+    function animarBuzinas() {
+      const emojis = ['📢','🔔','📣','🎺','🚨'];
+      for (let i = 0; i < 10; i++) {
+        const el = document.createElement('div'); el.className = 'buzinaItem';
+        el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        el.style.left = (5 + Math.random() * 85) + '%'; el.style.top = (15 + Math.random() * 65) + '%';
+        el.style.fontSize = (4 + Math.random() * 5) + 'vh'; el.style.animationDelay = (i * 0.12) + 's';
+        document.body.appendChild(el); setTimeout(() => el.remove(), 3500);
+      }
+    }
+    function soltarConfete() {
+      const cores = ['#e94560','#ffd166','#2ecc71','#6b9aff','#9b59b6','#ff8fa3'];
+      for (let i = 0; i < 50; i++) {
+        const c = document.createElement('div'); c.className = 'confete';
+        c.style.left = Math.random() * 100 + '%'; c.style.background = cores[Math.floor(Math.random() * cores.length)];
+        c.style.animationDelay = (Math.random() * 0.6) + 's'; c.style.animationDuration = (2 + Math.random() * 1.5) + 's';
+        document.body.appendChild(c); setTimeout(() => c.remove(), 4500);
+      }
+    }
+
+    function irParaModo(modo) {
+      modoAtual = modo;
+      document.querySelectorAll('.tela').forEach(t => t.classList.remove('ativa'));
+      const alvo = { LOBBY: 'lobby', RODADA: 'rodada', REVELACAO: 'revelacao', FINAL: 'final' }[modo];
+      if (alvo) document.getElementById(alvo).classList.add('ativa');
+      document.getElementById('logoPequeno').classList.toggle('ativo', modo !== 'LOBBY');
+    }
+
+    function iniciarAutoScroll(id) {
+      const el = document.getElementById(id); if (!el) return;
+      if (el.intervaloScroll) clearInterval(el.intervaloScroll);
+      if (el.timeoutScroll) clearTimeout(el.timeoutScroll);
+      el.scrollTop = 0;
+      el.timeoutScroll = setTimeout(() => {
+        if (el.scrollHeight <= el.clientHeight + 2) return;
+        let descendo = true, pausado = false;
+        el.intervaloScroll = setInterval(() => {
+          if (pausado) return;
+          if (descendo) {
+            el.scrollTop += 1;
+            if (el.scrollTop + el.clientHeight >= el.scrollHeight - 1) { pausado = true; descendo = false; setTimeout(() => { pausado = false; }, 2000); }
+          } else {
+            el.scrollTop -= 1;
+            if (el.scrollTop <= 0) { pausado = true; descendo = true; setTimeout(() => { pausado = false; }, 2000); }
+          }
+        }, 40);
+      }, 1000);
+    }
+
+    function renderizarSidebar(sala) {
+      const sidebar = document.getElementById('sidebar-global');
+      const lista = document.getElementById('sidebar-lista');
+      const hist = sala.historicoMusicas || [];
+
+      if (!sala.partidaIniciada || !sala.rodada || modoAtual === 'FINAL') {
+        sidebar.classList.add('escondido'); return;
+      }
+
+      let exibir = hist;
+      if (sala.rodada.estado === 'REVELACAO' && hist.length > 0 && hist[hist.length - 1].numero === sala.rodada.numero) {
+        exibir = hist.slice(0, -1);
+      }
+
+      if (exibir.length === 0) { sidebar.classList.add('escondido'); return; }
+
+      sidebar.classList.remove('escondido');
+      lista.innerHTML = exibir.slice().reverse().map(h => {
+        const classe = h.equipeVencedora === 'vermelha' ? 'vermelha' : h.equipeVencedora === 'azul' ? 'azul' : h.resultado === 'zerou' ? 'zero' : 'ninguem';
+        let label = '';
+        if (h.resultado === 'acertou') label = (h.equipeVencedora === 'vermelha' ? 'VERMELHA' : 'AZUL') + ' +' + h.pontos;
+        else if (h.resultado === 'zerou') label = 'ZEROU';
+        else label = 'NINGUÉM';
+        return `<div class="hist-item"><img src="/${h.capaUrl}" alt=""><div class="hist-info"><b>${h.titulo}</b><small>${h.artista} • ${h.ano}</small><span class="badge ${classe}">${label}</span></div></div>`;
+      }).join('');
+    }
+
+    function renderizarFooter(sala) {
+      document.getElementById('p-verm').textContent = sala.placar.vermelha;
+      document.getElementById('p-azul').textContent = sala.placar.azul;
+      const verms = sala.jogadores.filter(j => j.equipe === 'vermelha');
+      const azuis = sala.jogadores.filter(j => j.equipe === 'azul');
+      document.getElementById('lista-verm').innerHTML = verms.length ? verms.map(j => `<div>${j.nome}</div>`).join('') : '<div class="vazio">aguardando...</div>';
+      document.getElementById('lista-azul').innerHTML = azuis.length ? azuis.map(j => `<div>${j.nome}</div>`).join('') : '<div class="vazio">aguardando...</div>';
+      document.getElementById('cardVerm').classList.toggle('ativo', sala.rodada && sala.rodada.equipeDaVez === 'vermelha');
+      document.getElementById('cardAzul').classList.toggle('ativo', sala.rodada && sala.rodada.equipeDaVez === 'azul');
+      iniciarAutoScroll('lista-verm'); iniciarAutoScroll('lista-azul');
+    }
+
+    function renderizarLobby(sala) { document.getElementById('jogadores-lobby').textContent = sala.jogadores.map(j => j.nome).join(' • '); }
+
+    function renderizarRodada(sala) {
+      if (!sala.rodada) return;
+      const r = sala.rodada;
+      document.getElementById('num-rodada').textContent = 'Música ' + r.numero + ' de ' + r.totalMusicas;
+      document.getElementById('info-estagio').textContent = 'Estágio ' + (r.estagio + 1) + ' • ' + r.duracao + 's de música • Vale ' + r.pontos + ' pts';
+      document.getElementById('pill-icon').textContent = r.dica ? '💡' : '🎧';
+      document.getElementById('dica-text').textContent = r.dica ? 'Dica: ' + r.dica : 'Ouça com atenção...';
+
+      const st = document.getElementById('status-texto'), q = document.getElementById('quem-apertou'), aviso = document.getElementById('aviso-virada');
+
+      if (r.estado === 'AGUARDANDO') {
+        st.textContent = 'Aguardando o Maestro tocar...'; q.style.display = 'none'; aviso.style.display = 'none';
+        if (estadoAtual !== 'SUSPENSE') tocarTrilha('SUSPENSE');
+      } else if (r.estado === 'TOCANDO') {
+        st.textContent = '🎵 Tocando ' + r.duracao + 's...'; q.style.display = 'none'; aviso.style.display = 'none';
+      } else if (r.estado === 'BUZINA') {
+        st.textContent = '🔔 BUZINA LIBERADA!'; q.style.display = 'none'; aviso.style.display = 'none';
+        if (estadoAtual !== 'TENSAO') tocarTrilha('TENSAO');
+      } else if (r.estado === 'RESPONDENDO' && r.equipeDaVez) {
+        st.textContent = ''; q.textContent = (r.equipeDaVez === 'vermelha' ? '🔴 Vermelha' : '🔵 Azul') + ' está respondendo!';
+        q.className = r.equipeDaVez; q.style.display = 'block';
+        if (r.modo === 'virada') { aviso.textContent = '🔄 VIROU O DISCO! Vale ' + (r.pontos * 2) + ' pts se acertar!'; aviso.style.display = 'block'; aviso.classList.remove('passe'); }
+        else if (r.jaPassou) { aviso.textContent = '↔️ PASSE: ' + (r.equipeDaVez === 'vermelha' ? 'Vermelha' : 'Azul') + ' foi passada e é obrigada a responder (vale ' + r.pontos + ' pts).'; aviso.style.display = 'block'; aviso.classList.add('passe'); }
+        else { aviso.style.display = 'none'; }
+      } else if (r.estado === 'REVELACAO') { q.style.display = 'none'; aviso.style.display = 'none'; }
+    }
+
+    function renderizarRevelacao(sala) {
+      if (!sala.rodada) return;
+      const r = sala.rodada;
+      const hist = sala.historicoMusicas || [];
+      const ultimo = hist.length ? hist[hist.length - 1] : null;
+
+      const capa = document.getElementById('capa'); capa.classList.remove('carregada');
+      capa.onload = () => capa.classList.add('carregada'); capa.src = '/' + r.musica.capaUrl;
+      document.getElementById('mus-titulo').textContent = r.musica.titulo;
+      document.getElementById('mus-info').textContent = r.musica.artista + ' • ' + r.musica.ano + ' • ' + r.musica.categoria;
+
+      const icon = document.getElementById('resultado-icon'), texto = document.getElementById('resultado-texto'), pts = document.getElementById('resultado-pontos'), equipeEl = document.getElementById('resultado-equipe');
+      if (r.resultado === 'acertou') {
+        const equipe = ultimo ? ultimo.equipeVencedora : r.equipeDaVez, pontos = ultimo ? ultimo.pontos : r.pontos;
+        icon.textContent = '✓'; icon.className = 'icon-badge verde'; texto.textContent = 'ACERTOU'; texto.className = 'resultado-badge verde';
+        pts.textContent = '+' + pontos + ' pontos para'; equipeEl.textContent = equipe === 'vermelha' ? 'EQUIPE VERMELHA' : 'EQUIPE AZUL'; equipeEl.className = 'resultado-equipe ' + equipe;
+      } else if (r.resultado === 'zerou') {
+        icon.textContent = '✗'; icon.className = 'icon-badge vermelho'; texto.textContent = 'ZEROU'; texto.className = 'resultado-badge vermelho';
+        pts.textContent = 'perdeu todos os pontos!'; const eq = ultimo && ultimo.equipeZerada;
+        equipeEl.textContent = eq ? (eq === 'vermelha' ? 'EQUIPE VERMELHA' : 'EQUIPE AZUL') : ''; equipeEl.className = eq ? 'resultado-equipe ' + eq : 'resultado-equipe';
+      } else {
+        icon.textContent = '−'; icon.className = 'icon-badge neutro'; texto.textContent = 'NINGUÉM ACERTOU'; texto.className = 'resultado-badge neutro';
+        pts.textContent = 'nenhum ponto nesta rodada'; equipeEl.textContent = ''; equipeEl.className = 'resultado-equipe';
+      }
+    }
+
+    function renderizarFinal(placar, vencedor) {
+      document.getElementById('fv').textContent = placar.vermelha; document.getElementById('fa').textContent = placar.azul;
+      const v = document.getElementById('vencedor');
+      if (vencedor === 'empate') { v.textContent = '🤝 EMPATE!'; v.className = 'empate'; }
+      else if (vencedor === 'vermelha') { v.textContent = '🔴 Equipe Vermelha VENCEU!'; v.className = 'vermelha'; }
+      else { v.textContent = '🔵 Equipe Azul VENCEU!'; v.className = 'azul'; }
+    }
+
+    socket.on('sala:criada', ({ codigo, qrCode }) => {
+      document.getElementById('codigo').textContent = codigo;
+      const qr = document.getElementById('qr'); qr.innerHTML = '<img src="' + qrCode + '" alt="QR">'; qr.classList.add('tem-conteudo');
+    });
+
+    socket.on('nova_partida', () => {
+      irParaModo('LOBBY'); document.getElementById('codigo').textContent = '----';
+      const qr = document.getElementById('qr'); qr.innerHTML = ''; qr.classList.remove('tem-conteudo');
+      document.getElementById('jogadores-lobby').textContent = ''; cancelarFade(); tocarTrilha('LOBBY');
+      document.getElementById('sidebar-global').classList.add('escondido');
+    });
+
+    socket.on('sala:estado', (sala) => {
+      renderizarFooter(sala);
+      renderizarSidebar(sala);
+
+      if (!sala.partidaIniciada) { irParaModo('LOBBY'); renderizarLobby(sala); return; }
+      if (!sala.rodada) { irParaModo('FINAL'); return; }
+      if (sala.rodada.estado === 'REVELACAO') { irParaModo('REVELACAO'); renderizarRevelacao(sala); return; }
+      irParaModo('RODADA'); renderizarRodada(sala);
+    });
+
+    socket.on('rodada:iniciada', (sala) => {
+      if (!sala.rodada) return;
+      if (!audioEl.paused) fadeOut(audioEl, 4000); else cancelarFade();
+      pararTrilhas(); irParaModo('RODADA'); document.getElementById('quem-apertou').style.display = 'none'; document.getElementById('aviso-virada').style.display = 'none';
+      setTimeout(() => { if (estadoAtual !== 'SUSPENSE' && !audioEl.paused) return; tocarTrilha('SUSPENSE'); }, 4000);
+      renderizarRodada(sala);
+    });
+
+    socket.on('audio:tocar', ({ url, duracao }) => {
+      cancelarFade(); if (duracao < 30) pararTrilhas();
+      const st = document.getElementById('status-texto'); st.textContent = '🎵 Tocando ' + duracao + 's...';
+      audioEl.src = '/' + url; audioEl.volume = 1; audioEl.currentTime = 0;
+      audioEl.play().catch(() => { st.textContent = '⚠️ Clique na tela para liberar o áudio!'; });
+      if (timeoutParar) clearTimeout(timeoutParar); if (duracao < 30) timeoutParar = setTimeout(() => audioEl.pause(), duracao * 1000);
+    });
+
+    socket.on('buzina:habilitada', () => { tocarTrilha('TENSAO'); });
+
+    socket.on('buzina:apertada', ({ equipe }) => {
+      pararTrilhas(); tocarBuzina(); animarBuzinas(); soltarConfete();
+      const q = document.getElementById('quem-apertou'); q.textContent = (equipe === 'vermelha' ? '🔴 Vermelha' : '🔵 Azul') + ' apertou primeiro!';
+      q.className = equipe; q.style.display = 'block'; document.getElementById('status-texto').textContent = 'Aguardando decisão do Maestro...';
+    });
+
+    socket.on('resultado:zerou', ({ equipe }) => {
+      const aviso = document.getElementById('aviso-virada'); aviso.textContent = '💀 ' + (equipe === 'vermelha' ? 'Vermelha' : 'Azul') + ' ERROU e ZEROU!';
+      aviso.style.display = 'block'; aviso.classList.remove('passe');
+    });
+
+    socket.on('resultado:virada', ({ equipe, pontos }) => {
+      const aviso = document.getElementById('aviso-virada'); aviso.textContent = '🔄 VIROU O DISCO! ' + (equipe === 'vermelha' ? 'Vermelha' : 'Azul') + ' pode ganhar ' + pontos + ' pts!';
+      aviso.style.display = 'block'; aviso.classList.remove('passe');
+    });
+
+    socket.on('rodada:revelacao', ({ musica }) => {
+      pararTrilhas(); irParaModo('REVELACAO');
+      const capa = document.getElementById('capa'); capa.classList.remove('carregada'); capa.onload = () => capa.classList.add('carregada'); capa.src = '/' + musica.capaUrl;
+      document.getElementById('mus-titulo').textContent = musica.titulo; document.getElementById('mus-info').textContent = musica.artista + ' • ' + musica.ano + ' • ' + musica.categoria;
+    });
+
+    socket.on('partida:encerrada', ({ placar, vencedor }) => {
+      cancelarFade(); audioEl.pause(); pararTrilhas(); irParaModo('FINAL'); renderizarFinal(placar, vencedor);
+      document.getElementById('sidebar-global').classList.add('escondido');
+      tocarTrilha('LOBBY'); soltarConfete(); setTimeout(soltarConfete, 800); setTimeout(soltarConfete, 1600);
+    });
+  </script>
+</body>
+</html>

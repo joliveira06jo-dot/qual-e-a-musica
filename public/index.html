@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Qual é a Música? — Admin</title>
+  <style>
+    body { background: #16213e; color: white; font-family: sans-serif; padding: 20px; }
+    button { padding: 10px 20px; font-size: 1rem; margin: 5px; border: none; border-radius: 8px; cursor: pointer; }
+    .vermelha { background: #e94560; color: white; }
+    .azul { background: #0f3460; color: white; }
+    .neutro { background: #555; color: white; }
+    #jogadores { margin-top: 20px; }
+    .jogador { background: #1a1a2e; padding: 10px; margin: 5px 0; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; }
+  </style>
+</head>
+<body>
+  <h1>Painel do Admin</h1>
+  <button onclick="criarSala()">Criar Sala</button>
+  <button onclick="bloquearLogins(true)">Bloquear Logins</button>
+  <button onclick="bloquearLogins(false)">Desbloquear Logins</button>
+  <div id="jogadores"></div>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+    let salaAtual = null;
+
+    function criarSala() {
+      socket.emit('admin:criar_sala');
+    }
+
+    socket.on('sala:criada', ({ codigo }) => {
+      alert(`Sala criada: ${codigo}`);
+    });
+
+    socket.on('sala:estado', (sala) => {
+      salaAtual = sala;
+      const div = document.getElementById('jogadores');
+      div.innerHTML = '<h2>Jogadores</h2>' + sala.jogadores.map(j => `
+        <div class="jogador">
+          <span>${j.nome} — ${j.equipe || 'sem equipe'}</span>
+          <span>
+            <button class="vermelha" onclick="atribuir('${j.id}', 'vermelha')">Vermelha</button>
+            <button class="azul" onclick="atribuir('${j.id}', 'azul')">Azul</button>
+            <button class="neutro" onclick="expulsar('${j.id}')">Expulsar</button>
+          </span>
+        </div>
+      `).join('');
+    });
+
+    function atribuir(id, equipe) {
+      socket.emit('admin:atribuir_equipe', { idDispositivo: id, equipe });
+    }
+
+    function expulsar(id) {
+      socket.emit('admin:expulsar_dispositivo', { idDispositivo: id });
+    }
+
+    function bloquearLogins(bloquear) {
+      socket.emit('admin:bloquear_logins', { bloquear });
+    }
+  </script>
+</body>
+</html>
