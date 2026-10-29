@@ -104,19 +104,22 @@
     #jogadores-lobby { font-size: 2.2vh; font-weight: 500; color: rgba(255,255,255,0.85); text-align: center; max-width: 80vw; line-height: 1.4; text-transform: uppercase; letter-spacing: 0.1vw; }
 
     /* ==========================================================================
-       3. RODADA (DICAS SEMPRE VISÍVEIS)
+       3. RODADA (FLEXBOX À PROVA DE FALHAS)
        ========================================================================== */
-    #rodada.ativa { display: grid; grid-template-columns: 28vw 1fr 22vw; grid-template-rows: auto 1fr auto; padding: 15vh 3vw 2vh 3vw; gap: 2vw; align-items: center; }
+    #rodada.ativa { display: flex; flex-direction: column; padding: 12vh 3vw 2vh 3vw; gap: 2vh; }
 
-    .banner-rodada { grid-column: 1 / -1; justify-self: center; background: linear-gradient(90deg, transparent, rgba(14, 165, 233, 0.3), transparent); border-top: 2px solid var(--yellow); border-bottom: 2px solid var(--yellow); padding: 1vh 5vw; text-align: center; margin-bottom: 2vh; }
+    .banner-rodada { width: 100%; background: linear-gradient(90deg, transparent, rgba(14, 165, 233, 0.3), transparent); border-top: 2px solid var(--yellow); border-bottom: 2px solid var(--yellow); padding: 1vh 5vw; text-align: center; }
     .titulo-estagio { font-size: 5vh; font-weight: 800; line-height: 1.1; letter-spacing: 0.1vw; text-shadow: 0 0 2vh rgba(250,204,21,0.3); }
     .subtitulo { font-size: 3vh; font-weight: 600; color: var(--yellow); margin-top: 0.5vh; }
 
+    /* Container que alinha os 3 blocos lado a lado */
+    .rodada-conteudo { display: flex; flex: 1; justify-content: space-between; align-items: center; width: 100%; gap: 2vw; }
+
     .bloco-dicas { 
+      width: 28vw; 
       background: rgba(6, 20, 51, 0.7); border: 2px solid rgba(250, 204, 21, 0.6); border-radius: 1.5vh; 
-      padding: 2.5vh; display: flex !important; flex-direction: column; gap: 1.5vh; 
+      padding: 2.5vh; display: flex; flex-direction: column; gap: 1.5vh; 
       text-align: left; box-shadow: 0 1vh 4vh rgba(0,0,0,0.5); backdrop-filter: blur(8px); 
-      align-self: start; visibility: visible !important;
     }
     .bloco-dicas h3 { font-size: 2.8vh; color: var(--yellow); text-transform: uppercase; letter-spacing: 0.1vw; margin-bottom: 1vh; text-align: center; }
     .dica-item { font-size: 3.2vh; color: #cbd5e1; line-height: 1.4; padding: 1vh; border-bottom: 1px dashed rgba(255,255,255,0.1); transition: all 0.5s; display: flex; align-items: center; gap: 1vw; text-transform: uppercase; }
@@ -124,10 +127,10 @@
     .dica-item .lupa { color: var(--yellow); font-size: 2.5vh; opacity: 0; transition: opacity 0.5s; }
     .dica-item.ativa .lupa { opacity: 1; }
 
-    .bloco-centro { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; width: 100%; }
+    .bloco-centro { display: flex; flex: 1; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
     .status-titulo { font-size: 4vh; font-weight: 700; margin-bottom: 2vh; text-shadow: 0 0 2vh rgba(255,255,255,0.2); min-height: 5vh; }
 
-    .audio-card { background: rgba(6, 20, 51, 0.7); border: 2px solid #eab308; border-radius: 1.5vh; padding: 1.5vh 2vw; display: flex; flex-direction: column; align-items: center; backdrop-filter: blur(8px); }
+    .audio-card { background: rgba(6, 20, 51, 0.7); border: 2px solid #eab308; border-radius: 1.5vh; padding: 1.5vh 2vw; display: flex; flex-direction: column; align-items: center; backdrop-filter: blur(8px); width: 100%; max-width: 30vw; }
     .audio-titulo { font-size: 1.8vh; font-weight: 700; color: #facc15; letter-spacing: 0.1vw; margin-bottom: 1vh; text-transform: uppercase; }
     .waveform-container { display: flex; align-items: center; justify-content: center; gap: 0.5vw; height: 6vh; width: 100%; }
     .onda-barra { width: 0.4vw; height: 100%; background: linear-gradient(180deg, #fef08a 0%, #eab308 50%, #ca8a04 100%); border-radius: 999px; transform: scaleY(0.15); transform-origin: center; transition: opacity 0.3s ease; opacity: 0.3; animation: pulsar-onda 1s ease-in-out infinite alternate; animation-play-state: paused; }
@@ -140,7 +143,7 @@
     .onda-barra:nth-child(even) { animation-delay: 0.3s; }
     @keyframes pulsar-onda { 0% { transform: scaleY(0.15); } 100% { transform: scaleY(1); filter: drop-shadow(0 0 3px #fde047); } }
 
-    .bloco-timer { display: flex; flex-direction: column; align-items: center; gap: 2vh; background: rgba(6, 20, 51, 0.7); padding: 3vh 2vw; border-radius: 1.5vh; border: 2px solid rgba(250, 204, 21, 0.6); opacity: 0.3; transition: all 0.5s; backdrop-filter: blur(8px); }
+    .bloco-timer { width: 22vw; display: flex; flex-direction: column; align-items: center; gap: 2vh; background: rgba(6, 20, 51, 0.7); padding: 3vh 2vw; border-radius: 1.5vh; border: 2px solid rgba(250, 204, 21, 0.6); opacity: 0.3; transition: all 0.5s; backdrop-filter: blur(8px); }
     .bloco-timer.ativo { opacity: 1; box-shadow: 0 0 4vh rgba(239,68,68,0.4); border-color: var(--red); }
     
     .timer-container { position: relative; width: 12vh; height: 12vh; display: flex; align-items: center; justify-content: center; }
@@ -158,10 +161,10 @@
     .pill-buzina .arco.azul { color: #38bdf8; }
     @keyframes pulseBuzina { from { transform: scale(1); } to { transform: scale(1.05); } }
 
-    #quem-apertou { grid-column: 1 / -1; text-align: center; font-size: 5vh; font-weight: 800; padding: 2vh 4vw; border-radius: 1.5vh; margin-top: 2vh; display: none; }
+    #quem-apertou { text-align: center; font-size: 5vh; font-weight: 800; padding: 2vh 4vw; border-radius: 1.5vh; margin-top: 2vh; display: none; }
     #quem-apertou.vermelha { background: linear-gradient(90deg, var(--red-dark), var(--red), var(--red-dark)); box-shadow: 0 0 4vh rgba(255,51,51,0.6); border: 2px solid #ff8fa3; }
     #quem-apertou.azul { background: linear-gradient(90deg, var(--blue-dark), var(--blue), var(--blue-dark)); box-shadow: 0 0 4vh rgba(24,0,198,0.6); border: 2px solid #6b9aff; }
-    #aviso-virada { grid-column: 1 / -1; display: none; text-align: center; font-size: 3.5vh; font-weight: 800; padding: 1.5vh 3vw; border-radius: 1vh; background: var(--yellow); color: #1a1a2e; border: 3px solid #fff; margin-top: 1vh; box-shadow: 0 0 3vh rgba(245,197,24,0.5); }
+    #aviso-virada { display: none; text-align: center; font-size: 3.5vh; font-weight: 800; padding: 1.5vh 3vw; border-radius: 1vh; background: var(--yellow); color: #1a1a2e; border: 3px solid #fff; margin-top: 1vh; box-shadow: 0 0 3vh rgba(245,197,24,0.5); }
     #aviso-virada.passe { background: #2a2d3e; color: var(--white); border-color: #6b6e80; box-shadow: none; }
 
     /* ==========================================================================
@@ -217,19 +220,17 @@
     #final-msg { font-size: 2.5vh; opacity: 0.7; font-weight: 500; margin-top: 2vh; }
 
     /* ==========================================================================
-       6. FOOTER (COM AUMENTO DA PONTUAÇÃO)
+       6. FOOTER (CORRIGIDO E PROPORCIONAL)
        ========================================================================== */
-    /* AUMENTO DO FOOTER PARA ACOMODAR O TEXTO GIGANTE */
-    #footer { height: 24vh; background: var(--dark-bar); padding: 0 3vw; display: flex; justify-content: center; align-items: center; gap: 3vw; position: relative; z-index: 10; border-top: 2px solid rgba(255,255,255,0.1); box-shadow: 0 -1vh 4vh rgba(0,0,0,0.8); }
+    #footer { height: 22vh; background: var(--dark-bar); padding: 0 3vw; display: flex; justify-content: center; align-items: center; gap: 4vw; position: relative; z-index: 10; border-top: 2px solid rgba(255,255,255,0.1); box-shadow: 0 -1vh 4vh rgba(0,0,0,0.8); }
     
-    .container-equipe { display: flex; flex-direction: column; align-items: center; gap: 1vh; }
+    .container-equipe { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5vh; }
 
     .equipe-vermelha { --cor-tag: #7f1d1d; --cor-fundo-gradiente: linear-gradient(180deg, rgba(185, 28, 28, 0.85) 0%, rgba(69, 10, 10, 0.95) 100%); --cor-borda: rgba(239, 68, 68, 0.6); --cor-brilho-interno: rgba(254, 202, 202, 0.25); }
     .equipe-azul { --cor-tag: #0369a1; --cor-fundo-gradiente: linear-gradient(180deg, rgba(2, 132, 199, 0.85) 0%, rgba(8, 47, 73, 0.95) 100%); --cor-borda: rgba(56, 189, 248, 0.6); --cor-brilho-interno: rgba(186, 230, 253, 0.25); }
 
-    /* CARD MAIS ALTO E COM FLEXBOX PARA NÃO CORTAR */
     .card-equipe {
-      width: 24vw; min-width: 280px; height: 18vh;
+      width: 22vw; min-width: 260px; height: 16vh;
       border-radius: 1.5vh;
       background: var(--cor-fundo-gradiente);
       border: 2px solid var(--cor-borda);
@@ -247,20 +248,18 @@
       text-transform: uppercase; letter-spacing: 0.08em; width: 100%; text-align: center; flex-shrink: 0;
     }
     
-    /* PONTUAÇÃO OCUPANDO TODO O ESPAÇO (FLEX: 1) */
     .card-pontos { 
       flex: 1; width: 100%;
       display: flex; align-items: center; justify-content: center;
-      font-size: 14vh; font-weight: 800; color: #ffffff; 
+      font-size: 12vh; font-weight: 800; color: #ffffff; 
       letter-spacing: -0.02em; line-height: 1; text-shadow: 0 4px 8px rgba(0, 0, 0, 0.7); 
     }
-    /* AQUI ESTÁ A CORREÇÃO DO TAMANHO DO "pts" */
     .card-pontos span { font-size: 7.0vh; margin-left: 0.5vw; margin-bottom: 1vh; }
 
-    /* MARQUEE PARA NOMES DOS JOGADORES */
+    /* Nomes dos jogadores logo abaixo do bloco */
     .team-jogadores {
-      width: 24vw; max-width: 24vw; overflow: hidden; position: relative;
-      text-align: left; white-space: nowrap; padding: 0 1vw; margin-top: 1vh;
+      width: 22vw; max-width: 22vw; overflow: hidden; position: relative;
+      text-align: center; white-space: nowrap; padding: 0; margin-top: 0;
     }
     .marquee-inner { display: inline-block; white-space: nowrap; color: inherit; font-size: 2.2vh; font-weight: 600; text-transform: uppercase; }
     .marquee-inner.vazio { color: #666; font-style: italic; text-transform: none; }
@@ -356,45 +355,48 @@
         <div class="subtitulo" id="info-estagio">Estágio 1 • 2s de música</div>
       </div>
 
-      <div class="bloco-dicas">
-        <h3>💡 DICAS DA MÚSICA</h3>
-        <div id="lista-dicas">
-          <div class="dica-item" id="dica-1">DICA 1: ?</div>
-          <div class="dica-item" id="dica-2">DICA 2: ?</div>
-          <div class="dica-item" id="dica-3">DICA 3: ?</div>
-        </div>
-      </div>
-
-      <div class="bloco-centro">
-        <div class="status-titulo" id="status-texto">Aguardando o Maestro tocar...</div>
-        
-        <div class="audio-card">
-          <div class="audio-titulo">TOCANDO TRECHO</div>
-          <div class="waveform-container" id="waveform">
-            <span class="onda-barra"></span><span class="onda-barra"></span><span class="onda-barra"></span>
-            <span class="onda-barra"></span><span class="onda-barra"></span><span class="onda-barra"></span>
-            <span class="onda-barra"></span><span class="onda-barra"></span><span class="onda-barra"></span>
-            <span class="onda-barra"></span><span class="onda-barra"></span><span class="onda-barra"></span>
-            <span class="onda-barra"></span><span class="onda-barra"></span><span class="onda-barra"></span>
+      <!-- WRAPPER FLEXBOX QUE GARANTE O ALINHAMENTO DOS 3 BLOCOS -->
+      <div class="rodada-conteudo">
+        <div class="bloco-dicas">
+          <h3>💡 DICAS DA MÚSICA</h3>
+          <div id="lista-dicas">
+            <div class="dica-item" id="dica-1">DICA 1: ?</div>
+            <div class="dica-item" id="dica-2">DICA 2: ?</div>
+            <div class="dica-item" id="dica-3">DICA 3: ?</div>
           </div>
         </div>
 
-        <div id="quem-apertou"></div>
-        <div id="aviso-virada"></div>
-      </div>
+        <div class="bloco-centro">
+          <div class="status-titulo" id="status-texto">Aguardando o Maestro tocar...</div>
+          
+          <div class="audio-card">
+            <div class="audio-titulo">TOCANDO TRECHO</div>
+            <div class="waveform-container" id="waveform">
+              <span class="onda-barra"></span><span class="onda-barra"></span><span class="onda-barra"></span>
+              <span class="onda-barra"></span><span class="onda-barra"></span><span class="onda-barra"></span>
+              <span class="onda-barra"></span><span class="onda-barra"></span><span class="onda-barra"></span>
+              <span class="onda-barra"></span><span class="onda-barra"></span><span class="onda-barra"></span>
+              <span class="onda-barra"></span><span class="onda-barra"></span><span class="onda-barra"></span>
+            </div>
+          </div>
 
-      <div class="bloco-timer" id="blocoTimer">
-        <div class="timer-container">
-          <svg class="timer-svg" viewBox="0 0 100 100">
-            <circle class="timer-trilho" cx="50" cy="50" r="44"></circle>
-            <circle class="timer-barra" id="timer-circulo" cx="50" cy="50" r="44"></circle>
-          </svg>
-          <div class="timer-texto" id="timer-contador">10</div>
+          <div id="quem-apertou"></div>
+          <div id="aviso-virada"></div>
         </div>
-        <div class="pill-buzina" id="pillBuzina">
-          <span class="arco">(</span><span class="arco azul">(</span>
-          BUZINA LIBERADA!
-          <span class="arco azul">)</span><span class="arco">)</span>
+
+        <div class="bloco-timer" id="blocoTimer">
+          <div class="timer-container">
+            <svg class="timer-svg" viewBox="0 0 100 100">
+              <circle class="timer-trilho" cx="50" cy="50" r="44"></circle>
+              <circle class="timer-barra" id="timer-circulo" cx="50" cy="50" r="44"></circle>
+            </svg>
+            <div class="timer-texto" id="timer-contador">10</div>
+          </div>
+          <div class="pill-buzina" id="pillBuzina">
+            <span class="arco">(</span><span class="arco azul">(</span>
+            BUZINA LIBERADA!
+            <span class="arco azul">)</span><span class="arco">)</span>
+          </div>
         </div>
       </div>
     </div>
@@ -549,13 +551,11 @@
       const lista = document.getElementById('sidebar-lista');
       const hist = sala.historicoMusicas || [];
 
-      // CORREÇÃO: Se não for modo revelação, esconde
       if (modoAtual !== 'REVELACAO') {
         sidebar.style.visibility = 'hidden'; return;
       }
       sidebar.style.visibility = 'visible';
 
-      // Filtra a música atual (que está no centro)
       let exibir = hist;
       if (sala.rodada && sala.rodada.estado === 'REVELACAO' && hist.length > 0 && hist[hist.length - 1].numero === sala.rodada.numero) {
         exibir = hist.slice(0, -1);
@@ -623,14 +623,11 @@
       document.getElementById('num-rodada').textContent = `RODADA ${r.numero} — ${r.pontos} PONTOS`;
       document.getElementById('info-estagio').textContent = `Estágio ${r.estagio + 1} • ${r.duracao}s de música`;
       
-      // LÓGICA DAS DICAS (SEMPRE VISÍVEL, MAS SÓ LIBERA CONFORME O ESTÁGIO)
+      // LÓGICA DAS DICAS
       const dicas = r.musica.dicas || ["", "", ""];
       for (let i = 1; i <= 3; i++) {
         const el = document.getElementById(`dica-${i}`);
         if (el) {
-          // i=1 (Dica 1) libera no estagio 1 (que é o segundo estágio, 4s)
-          // i=2 (Dica 2) libera no estagio 2 (sexto estágio, 6s)
-          // i=3 (Dica 3) libera no estagio 3 (último estágio, 10s)
           if (r.estagio >= i) { 
             el.innerHTML = `<span class="lupa">🔍</span> DICA ${i}: ${dicas[i-1]}`; 
             el.classList.add('ativa'); 
